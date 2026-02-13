@@ -5,17 +5,15 @@ import { ComboCard } from './components/ComboCard';
 import { FilterBar } from './components/FilterBar';
 import { useLocation } from './context/LocationContext';
 import { useLanguage } from './context/LanguageContext';
-import LocationSettings from './components/LocationSettings';
+import SettingsModal from './components/SettingsModal';
 import { buildComboFilterSpecification, buildPlaceFilterSpecification } from './utils/filterSpecifications';
-import { loadThemePreference, saveThemePreference } from './utils/storage';
+import { loadAccentPreference, loadThemePreference, saveAccentPreference, saveThemePreference } from './utils/storage';
+import { accentOptions, accentPalettes } from './data/accentPalettes';
 import type { Combo, FilterItem, Place } from './types/domain';
+import type { AccentPreference } from './data/accentPalettes';
 
 type ThemePreference = 'light' | 'dark';
 
-const themeIcons: Record<ThemePreference, string> = {
-  dark: '🌙',
-  light: '☀️',
-};
 
 function parseListParam(value: string | null): string[] {
   if (!value) return [];
@@ -55,6 +53,7 @@ function App() {
   const { language, setLanguage, t } = useLanguage();
   const [showLocationSettings, setShowLocationSettings] = useState(false);
   const [themePreference, setThemePreference] = useState<ThemePreference | null>(() => loadThemePreference());
+  const [accentPreference, setAccentPreference] = useState<AccentPreference>(() => loadAccentPreference() ?? 'blue');
   const [systemPrefersDark, setSystemPrefersDark] = useState(() => window.matchMedia('(prefers-color-scheme: dark)').matches);
   const [dismissedLocationPrompt, setDismissedLocationPrompt] = useState(false);
   const [showFavouritesOnly, setShowFavouritesOnly] = useState(initialUrlState.showFavouritesOnly);
@@ -101,12 +100,6 @@ function App() {
 
   const effectiveTheme: ThemePreference = themePreference ?? (systemPrefersDark ? 'dark' : 'light');
 
-  const toggleThemePreference = () => {
-    setThemePreference(prev => {
-      const current = prev ?? (systemPrefersDark ? 'dark' : 'light');
-      return current === 'dark' ? 'light' : 'dark';
-    });
-  };
 
   React.useEffect(() => {
     const root = document.documentElement;
@@ -118,6 +111,40 @@ function App() {
     root.style.colorScheme = effectiveTheme;
     saveThemePreference(themePreference);
   }, [themePreference, effectiveTheme]);
+
+  React.useEffect(() => {
+    const root = document.documentElement;
+    const palette = accentPalettes[accentPreference][effectiveTheme];
+
+    root.style.setProperty('--app-bg-start', palette.bgStart);
+    root.style.setProperty('--app-bg-end', palette.bgEnd);
+    root.style.setProperty('--app-primary', palette.primary);
+    root.style.setProperty('--app-primary-rgb', palette.primaryRgb);
+    root.style.setProperty('--app-secondary', palette.secondary);
+    root.style.setProperty('--app-secondary-rgb', palette.secondaryRgb);
+    root.style.setProperty('--app-warning', palette.warning);
+    root.style.setProperty('--app-warning-rgb', palette.warningRgb);
+    root.style.setProperty('--app-danger', palette.danger);
+    root.style.setProperty('--app-danger-rgb', palette.dangerRgb);
+    root.style.setProperty('--app-favourite', palette.favourite);
+    root.style.setProperty('--app-favourite-rgb', palette.favouriteRgb);
+    root.style.setProperty('--app-sheet-bg', palette.sheetBg);
+    root.style.setProperty('--app-sheet-border', palette.sheetBorder);
+    root.style.setProperty('--app-sheet-text', palette.sheetText);
+    root.style.setProperty('--app-sheet-text-strong', palette.sheetTextStrong);
+    root.style.setProperty('--app-sheet-placeholder', palette.sheetPlaceholder);
+    root.style.setProperty('--app-form-bg', palette.formBg);
+    root.style.setProperty('--app-form-border', palette.formBorder);
+    root.style.setProperty('--app-pac-item-border', palette.pacItemBorder);
+    root.style.setProperty('--app-pac-hover-bg', palette.pacHoverBg);
+    root.style.setProperty('--bs-primary-rgb', palette.primaryRgb);
+    root.style.setProperty('--bs-secondary-rgb', palette.secondaryRgb);
+    root.style.setProperty('--bs-warning-rgb', palette.warningRgb);
+    root.style.setProperty('--bs-danger-rgb', palette.dangerRgb);
+    root.style.setProperty('--bs-body-bg', palette.bodyBg);
+
+    saveAccentPreference(accentPreference);
+  }, [accentPreference, effectiveTheme]);
 
   React.useEffect(() => {
     const vibeKeys = new Set(vibeFilters.map(item => item.key).filter(key => key !== 'all'));
@@ -419,29 +446,14 @@ function App() {
       <div className="mx-auto" style={{ maxWidth: 1140 }}>
         <div className="text-center mb-4">
           <div className="d-flex justify-content-end align-items-center mb-2">
-            <div className="header-controls" role="group" aria-label={t('theme.title')}>
-              <button
-                onClick={toggleThemePreference}
-                className="btn btn-sm header-icon-btn btn-outline-secondary"
-                title={`${t('theme.title')}: ${t(`theme.${effectiveTheme}`)}`}
-                aria-label={`${t('theme.title')}: ${t(`theme.${effectiveTheme}`)}`}
-              >
-                <span aria-hidden="true">{themeIcons[effectiveTheme]}</span>
-              </button>
-              <button
-                onClick={() => setLanguage(language === 'hu' ? 'en' : 'hu')}
-                className="btn btn-outline-secondary btn-sm header-lang-btn"
-                title={language === 'hu' ? 'Switch to English' : 'Váltás magyar nyelvre'}
-              >
-                {language === 'hu' ? 'HU' : 'EN'}
-              </button>
+            <div className="header-controls" role="group" aria-label={t('labels.settings')}>
               <button
                 onClick={showLocationSettings ? closeLocationSettings : openLocationSettings}
                 className="btn btn-outline-primary btn-sm location-settings-trigger-btn"
-                title={t('labels.locationSettings')}
-                aria-label={t('labels.locationSettings')}
+                title={t('labels.settings')}
+                aria-label={t('labels.settings')}
               >
-                📍
+                ⚙️
               </button>
             </div>
           </div>
@@ -451,7 +463,20 @@ function App() {
           </p>
         </div>
 
-        {showLocationSettings && <LocationSettings onClose={closeLocationSettings} />}
+        {showLocationSettings && (
+          <SettingsModal
+            onClose={closeLocationSettings}
+            themePreference={themePreference}
+            effectiveTheme={effectiveTheme}
+            onThemeChange={setThemePreference}
+            accentPreference={accentPreference}
+            onAccentChange={setAccentPreference}
+            accentOptions={accentOptions.map(option => ({
+              ...option,
+              swatch: accentPalettes[option.id][effectiveTheme].primary,
+            }))}
+          />
+        )}
 
         <div ref={filtersShellRef} className="card border-0 shadow-sm mb-3 filters-panel">
           <div className="card-body">

@@ -6,7 +6,7 @@ import type { AccentPreference } from '../data/accentPalettes';
 import type { ThemePreference } from '../utils/storage';
 import type { UserLocation } from '../types/domain';
 
-interface LocationSettingsProps {
+interface SettingsModalProps {
   onClose?: () => void;
   themePreference: ThemePreference | null;
   effectiveTheme: ThemePreference;
@@ -16,7 +16,7 @@ interface LocationSettingsProps {
   accentOptions: { id: AccentPreference; labelKey: string; swatch: string }[];
 }
 
-export default function LocationSettings({
+export default function SettingsModal({
   onClose,
   themePreference,
   effectiveTheme,
@@ -24,12 +24,12 @@ export default function LocationSettings({
   accentPreference,
   onAccentChange,
   accentOptions,
-}: LocationSettingsProps) {
+}: SettingsModalProps) {
   const { userLocation, updateLocation, useCurrentLocation, loading, error } = useLocation();
   const { language, setLanguage, t } = useLanguage();
   const [input, setInput] = useState(userLocation?.address || '');
   const [localError, setLocalError] = useState<string | null>(null);
-  const systemThemeLabel = `${t('theme.system')} (${t(`theme.${effectiveTheme}`)})`;
+  const systemThemeLabel = t('theme.system');
 
   const handleSave = async () => {
     if (!input.trim()) {
@@ -64,6 +64,32 @@ export default function LocationSettings({
       >
         <div className="card-body p-4 p-sm-4">
           <h2 className="h4 mb-3 text-center text-sm-start">{t('labels.settings')}</h2>
+          <div className="settings-section">
+            <h3 className="h5 mb-2">{t('labels.locationSettings')}</h3>
+            {!userLocation && (
+              <div className="alert alert-warning location-missing mb-3">
+                {t('labels.locationMissing')}
+              </div>
+            )}
+            <label className="form-label fw-semibold mb-2">{t('labels.yourLocation')}</label>
+            <LocationAutocompleteInput
+              language={language}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onSelect={(loc) => {
+                setInput(loc.address);
+                handleSaveWithLocation(loc);
+              }}
+              placeholder={t('labels.locationPlaceholder')}
+              className="form-control mb-3"
+              disabled={loading}
+            />
+            <div className="d-grid gap-2 d-sm-flex mb-3">
+              <button onClick={handleSave} disabled={loading} className="btn btn-primary flex-fill">{t('actions.save')}</button>
+            </div>
+            <div className="text-center text-secondary small mb-3">{t('labels.or')}</div>
+            <button onClick={handleUseMyLocation} disabled={loading} className="btn btn-warning w-100 w-lg-auto">{t('actions.useMyLocation')}</button>
+          </div>
           <div className="settings-section">
             <div className="form-label fw-semibold mb-2">{t('theme.title')}</div>
             <div className="settings-toggle-row" role="group" aria-label={t('theme.title')}>
@@ -114,25 +140,6 @@ export default function LocationSettings({
               </button>
             </div>
           </div>
-          <h3 className="h5 mt-3 mb-2">{t('labels.locationSettings')}</h3>
-          <LocationAutocompleteInput
-            language={language}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onSelect={(loc) => {
-              setInput(loc.address);
-              handleSaveWithLocation(loc);
-            }}
-            placeholder={t('labels.locationPlaceholder')}
-            className="form-control mb-3"
-            disabled={loading}
-          />
-          <div className="d-grid gap-2 d-sm-flex mb-3">
-            <button onClick={handleSave} disabled={loading} className="btn btn-primary flex-fill">{t('actions.save')}</button>
-            <button onClick={onClose} className="btn btn-outline-secondary flex-fill">{t('actions.cancel')}</button>
-          </div>
-          <div className="text-center text-secondary small mb-3">{t('labels.or')}</div>
-          <button onClick={handleUseMyLocation} disabled={loading} className="btn btn-warning w-100">{t('actions.useMyLocation')}</button>
           <div className="color-selector mt-4">
             <div className="form-label fw-semibold mb-2">{t('labels.accentColor')}</div>
             <div className="color-selector-swatches" role="group" aria-label={t('labels.accentColor')}>
@@ -144,6 +151,7 @@ export default function LocationSettings({
                   onClick={() => onAccentChange(option.id)}
                   aria-pressed={accentPreference === option.id}
                   title={t(option.labelKey)}
+                  style={{ '--swatch-color': option.swatch } as React.CSSProperties}
                 >
                   <span className="color-swatch-dot" style={{ backgroundColor: option.swatch }} aria-hidden="true" />
                   <span className="color-swatch-label">{t(option.labelKey)}</span>

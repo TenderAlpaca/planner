@@ -4,6 +4,7 @@
 import type { DistanceResult, Language, UserLocation } from '../types/domain';
 
 export type ThemePreference = 'light' | 'dark';
+export type AccentPreference = 'blue' | 'teal' | 'green' | 'amber' | 'rose';
 
 interface CacheValue {
   data: Record<number, DistanceResult>;
@@ -56,6 +57,22 @@ export function loadThemePreference(): ThemePreference | null {
   const theme = localStorage.getItem('themePreference');
   if (theme === 'light' || theme === 'dark') {
     return theme;
+  }
+  return null;
+}
+
+export function saveAccentPreference(accent: AccentPreference | null): void {
+  if (accent === null) {
+    localStorage.removeItem('accentPreference');
+    return;
+  }
+  localStorage.setItem('accentPreference', accent);
+}
+
+export function loadAccentPreference(): AccentPreference | null {
+  const accent = localStorage.getItem('accentPreference');
+  if (accent === 'blue' || accent === 'teal' || accent === 'green' || accent === 'amber' || accent === 'rose') {
+    return accent;
   }
   return null;
 }

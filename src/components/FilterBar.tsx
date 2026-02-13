@@ -33,18 +33,19 @@ export function FilterBar({ label, items, active, onSelect }: FilterBarProps) {
   return (
     <section className="card bg-body-tertiary border-0 shadow-sm h-100">
       <div className="card-body p-3">
-      <div className="d-flex align-items-center justify-content-between gap-2 mb-2">
+      <div className="d-flex align-items-center justify-content-between gap-2 mb-2 filters-group-header">
         <div className="text-uppercase text-secondary fw-semibold" style={{ fontSize: '0.72rem', letterSpacing: '0.08em' }}>
           {label}
         </div>
-        {active.length > 0 && (
-          <button
-            onClick={(e) => { e.preventDefault(); onSelect("all"); }}
-            className="btn btn-sm btn-outline-secondary"
-          >
-            {t('filters.clear')}
-          </button>
-        )}
+        <button
+          onClick={(e) => { e.preventDefault(); onSelect("all"); }}
+          className={`btn btn-sm btn-outline-secondary filters-clear-btn ${active.length > 0 ? '' : 'is-hidden'}`}
+          aria-hidden={active.length === 0}
+          aria-label={t('filters.clear')}
+          tabIndex={active.length > 0 ? 0 : -1}
+        >
+          ✕
+        </button>
       </div>
 
       <div className="d-flex flex-wrap gap-2">
