@@ -7,6 +7,12 @@ export const messages = {
       title: 'Weekend Escape',
       subtitle: '{{places}} places • {{combos}} ready-made plans • Day trips to weekend getaways',
     },
+    theme: {
+      title: 'Theme',
+      system: 'System',
+      dark: 'Dark',
+      light: 'Light',
+    },
     filters: {
       mood: 'MOOD',
       distance: 'DISTANCE',
@@ -76,6 +82,12 @@ export const messages = {
     app: {
       title: 'Weekend Escape',
       subtitle: '{{places}} hely • {{combos}} kész programterv • Egynapos kirándulásoktól a hétvégi kikapcsolódásig',
+    },
+    theme: {
+      title: 'Téma',
+      system: 'Rendszer',
+      dark: 'Sötét',
+      light: 'Világos',
     },
     filters: {
       mood: 'HANGULAT',

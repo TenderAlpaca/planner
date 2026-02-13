@@ -14,64 +14,37 @@ export function ComboCard({ combo }: ComboCardProps) {
   return (
     <div 
       onClick={() => setOpen(!open)} 
-      style={{
-        background: open
-          ? isWeekend ? "linear-gradient(135deg, rgba(233,30,99,0.08) 0%, rgba(255,255,255,0.02) 100%)" : "linear-gradient(135deg, rgba(218,165,105,0.1) 0%, rgba(255,255,255,0.02) 100%)"
-          : "rgba(255,255,255,0.03)",
-        border: `1px solid ${open ? (isWeekend ? "rgba(233,30,99,0.25)" : "rgba(218,165,105,0.25)") : "rgba(255,255,255,0.08)"}`,
-        borderRadius: 16, 
-        padding: "20px 24px", 
-        cursor: "pointer", 
-        transition: "all 0.25s ease",
-        boxShadow: open ? (isWeekend ? "0 8px 24px rgba(233,30,99,0.08)" : "0 8px 24px rgba(218,165,105,0.08)") : "0 2px 8px rgba(0,0,0,0.1)",
-      }}
+      className={`card shadow-sm border-0 h-100 ${open ? 'bg-light' : ''}`}
+      style={{ cursor: 'pointer' }}
     >
-      <div style={{ display:"flex", alignItems:"center", gap:10, justifyContent:"space-between" }}>
-        <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+      <div className="card-body">
+      <div className="d-flex align-items-center justify-content-between gap-2">
+        <div className="d-flex align-items-center gap-2">
           <span style={{ fontSize:26 }}>{combo.emoji}</span>
           <div>
-            <div style={{ 
-              fontFamily:"'Playfair Display', Georgia, serif", 
-              fontSize:20, 
-              fontWeight:600, 
-              color:"#F5F1EC" 
-            }}>
+            <div className="h5 mb-0">
               {combo.title}
             </div>
-            <div style={{ fontSize:11, color:"#8B7355", marginTop:2 }}>
+            <div className="text-secondary" style={{ fontSize:11 }}>
               {combo.drive} • {combo.vibe}
             </div>
           </div>
         </div>
-        <div style={{
-          background: isWeekend ? "rgba(233,30,99,0.15)" : "rgba(218,165,105,0.15)",
-          border: `1px solid ${isWeekend ? "rgba(233,30,99,0.3)" : "rgba(218,165,105,0.3)"}`,
-          color: isWeekend ? "#E91E63" : "#DAA569",
-          padding:"4px 12px", borderRadius:12, fontSize:10, fontWeight:600, whiteSpace:"nowrap",
-        }}>
+        <div className={`badge rounded-pill ${isWeekend ? 'text-bg-danger' : 'text-bg-warning'}`}>
           {combo.type === 'weekend' ? t('tripType.weekend') : t('tripType.day')}
         </div>
       </div>
       
       {open && (
-        <div style={{ 
-          marginTop:16, 
-          paddingTop:16, 
-          borderTop:"1px solid rgba(255,255,255,0.08)" 
-        }}>
-          <ol style={{ 
-            margin:0, 
-            paddingLeft:20, 
-            fontSize:13, 
-            lineHeight:"1.8", 
-            color:"#B5A693" 
-          }}>
+        <div className="border-top mt-3 pt-3">
+          <ol className="mb-0" style={{ paddingLeft: 20, fontSize: 13, lineHeight: 1.8 }}>
             {combo.steps.map((step, i) => (
-              <li key={i} style={{ marginBottom:8 }}>{step}</li>
+              <li key={i} className="mb-2 text-secondary">{step}</li>
             ))}
           </ol>
         </div>
       )}
+      </div>
     </div>
   );
 }

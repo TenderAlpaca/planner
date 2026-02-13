@@ -1,9 +1,9 @@
 export const categoriesHu = {
-  adventure: { label: '⚡ Kaland', color: '#FF6B35' },
-  explore: { label: '🧭 Felfedezés', color: '#45B7D1' },
-  thermal: { label: '✨ Termál', color: '#96E6A1' },
-  food: { label: '🍷 Gasztro', color: '#DDA0DD' },
-  special: { label: '🌟 Különleges', color: '#FFD700' },
+  adventure: { label: '⚡ Kaland', color: '#D97745' },
+  explore: { label: '🧭 Felfedezés', color: '#5CA8BF' },
+  thermal: { label: '✨ Termál', color: '#84C89A' },
+  food: { label: '🍷 Gasztro', color: '#B989C1' },
+  special: { label: '🌟 Különleges', color: '#D9B85F' },
 };
 
 export const vibeFiltersHu = [
@@ -19,11 +19,11 @@ export const vibeFiltersHu = [
 ];
 
 export const distanceRangesHu = [
-  { key: 'all', label: 'Bármennyi', color: '#888' },
-  { key: 'close', label: '🟢 < 1 óra', color: '#4CAF50', max: 50 },
-  { key: 'mid', label: '🟡 1-2 óra', color: '#FFC107', min: 51, max: 150 },
-  { key: 'far', label: '🟠 2-3 óra', color: '#FF5722', min: 151, max: 250 },
-  { key: 'weekend', label: '🔴 3+ óra', color: '#E91E63', min: 251 },
+  { key: 'all', label: 'Bármennyi', color: '#9A8F80' },
+  { key: 'close', label: '🟢 < 1 óra', color: '#6FBF82', max: 50 },
+  { key: 'mid', label: '🟡 1-2 óra', color: '#D8B35A', min: 51, max: 150 },
+  { key: 'far', label: '🟠 2-3 óra', color: '#D88452', min: 151, max: 250 },
+  { key: 'weekend', label: '🔴 3+ óra', color: '#C85F7A', min: 251 },
 ];
 
 export const durationFiltersHu = [

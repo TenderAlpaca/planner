@@ -3,12 +3,19 @@ import { getLocalizedData } from './data/localizedData';
 import { PlaceCard } from './components/PlaceCard';
 import { ComboCard } from './components/ComboCard';
 import { FilterBar } from './components/FilterBar';
-import './styles/App.scss';
 import { useLocation } from './context/LocationContext';
 import { useLanguage } from './context/LanguageContext';
 import LocationSettings from './components/LocationSettings';
 import { buildComboFilterSpecification, buildPlaceFilterSpecification } from './utils/filterSpecifications';
+import { loadThemePreference, saveThemePreference } from './utils/storage';
 import type { Combo, FilterItem, Place } from './types/domain';
+
+type ThemePreference = 'light' | 'dark';
+
+const themeIcons: Record<ThemePreference, string> = {
+  dark: '🌙',
+  light: '☀️',
+};
 
 function parseListParam(value: string | null): string[] {
   if (!value) return [];
@@ -47,6 +54,8 @@ function App() {
   const { travelTimes, userLocation, isFirstVisit } = useLocation();
   const { language, setLanguage, t } = useLanguage();
   const [showLocationSettings, setShowLocationSettings] = useState(false);
+  const [themePreference, setThemePreference] = useState<ThemePreference | null>(() => loadThemePreference());
+  const [systemPrefersDark, setSystemPrefersDark] = useState(() => window.matchMedia('(prefers-color-scheme: dark)').matches);
   const [dismissedLocationPrompt, setDismissedLocationPrompt] = useState(false);
   const [showFavouritesOnly, setShowFavouritesOnly] = useState(initialUrlState.showFavouritesOnly);
   const [vibes, setVibes] = useState(initialUrlState.vibes);
@@ -80,6 +89,35 @@ function App() {
   React.useEffect(() => {
     document.title = t('meta.title');
   }, [t]);
+
+  React.useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (event: MediaQueryListEvent) => {
+      setSystemPrefersDark(event.matches);
+    };
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  const effectiveTheme: ThemePreference = themePreference ?? (systemPrefersDark ? 'dark' : 'light');
+
+  const toggleThemePreference = () => {
+    setThemePreference(prev => {
+      const current = prev ?? (systemPrefersDark ? 'dark' : 'light');
+      return current === 'dark' ? 'light' : 'dark';
+    });
+  };
+
+  React.useEffect(() => {
+    const root = document.documentElement;
+    if (themePreference === null) {
+      root.removeAttribute('data-theme');
+    } else {
+      root.setAttribute('data-theme', themePreference);
+    }
+    root.style.colorScheme = effectiveTheme;
+    saveThemePreference(themePreference);
+  }, [themePreference, effectiveTheme]);
 
   React.useEffect(() => {
     const vibeKeys = new Set(vibeFilters.map(item => item.key).filter(key => key !== 'all'));
@@ -377,52 +415,62 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <div className="content-wrapper">
-        {/* Header */}
-        <div className="header">
-          <div className="header-actions">
-            <button
-              onClick={() => setLanguage(language === 'hu' ? 'en' : 'hu')}
-              className="language-switch-btn"
-              title={language === 'hu' ? 'Switch to English' : 'Váltás magyar nyelvre'}
-            >
-              <span className="lang-icon" aria-hidden="true">🌐</span>
-              <span className="lang-code">{language === 'hu' ? 'HU' : 'EN'}</span>
-            </button>
-            <button
-              onClick={showLocationSettings ? closeLocationSettings : openLocationSettings}
-              className="settings-trigger-btn"
-              title={t('labels.locationSettings')}
-            >
-              📍
-            </button>
+    <div className="container py-4">
+      <div className="mx-auto" style={{ maxWidth: 1140 }}>
+        <div className="text-center mb-4">
+          <div className="d-flex justify-content-end align-items-center mb-2">
+            <div className="header-controls" role="group" aria-label={t('theme.title')}>
+              <button
+                onClick={toggleThemePreference}
+                className="btn btn-sm header-icon-btn btn-outline-secondary"
+                title={`${t('theme.title')}: ${t(`theme.${effectiveTheme}`)}`}
+                aria-label={`${t('theme.title')}: ${t(`theme.${effectiveTheme}`)}`}
+              >
+                <span aria-hidden="true">{themeIcons[effectiveTheme]}</span>
+              </button>
+              <button
+                onClick={() => setLanguage(language === 'hu' ? 'en' : 'hu')}
+                className="btn btn-outline-secondary btn-sm header-lang-btn"
+                title={language === 'hu' ? 'Switch to English' : 'Váltás magyar nyelvre'}
+              >
+                {language === 'hu' ? 'HU' : 'EN'}
+              </button>
+              <button
+                onClick={showLocationSettings ? closeLocationSettings : openLocationSettings}
+                className="btn btn-outline-primary btn-sm location-settings-trigger-btn"
+                title={t('labels.locationSettings')}
+                aria-label={t('labels.locationSettings')}
+              >
+                📍
+              </button>
+            </div>
           </div>
-          <h1>{t('app.title')}</h1>
-          <p className="subtitle">
+          <h1 className="display-6 fw-semibold">{t('app.title')}</h1>
+          <p className="text-secondary mb-0">
             {t('app.subtitle', { places: places.length, combos: combos.length })}
           </p>
         </div>
+
         {showLocationSettings && <LocationSettings onClose={closeLocationSettings} />}
 
-        {/* Filters */}
-        <div ref={filtersShellRef} className="filters-shell">
+        <div ref={filtersShellRef} className="card border-0 shadow-sm mb-3 filters-panel">
+          <div className="card-body">
           {filtersCollapsed && (
-            <div className="filter-summary-bar">
-              <div className="filter-summary-left">
-                <span className="filter-summary-count">
+            <div className="d-flex align-items-center justify-content-between gap-2 mb-2 filters-summary-bar">
+              <div className="d-flex align-items-center gap-2 flex-wrap">
+                <span className="badge text-bg-secondary filters-summary-count">
                   {activeFiltersCount > 0
                     ? t('filters.activeSummary', { count: activeFiltersCount })
                     : t('filters.noneSummary')}
                 </span>
                 {activeFiltersCount > 0 && (
-                  <button className="filter-summary-clear" onClick={clearAllFilters}>
+                  <button className="btn btn-sm btn-outline-secondary filters-summary-action" onClick={clearAllFilters}>
                     {t('filters.clearAll')}
                   </button>
                 )}
               </div>
 
-              <button className="filter-summary-toggle" onClick={showFiltersFromAnywhere}>
+              <button className="btn btn-sm btn-primary filters-summary-action" onClick={showFiltersFromAnywhere}>
                 {t('filters.edit')}
               </button>
             </div>
@@ -430,22 +478,22 @@ function App() {
 
           {!filtersCollapsed && (
             <>
-              <div className="filter-summary-bar">
-                <div className="filter-summary-left">
-                  <span className="filter-summary-count">
+              <div className="d-flex align-items-center justify-content-between gap-2 mb-2 filters-summary-bar">
+                <div className="d-flex align-items-center gap-2 flex-wrap">
+                  <span className="badge text-bg-secondary filters-summary-count">
                     {activeFiltersCount > 0
                       ? t('filters.activeSummary', { count: activeFiltersCount })
                       : t('filters.noneSummary')}
                   </span>
                   {activeFiltersCount > 0 && (
-                    <button className="filter-summary-clear" onClick={clearAllFilters}>
+                    <button className="btn btn-sm btn-outline-secondary filters-summary-action" onClick={clearAllFilters}>
                       {t('filters.clearAll')}
                     </button>
                   )}
                 </div>
 
                 <button
-                  className="filter-summary-toggle"
+                  className="btn btn-sm btn-outline-primary filters-summary-action"
                   onClick={() => setFiltersCollapsed(true)}
                   aria-expanded={!filtersCollapsed}
                 >
@@ -454,11 +502,11 @@ function App() {
               </div>
 
               <div
-                className={`active-filters-row-shell ${activePillsUi.hasOverflow ? 'has-overflow' : ''} ${activePillsUi.showLeftFade ? 'show-left-fade' : ''} ${activePillsUi.showRightFade ? 'show-right-fade' : ''}`}
+                className="mb-3"
               >
                 <div
                   ref={activeFiltersRowRef}
-                  className="active-filters-row"
+                  className="d-flex gap-2 overflow-auto pb-1"
                   aria-label={t('filters.selected')}
                   onWheel={handleActiveFiltersWheel}
                   onWheelCapture={handleActiveFiltersWheel}
@@ -466,7 +514,7 @@ function App() {
                   onMouseLeave={() => { isHoveringActiveFiltersRef.current = false; }}
                 >
                   {activeFilterChips.map(chip => (
-                    <button key={chip.key} className="active-filter-pill" onClick={chip.remove}>
+                    <button key={chip.key} className="btn btn-sm btn-outline-secondary text-nowrap" onClick={chip.remove}>
                       <span>{chip.icon ? `${chip.icon} ` : ''}{chip.label}</span>
                       <span aria-hidden="true">×</span>
                     </button>
@@ -476,14 +524,15 @@ function App() {
 
               {tab === 'places' ? (
                 <>
-                  <div className="primary-filters-grid">
-                    <FilterBar label={t('filters.mood')} items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} />
-                    <FilterBar label={t('filters.distance')} items={distanceRanges} active={dists} onSelect={(k) => toggle(dists, setDists, k)} />
-                    <FilterBar label={t('filters.duration')} items={durationFilters} active={durs} onSelect={(k) => toggle(durs, setDurs, k)} />
+                  <div className="row g-2 mb-2">
+                    <div className="col-12 col-lg-4"><FilterBar label={t('filters.mood')} items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} /></div>
+                    <div className="col-12 col-lg-4"><FilterBar label={t('filters.distance')} items={distanceRanges} active={dists} onSelect={(k) => toggle(dists, setDists, k)} /></div>
+                    <div className="col-12 col-lg-4"><FilterBar label={t('filters.duration')} items={durationFilters} active={durs} onSelect={(k) => toggle(durs, setDurs, k)} /></div>
                   </div>
-                  <div className="filter-utility-row">
-                    <label className="favourites-filter-label">
+                  <div className="form-check mb-2">
+                    <label className="form-check-label d-flex align-items-center gap-2">
                       <input
+                        className="form-check-input"
                         type="checkbox"
                         checked={showFavouritesOnly}
                         onChange={e => setShowFavouritesOnly(e.target.checked)}
@@ -495,13 +544,14 @@ function App() {
                 </>
               ) : (
                 <>
-                  <div className="primary-filters-grid combo-filters-grid">
-                    <FilterBar label={t('filters.mood')} items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} />
-                    <FilterBar label={t('filters.tripType')} items={tripTypeFilters} active={tripTypes} onSelect={(k) => toggle(tripTypes, setTripTypes, k)} />
+                  <div className="row g-2 mb-2">
+                    <div className="col-12 col-lg-6"><FilterBar label={t('filters.mood')} items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} /></div>
+                    <div className="col-12 col-lg-6"><FilterBar label={t('filters.tripType')} items={tripTypeFilters} active={tripTypes} onSelect={(k) => toggle(tripTypes, setTripTypes, k)} /></div>
                   </div>
-                  <div className="filter-utility-row">
-                    <label className="favourites-filter-label">
+                  <div className="form-check mb-2">
+                    <label className="form-check-label d-flex align-items-center gap-2">
                       <input
+                        className="form-check-input"
                         type="checkbox"
                         checked={showFavouritesOnly}
                         onChange={e => setShowFavouritesOnly(e.target.checked)}
@@ -514,65 +564,67 @@ function App() {
               )}
             </>
           )}
+          </div>
         </div>
 
         {showFloatingFilterButton && (
-          <button className="sticky-show-filters" onClick={showFiltersFromAnywhere}>
+          <button className="btn btn-primary position-fixed bottom-0 end-0 m-3 rounded-pill shadow" onClick={showFiltersFromAnywhere}>
             {t('filters.edit')}
-            {activeFiltersCount > 0 && <span className="sticky-show-filters-count">{activeFiltersCount}</span>}
+            {activeFiltersCount > 0 && <span className="badge text-bg-light ms-2">{activeFiltersCount}</span>}
           </button>
         )}
 
-        {/* Surprise Button */}
         <button 
           onClick={(e) => { e.preventDefault(); doSurprise(); }}
           onTouchEnd={(e) => { e.preventDefault(); doSurprise(); }}
-          className="surprise-button"
+          className="btn btn-warning w-100 mb-3"
         >
-          <span key={shakeN} className={shakeN > 0 ? "shake" : ""} style={{ fontSize:22, pointerEvents:"none" }}>🎲</span>
-          <span style={{ pointerEvents:"none" }}>{t('actions.surpriseMe')}</span>
+          <span key={shakeN} style={{ fontSize:22, pointerEvents:"none" }}>🎲</span>
+          <span style={{ pointerEvents:"none" }} className="ms-2">{t('actions.surpriseMe')}</span>
         </button>
 
-        {/* Surprise Result */}
         {surprise && (
-          <div id="surprise-result" className="surprise-result fade-up">
-            <div className="surprise-label">{t('labels.todaysPick')}</div>
+          <div id="surprise-result" className="card border-0 shadow-sm mb-3">
+            <div className="card-body">
+            <div className="text-uppercase text-secondary mb-2" style={{ fontSize: '0.72rem', letterSpacing: '0.08em' }}>{t('labels.todaysPick')}</div>
             <PlaceCard 
               place={surprise} 
               categories={categories}
               isFavourite={favouritePlaces.includes(surprise.id)}
               onToggleFavourite={() => toggleFavouritePlace(surprise.id)}
             />
+            </div>
           </div>
         )}
 
-        {/* Tabs */}
-        <div className="tabs">
+        <ul className="nav nav-tabs mb-3">
           {[
             { key: 'places', label: `${t('labels.places')} (${counts.places})` },
             { key: 'combos', label: `${t('labels.plans')} (${counts.combos})` }
           ].map(t => (
-            <button 
-              key={t.key} 
-              onClick={(e) => { e.preventDefault(); setTab(t.key); }}
-              onTouchEnd={(e) => { e.preventDefault(); setTab(t.key); }}
-              className={`tab-button ${tab === t.key ? 'active' : ''}`}
-            >
-              <span style={{ pointerEvents:"none" }}>{t.label}</span>
-            </button>
+            <li key={t.key} className="nav-item">
+              <button 
+                onClick={(e) => { e.preventDefault(); setTab(t.key); }}
+                onTouchEnd={(e) => { e.preventDefault(); setTab(t.key); }}
+                className={`nav-link ${tab === t.key ? 'active' : ''}`}
+              >
+                <span style={{ pointerEvents:"none" }}>{t.label}</span>
+              </button>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        {/* Places List */}
         {tab === 'places' && (
-          <div key={`places-filter-${vibes.join('-')}-${dists.join('-')}-${durs.join('-')}`} className="list-container places-list">
+          <div key={`places-filter-${vibes.join('-')}-${dists.join('-')}-${durs.join('-')}`} className="row g-3">
             {filtered.length === 0 ? (
-              <div className="empty-state">
-                <span style={{ fontSize:36 }}>🤷</span>
-                <p>{t('labels.noPlacesMatch')}</p>
+              <div className="col-12">
+                <div className="alert alert-secondary text-center mb-0">
+                  <span style={{ fontSize:30 }}>🤷</span>
+                  <p className="mb-0 mt-2">{t('labels.noPlacesMatch')}</p>
+                </div>
               </div>
             ) : filtered.map((p, i) => (
-              <div key={p.id} className="fade-up" style={{ animationDelay:`${i*0.03}s` }}>
+              <div key={p.id} className="col-12 col-md-6 col-xl-4">
                 <PlaceCard 
                   place={p}
                   categories={categories}
@@ -584,18 +636,19 @@ function App() {
           </div>
         )}
 
-        {/* Combos List */}
         {tab === 'combos' && (
-          <div key={`combos-filter-${vibes.join('-')}-${tripTypes.join('-')}`} className="list-container combos-list">
+          <div key={`combos-filter-${vibes.join('-')}-${tripTypes.join('-')}`} className="row g-3">
             {filteredCombos.length === 0
               ? (
-                <div className="empty-state">
-                  <span style={{ fontSize:36 }}>🤷</span>
-                  <p>{t('labels.noPlansMatch')}</p>
+                <div className="col-12">
+                  <div className="alert alert-secondary text-center mb-0">
+                    <span style={{ fontSize:30 }}>🤷</span>
+                    <p className="mb-0 mt-2">{t('labels.noPlansMatch')}</p>
+                  </div>
                 </div>
               )
               : filteredCombos.map((c, i) => (
-                <div key={c.id} className="fade-up" style={{ animationDelay:`${i*0.03}s` }}>
+                <div key={c.id} className="col-12 col-xl-6">
                   <ComboCard combo={c} />
                 </div>
               ))}

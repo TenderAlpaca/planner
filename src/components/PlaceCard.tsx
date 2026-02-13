@@ -16,108 +16,79 @@ export function PlaceCard({ place, categories, isFavourite, onToggleFavourite }:
   const { travelTimes, loading, error } = useLocation();
   const { t } = useLanguage();
   const cat = categories[place.cat];
+  const categoryIcon = cat?.label?.split(' ')[0] || '🏷️';
   // Get travel time for this place
   const travelData = travelTimes[place.id];
   const distance = travelData ? Math.round(travelData.distance / 1000) : null;
   const time = travelData ? travelData.durationText : null;
   return (
-    <div style={{
-      background:"rgba(255,255,255,0.03)",
-      border:"1px solid rgba(255,255,255,0.08)",
-      borderRadius:14, padding:"18px 20px",
-      transition:"all 0.25s ease",
-      position: 'relative',
-    }}>
-      <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginBottom:10 }}>
-        <div style={{ flex:1 }}>
-          <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:6 }}>
-            <span style={{ fontSize:22 }}>{place.emoji}</span>
-            <h3 style={{ 
-              fontFamily:"'Playfair Display', Georgia, serif", 
-              fontSize:21, 
-              fontWeight:600, 
-              color:"#F5F1EC", 
-              margin:0 
-            }}>
+    <div className="card shadow-sm h-100 border-0 place-card">
+      <div className="card-body p-3 d-flex flex-column place-card-body">
+      <div>
+        <div className="d-flex align-items-center justify-content-between mb-1 gap-2">
+          <div className="d-flex align-items-center gap-2 mb-0">
+            <span style={{ fontSize: 22 }}>{place.emoji}</span>
+            <h3 className="h5 mb-0">
               {place.name}
             </h3>
           </div>
-          <div style={{ display:"flex", alignItems:"center", gap:8, fontSize:12, color:"#9A8B7A" }}>
-            <span>{place.loc}</span>
-            <span>•</span>
-            {loading && !travelData ? (
-              <span style={{ color:'#8B7355' }}>{t('labels.calculating')}</span>
-            ) : error ? (
-              <span style={{ color:'#E57373' }}>⚠️ {error}</span>
-            ) : travelData ? (
-              <span style={{ color:getDistColor(distance) }}>
-                {getDistDot(distance)} {distance}km • {time} ✓
-              </span>
-            ) : (
-              <span style={{ color:'#B5A693' }}>{t('labels.distanceUnavailable')}</span>
+          <div className="d-flex align-items-center gap-2 ms-1">
+            {cat && (
+              <div
+                className="badge rounded-pill border place-category-icon"
+                style={{ background: `${cat.color}22`, borderColor: `${cat.color}55`, color: cat.color }}
+                title={cat.label}
+                aria-label={cat.label}
+              >
+                {categoryIcon}
+              </div>
             )}
           </div>
         </div>
-        {cat && (
-          <div style={{
-            background:`${cat.color}15`,
-            border:`1px solid ${cat.color}40`,
-            color:cat.color,
-            padding:"4px 10px",
-            borderRadius:12,
-            fontSize:10,
-            fontWeight:600,
-            whiteSpace:"nowrap",
-          }}>
-            {cat.label}
-          </div>
-        )}
-        {/* Favourite button */}
-        <button
-          aria-label={isFavourite ? t('favourites.remove') : t('favourites.add')}
-          onClick={e => { e.stopPropagation(); onToggleFavourite && onToggleFavourite(); }}
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            marginLeft: 10,
-            fontSize: 20,
-            color: isFavourite ? '#E91E63' : '#B5A693',
-            transition: 'color 0.2s',
-            outline: 'none',
-          }}
-          title={isFavourite ? t('favourites.unfavourite') : t('favourites.favourite')}
-        >
-          {isFavourite ? '❤️' : '🤍'}
-        </button>
+        <div className="d-flex align-items-center gap-2 text-secondary pt-1 flex-nowrap mb-3" style={{ fontSize: 12 }}>
+          <span>{place.loc}</span>
+          <span>•</span>
+          {loading && !travelData ? (
+            <span className="text-nowrap">{t('labels.calculating')}</span>
+          ) : error ? (
+            <span className="text-danger text-nowrap">⚠️ {error}</span>
+          ) : travelData ? (
+            <span className="text-nowrap" style={{ color:getDistColor(distance) }}>
+              {getDistDot(distance)} {distance}km • {time} ✓
+            </span>
+          ) : (
+            <span className="text-nowrap">{t('labels.distanceUnavailable')}</span>
+          )}
+        </div>
+        <p className="card-text text-secondary mb-3" style={{ fontSize: 13, lineHeight: 1.7 }}>
+          {place.desc}
+        </p>
       </div>
-      <p style={{ fontSize:13, lineHeight:"1.6", color:"#B5A693", margin:"0 0 10px 0" }}>
-        {place.desc}
-      </p>
-      <div style={{
-        background:"rgba(218,165,105,0.06)",
-        border:"1px solid rgba(218,165,105,0.15)",
-        borderRadius:8, padding:"8px 12px",
-        fontSize:12, color:"#DAA569", lineHeight:"1.5",
-        marginBottom:10,
-      }}>
-        💡 {place.tip}
+      <div className="mt-auto d-flex flex-column gap-3">
+        <div className="alert py-2 px-3 mb-0 w-100" style={{ background: 'rgba(200,154,98,0.1)', border: '1px solid rgba(200,154,98,0.26)', color: 'var(--app-text-muted)', fontSize: 12 }}>
+          💡 {place.tip}
+        </div>
+        <div className="d-flex align-items-center justify-content-between gap-2">
+          <a
+            href={place.maps} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="btn btn-sm btn-outline-primary place-maps-btn"
+          >
+            {t('actions.viewOnMaps')}
+          </a>
+          <button
+            aria-label={isFavourite ? t('favourites.remove') : t('favourites.add')}
+            onClick={e => { e.stopPropagation(); onToggleFavourite && onToggleFavourite(); }}
+            className="btn btn-link p-0 text-decoration-none place-favourite-btn"
+            style={{ fontSize: 20, color: isFavourite ? 'var(--app-favourite)' : 'var(--app-text-soft)' }}
+            title={isFavourite ? t('favourites.unfavourite') : t('favourites.favourite')}
+          >
+            {isFavourite ? '❤️' : '🤍'}
+          </button>
+        </div>
       </div>
-      <a 
-        href={place.maps} 
-        target="_blank" 
-        rel="noopener noreferrer"
-        style={{
-          display:"inline-block",
-          color:"#DAA569",
-          fontSize:12,
-          textDecoration:"none",
-          borderBottom:"1px solid rgba(218,165,105,0.3)",
-          transition:"all 0.2s ease",
-        }}
-      >
-        {t('actions.viewOnMaps')}
-      </a>
+      </div>
     </div>
   );
 }

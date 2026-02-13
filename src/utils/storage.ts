@@ -3,6 +3,8 @@
 // LocalStorage wrapper for user location and travel time cache
 import type { DistanceResult, Language, UserLocation } from '../types/domain';
 
+export type ThemePreference = 'light' | 'dark';
+
 interface CacheValue {
   data: Record<number, DistanceResult>;
   timestamp: number;
@@ -39,6 +41,22 @@ export function saveLanguage(language: Language): void {
 export function loadLanguage(): Language | null {
   const language = localStorage.getItem('language');
   if (language === 'en' || language === 'hu') return language;
+  return null;
+}
+
+export function saveThemePreference(theme: ThemePreference | null): void {
+  if (theme === null) {
+    localStorage.removeItem('themePreference');
+    return;
+  }
+  localStorage.setItem('themePreference', theme);
+}
+
+export function loadThemePreference(): ThemePreference | null {
+  const theme = localStorage.getItem('themePreference');
+  if (theme === 'light' || theme === 'dark') {
+    return theme;
+  }
   return null;
 }
 
