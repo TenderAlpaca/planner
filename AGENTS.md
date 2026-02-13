@@ -12,7 +12,7 @@ Weekend/date planner app for Southern Hungary with:
 
 ## Tech and runtime
 
-- React 18 + Vite
+- React 19 + Vite 7
 - TypeScript (`.ts`, `.tsx`)
 - SCSS (`.scss`) with shared tokens/mixins
 - E2E tests with Playwright

@@ -15,7 +15,7 @@ Weekend and date-planning app for exploring 95+ places and 35 curated plans acro
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20.19+ (or 22.12+)
 - npm 9+
 
 ### Install
