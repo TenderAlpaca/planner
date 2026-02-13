@@ -3,7 +3,7 @@
 
 const BATCH_SIZE = 25;
 
-export async function calculateDistances(origin, destinations) {
+export async function calculateDistances(origin, destinations, language = 'en') {
   if (!window.google?.maps) {
     throw new Error('Google Maps not loaded');
   }
@@ -19,13 +19,13 @@ export async function calculateDistances(origin, destinations) {
   }
   for (let i = 0; i < validDestinations.length; i += BATCH_SIZE) {
     const batch = validDestinations.slice(i, i + BATCH_SIZE);
-    const batchResults = await calculateBatch(origin, batch);
+    const batchResults = await calculateBatch(origin, batch, language);
     results.push(...batchResults);
   }
   return results;
 }
 
-async function calculateBatch(origin, destinations) {
+async function calculateBatch(origin, destinations, language) {
   return new Promise((resolve, reject) => {
     const service = new google.maps.DistanceMatrixService();
     // Validate again for safety
@@ -45,7 +45,7 @@ async function calculateBatch(origin, destinations) {
         destinations: destLatLngs,
         travelMode: google.maps.TravelMode.DRIVING,
         unitSystem: google.maps.UnitSystem.METRIC,
-        language: 'hu'
+        language,
       },
       (response, status) => {
         if (status === 'OK') {

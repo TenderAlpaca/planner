@@ -1,25 +1,38 @@
 import React, { useState, useMemo } from 'react';
-import { places } from './data/places';
-import { combos } from './data/combos';
-import { vibeFilters, distanceRanges, durationFilters, tripTypeFilters } from './data/config';
+import { getLocalizedData } from './data/localizedData';
 import { PlaceCard } from './components/PlaceCard';
 import { ComboCard } from './components/ComboCard';
 import { FilterBar } from './components/FilterBar';
 import './styles/App.css';
 import { useLocation } from './context/LocationContext';
+import { useLanguage } from './context/LanguageContext';
 import LocationSettings from './components/LocationSettings';
 
 function App() {
-    const { travelTimes, isFirstVisit, setIsFirstVisit, userLocation } = useLocation();
-    const [showLocationSettings, setShowLocationSettings] = useState(false);
-    const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
+  const { travelTimes, userLocation } = useLocation();
+  const { language, setLanguage, t } = useLanguage();
+  const [showLocationSettings, setShowLocationSettings] = useState(false);
+  const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
   const [vibes, setVibes] = useState([]);
   const [dists, setDists] = useState([]);
   const [durs, setDurs] = useState([]);
   const [tripTypes, setTripTypes] = useState([]);
-  const [tab, setTab] = useState("places");
+  const [tab, setTab] = useState('places');
   const [surprise, setSurprise] = useState(null);
   const [shakeN, setShakeN] = useState(0);
+  const {
+    places,
+    combos,
+    categories,
+    vibeFilters,
+    distanceRanges,
+    durationFilters,
+    tripTypeFilters,
+  } = useMemo(() => getLocalizedData(language), [language]);
+
+  React.useEffect(() => {
+    document.title = t('meta.title');
+  }, [t]);
   // Favourites state
   const [favouritePlaces, setFavouritePlaces] = useState(() => {
     try {
@@ -53,7 +66,7 @@ function App() {
   };
 
   const toggle = (arr, setArr, key) => {
-    if (key === "all") return setArr([]);
+    if (key === 'all') return setArr([]);
     setArr(prev => prev.includes(key) ? prev.filter(k => k !== key) : [...prev, key]);
   };
 
@@ -88,7 +101,7 @@ function App() {
     const rand = pool[Math.floor(Math.random() * pool.length)];
     setSurprise(rand);
     setShakeN(n => n + 1);
-    setTimeout(() => document.getElementById("surprise-result")?.scrollIntoView({ behavior:"smooth" }), 100);
+    setTimeout(() => document.getElementById('surprise-result')?.scrollIntoView({ behavior: 'smooth' }), 100);
   };
 
   const counts = { places: filtered.length, combos: filteredCombos.length };
@@ -101,18 +114,28 @@ function App() {
       <div className="content-wrapper">
         {/* Header */}
         <div className="header">
-          <h1>Date Planner</h1>
-          <button onClick={() => setShowLocationSettings(true)} className="settings-trigger-btn" title="Location Settings">📍</button>
+          <div className="header-actions">
+            <button
+              onClick={() => setLanguage(language === 'hu' ? 'en' : 'hu')}
+              className="language-switch-btn"
+              title={language === 'hu' ? 'Switch to English' : 'Váltás magyar nyelvre'}
+            >
+              <span className="lang-icon" aria-hidden="true">🌐</span>
+              <span className="lang-code">{language === 'hu' ? 'HU' : 'EN'}</span>
+            </button>
+            <button onClick={() => setShowLocationSettings(true)} className="settings-trigger-btn" title={t('labels.locationSettings')}>📍</button>
+          </div>
+          <h1>{t('app.title')}</h1>
           <p className="subtitle">
-            {places.length} places • {combos.length} ready-made plans • Day trips to weekend getaways
+            {t('app.subtitle', { places: places.length, combos: combos.length })}
           </p>
         </div>
         {showLocationSettings && <LocationSettings onClose={() => setShowLocationSettings(false)} />}
 
         {/* Filters */}
-        <FilterBar label="MOOD" items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} />
-        <FilterBar label="DISTANCE" items={distanceRanges} active={dists} onSelect={(k) => toggle(dists, setDists, k)} />
-        <FilterBar label="DURATION" items={durationFilters} active={durs} onSelect={(k) => toggle(durs, setDurs, k)} />
+        <FilterBar label={t('filters.mood')} items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} />
+        <FilterBar label={t('filters.distance')} items={distanceRanges} active={dists} onSelect={(k) => toggle(dists, setDists, k)} />
+        <FilterBar label={t('filters.duration')} items={durationFilters} active={durs} onSelect={(k) => toggle(durs, setDurs, k)} />
 
         {/* Surprise Button */}
         <button 
@@ -121,15 +144,16 @@ function App() {
           className="surprise-button"
         >
           <span key={shakeN} className={shakeN > 0 ? "shake" : ""} style={{ fontSize:22, pointerEvents:"none" }}>🎲</span>
-          <span style={{ pointerEvents:"none" }}>SURPRISE ME</span>
+          <span style={{ pointerEvents:"none" }}>{t('actions.surpriseMe')}</span>
         </button>
 
         {/* Surprise Result */}
         {surprise && (
           <div id="surprise-result" className="surprise-result fade-up">
-            <div className="surprise-label">TODAY'S PICK ✨</div>
+            <div className="surprise-label">{t('labels.todaysPick')}</div>
             <PlaceCard 
               place={surprise} 
+              categories={categories}
               isFavourite={favouritePlaces.includes(surprise.id)}
               onToggleFavourite={() => toggleFavouritePlace(surprise.id)}
             />
@@ -146,15 +170,15 @@ function App() {
               style={{ accentColor: '#E91E63', marginRight: 6 }}
             />
             <span style={{ fontSize: 18, marginRight: 4 }}>{showFavouritesOnly ? '❤️' : '🤍'}</span>
-            Favourites only
+            {t('labels.favouritesOnly')}
           </label>
         </div>
 
         {/* Tabs */}
         <div className="tabs">
           {[
-            {key:"places", label:`Places (${counts.places})`},
-            {key:"combos", label:`Plans (${counts.combos})`}
+            { key: 'places', label: `${t('labels.places')} (${counts.places})` },
+            { key: 'combos', label: `${t('labels.plans')} (${counts.combos})` }
           ].map(t => (
             <button 
               key={t.key} 
@@ -168,17 +192,18 @@ function App() {
         </div>
 
         {/* Places List */}
-        {tab === "places" && (
+        {tab === 'places' && (
           <div key={`places-filter-${vibes.join('-')}-${dists.join('-')}-${durs.join('-')}`} className="list-container">
             {filtered.length === 0 ? (
               <div className="empty-state">
                 <span style={{ fontSize:36 }}>🤷</span>
-                <p>No places match. Try different filters.</p>
+                <p>{t('labels.noPlacesMatch')}</p>
               </div>
             ) : filtered.map((p, i) => (
               <div key={p.id} className="fade-up" style={{ animationDelay:`${i*0.03}s` }}>
                 <PlaceCard 
                   place={p}
+                  categories={categories}
                   isFavourite={favouritePlaces.includes(p.id)}
                   onToggleFavourite={() => toggleFavouritePlace(p.id)}
                 />
@@ -188,23 +213,19 @@ function App() {
         )}
 
         {/* Combos List */}
-        {tab === "combos" && (
+        {tab === 'combos' && (
           <div key={`combos-filter-${vibes.join('-')}-${tripTypes.join('-')}`} className="list-container">
             {filteredCombos.length === 0 ? (
               <div className="empty-state">
                 <span style={{ fontSize:36 }}>🤷</span>
-                <p>No plans match. Try different filters.</p>
+                <p>{t('labels.noPlansMatch')}</p>
               </div>
             ) : (
               <>
-                <FilterBar label="TRIP TYPE" items={tripTypeFilters} active={tripTypes} onSelect={(k) => toggle(tripTypes, setTripTypes, k)} />
+                <FilterBar label={t('filters.tripType')} items={tripTypeFilters} active={tripTypes} onSelect={(k) => toggle(tripTypes, setTripTypes, k)} />
                 {filteredCombos.map((c, i) => (
                   <div key={c.id} className="fade-up" style={{ animationDelay:`${i*0.03}s` }}>
-                    <ComboCard 
-                      combo={c}
-                      isFavourite={favouriteCombos.includes(c.id)}
-                      onToggleFavourite={() => toggleFavouriteCombo(c.id)}
-                    />
+                    <ComboCard combo={c} />
                   </div>
                 ))}
               </>

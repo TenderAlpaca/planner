@@ -4,6 +4,7 @@ import { geocodeAddress, getCurrentLocation } from '../services/locationService'
 import { calculateDistances } from '../services/distanceService';
 import { places } from '../data/places';
 import { saveUserLocation, loadUserLocation, saveTravelTimeCache, loadTravelTimeCache } from '../utils/storage';
+import { useLanguage } from './LanguageContext';
 
 const LocationContext = createContext();
 
@@ -16,12 +17,31 @@ export function useLocation() {
 }
 
 export function LocationProvider({ children }) {
-  const { loaded: mapsLoaded, error: mapsError } = useGoogleMaps();
+  const { language, t } = useLanguage();
+  const { loaded: mapsLoaded, error: mapsError } = useGoogleMaps(language);
   const [userLocation, setUserLocation] = useState(null);
   const [travelTimes, setTravelTimes] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isFirstVisit, setIsFirstVisit] = useState(false);
+
+  function localizeErrorMessage(message) {
+    switch (message) {
+      case 'Google Maps not loaded':
+      case 'Google Maps not loaded yet':
+        return t('errors.mapsNotLoaded');
+      case 'Location not found':
+        return t('errors.locationNotFound');
+      case 'Geolocation not supported':
+        return t('errors.geolocationNotSupported');
+      case 'User location is not set or invalid. Please set your location.':
+        return t('errors.invalidUserLocation');
+      case 'One or more places have invalid coordinates.':
+        return t('errors.invalidDestination');
+      default:
+        return message || t('errors.unknown');
+    }
+  }
 
   // Load saved location on mount
   useEffect(() => {
@@ -38,11 +58,11 @@ export function LocationProvider({ children }) {
     if (userLocation && mapsLoaded) {
       calculateTravelTimes();
     }
-  }, [userLocation, mapsLoaded]);
+  }, [userLocation, mapsLoaded, language]);
 
   async function calculateTravelTimes() {
     if (!mapsLoaded) {
-      setError('Google Maps not loaded yet');
+      setError(t('errors.mapsNotLoaded'));
       return;
     }
     setLoading(true);
@@ -60,7 +80,7 @@ export function LocationProvider({ children }) {
         }
       }
       const destinations = places.map(p => ({ id: p.id, lat: p.lat, lng: p.lng }));
-      const results = await calculateDistances(userLocation, destinations);
+      const results = await calculateDistances(userLocation, destinations, language);
       const timesMap = {};
       results.forEach(result => {
         timesMap[result.placeId] = result;
@@ -68,7 +88,7 @@ export function LocationProvider({ children }) {
       setTravelTimes(timesMap);
       saveTravelTimeCache(cacheKey, timesMap);
     } catch (err) {
-      setError(err.message);
+      setError(localizeErrorMessage(err.message));
     } finally {
       setLoading(false);
     }
@@ -76,18 +96,18 @@ export function LocationProvider({ children }) {
 
   async function updateLocation(address) {
     if (!mapsLoaded) {
-      setError('Google Maps not loaded yet');
+      setError(t('errors.mapsNotLoaded'));
       return;
     }
     setLoading(true);
     setError(null);
     try {
-      const location = await geocodeAddress(address);
+      const location = await geocodeAddress(address, language);
       setUserLocation(location);
       saveUserLocation(location);
       setIsFirstVisit(false);
     } catch (err) {
-      setError(err.message);
+      setError(localizeErrorMessage(err.message));
     } finally {
       setLoading(false);
     }
@@ -97,22 +117,28 @@ export function LocationProvider({ children }) {
     setLoading(true);
     setError(null);
     try {
-      const location = await getCurrentLocation();
+      const location = await getCurrentLocation(language, t('location.currentLocation'));
       setUserLocation(location);
       saveUserLocation(location);
       setIsFirstVisit(false);
     } catch (err) {
-      setError(err.message);
+      setError(localizeErrorMessage(err.message));
     } finally {
       setLoading(false);
     }
   }
 
+  const localizedMapsError = mapsError === 'Google Maps API key not configured'
+    ? t('errors.mapsApiMissing')
+    : mapsError === 'Failed to load Google Maps'
+      ? t('errors.mapsLoadFailed')
+      : mapsError;
+
   const value = {
     userLocation,
     travelTimes,
     loading: loading || !mapsLoaded,
-    error: error || mapsError,
+    error: error || localizedMapsError,
     isFirstVisit,
     mapsLoaded,
     updateLocation,

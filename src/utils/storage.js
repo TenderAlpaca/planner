@@ -26,3 +26,11 @@ export function loadTravelTimeCache(key) {
   }
 }
 
+export function saveLanguage(language) {
+  localStorage.setItem('language', language);
+}
+
+export function loadLanguage() {
+  return localStorage.getItem('language');
+}
+

@@ -1,6 +1,6 @@
-# 🌹 Date Planner
+# 🌹 Weekend Escape
 
-A beautiful date planning app for exploring 95+ places and 35 ready-made plans across Southern Hungary.
+A beautiful weekend and date planning app for exploring 95+ places and 35 ready-made plans across Southern Hungary.
 
 ## ✨ Features
 
@@ -10,6 +10,7 @@ A beautiful date planning app for exploring 95+ places and 35 ready-made plans a
 - Surprise me button for spontaneous dates
 - Mobile-optimized interface
 - Beautiful romantic dark theme
+- English + Hungarian language switcher (auto-detects browser language on first visit)
 
 ## 🚀 Quick Start
 

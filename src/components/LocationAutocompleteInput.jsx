@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export function LocationAutocompleteInput({ value, onChange, onSelect, disabled, placeholder, style, className }) {
+export function LocationAutocompleteInput({ value, onChange, onSelect, disabled, placeholder, style, className, language = 'en' }) {
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export function LocationAutocompleteInput({ value, onChange, onSelect, disabled,
     return () => {
       window.google.maps.event.clearInstanceListeners(autocomplete);
     };
-  }, [onSelect]);
+  }, [onSelect, language]);
 
   return (
     <input

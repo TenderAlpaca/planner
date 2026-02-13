@@ -1,10 +1,12 @@
 
 import React from 'react';
 import { useLocation } from '../context/LocationContext';
-import { categories, getDistColor, getDistDot } from '../data/config';
+import { useLanguage } from '../context/LanguageContext';
+import { getDistColor, getDistDot } from '../data/config';
 
-export function PlaceCard({ place, isFavourite, onToggleFavourite }) {
+export function PlaceCard({ place, categories, isFavourite, onToggleFavourite }) {
   const { travelTimes, loading, error } = useLocation();
+  const { t } = useLanguage();
   const cat = categories[place.cat];
   // Get travel time for this place
   const travelData = travelTimes[place.id];
@@ -36,7 +38,7 @@ export function PlaceCard({ place, isFavourite, onToggleFavourite }) {
             <span>{place.loc}</span>
             <span>•</span>
             {loading && !travelData ? (
-              <span style={{ color:'#8B7355' }}>⏳ Calculating...</span>
+              <span style={{ color:'#8B7355' }}>{t('labels.calculating')}</span>
             ) : error ? (
               <span style={{ color:'#E57373' }}>⚠️ {error}</span>
             ) : travelData ? (
@@ -44,7 +46,7 @@ export function PlaceCard({ place, isFavourite, onToggleFavourite }) {
                 {getDistDot(distance)} {distance}km • {time} ✓
               </span>
             ) : (
-              <span style={{ color:'#B5A693' }}>Distance unavailable</span>
+              <span style={{ color:'#B5A693' }}>{t('labels.distanceUnavailable')}</span>
             )}
           </div>
         </div>
@@ -64,7 +66,7 @@ export function PlaceCard({ place, isFavourite, onToggleFavourite }) {
         )}
         {/* Favourite button */}
         <button
-          aria-label={isFavourite ? 'Remove from favourites' : 'Add to favourites'}
+          aria-label={isFavourite ? t('favourites.remove') : t('favourites.add')}
           onClick={e => { e.stopPropagation(); onToggleFavourite && onToggleFavourite(); }}
           style={{
             background: 'none',
@@ -76,7 +78,7 @@ export function PlaceCard({ place, isFavourite, onToggleFavourite }) {
             transition: 'color 0.2s',
             outline: 'none',
           }}
-          title={isFavourite ? 'Unfavourite' : 'Favourite'}
+          title={isFavourite ? t('favourites.unfavourite') : t('favourites.favourite')}
         >
           {isFavourite ? '❤️' : '🤍'}
         </button>
@@ -106,7 +108,7 @@ export function PlaceCard({ place, isFavourite, onToggleFavourite }) {
           transition:"all 0.2s ease",
         }}
       >
-        📍 View on Maps
+        {t('actions.viewOnMaps')}
       </a>
     </div>
   );

@@ -2,7 +2,7 @@
 
 const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-export async function geocodeAddress(address) {
+export async function geocodeAddress(address, language = 'en') {
   if (!window.google?.maps) {
     throw new Error('Google Maps not loaded');
   }
@@ -11,7 +11,7 @@ export async function geocodeAddress(address) {
     geocoder.geocode(
       {
         address: address,
-        language: 'hu'
+        language,
       },
       (results, status) => {
         if (status === 'OK' && results[0]) {
@@ -29,7 +29,7 @@ export async function geocodeAddress(address) {
   });
 }
 
-export async function getCurrentLocation() {
+export async function getCurrentLocation(language = 'en', fallbackLabel = 'Current Location') {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
       reject(new Error('Geolocation not supported'));
@@ -45,7 +45,7 @@ export async function getCurrentLocation() {
         const geocoder = new google.maps.Geocoder();
         const latlng = { lat: latitude, lng: longitude };
         geocoder.geocode(
-          { location: latlng, language: 'hu' },
+          { location: latlng, language },
           (results, status) => {
             if (status === 'OK' && results[0]) {
               resolve({
@@ -55,7 +55,7 @@ export async function getCurrentLocation() {
               });
             } else {
               resolve({
-                address: 'Current Location',
+                address: fallbackLabel,
                 lat: latitude,
                 lng: longitude
               });

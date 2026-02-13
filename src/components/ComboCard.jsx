@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export function ComboCard({ combo }) {
   const [open, setOpen] = useState(false);
+  const { t } = useLanguage();
   const isWeekend = combo.type === "weekend";
   
   return (
@@ -42,7 +44,7 @@ export function ComboCard({ combo }) {
           color: isWeekend ? "#E91E63" : "#DAA569",
           padding:"4px 12px", borderRadius:12, fontSize:10, fontWeight:600, whiteSpace:"nowrap",
         }}>
-          {combo.type === "weekend" ? "🌙 Weekend" : "☀️ Day Trip"}
+          {combo.type === 'weekend' ? t('tripType.weekend') : t('tripType.day')}
         </div>
       </div>
       

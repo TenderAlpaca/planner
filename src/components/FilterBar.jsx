@@ -1,6 +1,8 @@
 import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export function FilterBar({ label, items, active, onSelect }) {
+  const { t } = useLanguage();
   return (
     <div style={{ marginBottom:14 }}>
       <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:8 }}>
@@ -34,7 +36,7 @@ export function FilterBar({ label, items, active, onSelect }) {
               WebkitUserSelect:"none",
             }}
           >
-            clear
+            {t('filters.clear')}
           </button>
         )}
       </div>
