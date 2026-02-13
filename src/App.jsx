@@ -8,17 +8,47 @@ import { useLocation } from './context/LocationContext';
 import { useLanguage } from './context/LanguageContext';
 import LocationSettings from './components/LocationSettings';
 
+function parseListParam(value) {
+  if (!value) return [];
+  return value.split(',').map(v => v.trim()).filter(Boolean);
+}
+
+function readStateFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const tab = params.get('tab') === 'combos' ? 'combos' : 'places';
+  const surpriseIdRaw = Number.parseInt(params.get('pick') || '', 10);
+  return {
+    vibes: parseListParam(params.get('v')),
+    dists: parseListParam(params.get('d')),
+    durs: parseListParam(params.get('u')),
+    tripTypes: parseListParam(params.get('tt')),
+    tab,
+    showFavouritesOnly: params.get('fav') === '1',
+    surpriseId: Number.isNaN(surpriseIdRaw) ? null : surpriseIdRaw,
+  };
+}
+
+function sanitizeSelection(prev, validSet) {
+  const next = prev.filter(key => validSet.has(key));
+  if (next.length === prev.length && next.every((value, index) => value === prev[index])) {
+    return prev;
+  }
+  return next;
+}
+
 function App() {
+  const initialUrlState = React.useMemo(() => readStateFromUrl(), []);
   const { travelTimes, userLocation } = useLocation();
   const { language, setLanguage, t } = useLanguage();
   const [showLocationSettings, setShowLocationSettings] = useState(false);
-  const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
-  const [vibes, setVibes] = useState([]);
-  const [dists, setDists] = useState([]);
-  const [durs, setDurs] = useState([]);
-  const [tripTypes, setTripTypes] = useState([]);
-  const [tab, setTab] = useState('places');
+  const [showFavouritesOnly, setShowFavouritesOnly] = useState(initialUrlState.showFavouritesOnly);
+  const [vibes, setVibes] = useState(initialUrlState.vibes);
+  const [dists, setDists] = useState(initialUrlState.dists);
+  const [durs, setDurs] = useState(initialUrlState.durs);
+  const [tripTypes, setTripTypes] = useState(initialUrlState.tripTypes);
+  const [tab, setTab] = useState(initialUrlState.tab);
   const [surprise, setSurprise] = useState(null);
+  const [surpriseIdFromUrl, setSurpriseIdFromUrl] = useState(initialUrlState.surpriseId);
   const [shakeN, setShakeN] = useState(0);
   const {
     places,
@@ -33,6 +63,65 @@ function App() {
   React.useEffect(() => {
     document.title = t('meta.title');
   }, [t]);
+
+  React.useEffect(() => {
+    const vibeKeys = new Set(vibeFilters.map(item => item.key).filter(key => key !== 'all'));
+    const distKeys = new Set(distanceRanges.map(item => item.key).filter(key => key !== 'all'));
+    const durationKeys = new Set(durationFilters.map(item => item.key).filter(key => key !== 'all'));
+    const tripTypeKeys = new Set(tripTypeFilters.map(item => item.key).filter(key => key !== 'all'));
+
+    setVibes(prev => sanitizeSelection(prev, vibeKeys));
+    setDists(prev => sanitizeSelection(prev, distKeys));
+    setDurs(prev => sanitizeSelection(prev, durationKeys));
+    setTripTypes(prev => sanitizeSelection(prev, tripTypeKeys));
+    setTab(prev => (prev === 'places' || prev === 'combos' ? prev : 'places'));
+  }, [vibeFilters, distanceRanges, durationFilters, tripTypeFilters]);
+
+  React.useEffect(() => {
+    if (!surpriseIdFromUrl) {
+      setSurprise(null);
+      return;
+    }
+    const surprisePlace = places.find(place => place.id === surpriseIdFromUrl);
+    setSurprise(surprisePlace || null);
+  }, [surpriseIdFromUrl, places]);
+
+  React.useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (vibes.length > 0) params.set('v', vibes.join(','));
+    if (dists.length > 0) params.set('d', dists.join(','));
+    if (durs.length > 0) params.set('u', durs.join(','));
+    if (tripTypes.length > 0) params.set('tt', tripTypes.join(','));
+    if (tab !== 'places') params.set('tab', tab);
+    if (showFavouritesOnly) params.set('fav', '1');
+    if (surprise?.id) params.set('pick', String(surprise.id));
+
+    const nextSearch = params.toString();
+    const nextUrl = `${window.location.pathname}${nextSearch ? `?${nextSearch}` : ''}${window.location.hash}`;
+    const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+    if (nextUrl !== currentUrl) {
+      window.history.replaceState(null, '', nextUrl);
+    }
+  }, [vibes, dists, durs, tripTypes, tab, showFavouritesOnly, surprise]);
+
+  React.useEffect(() => {
+    const handlePopState = () => {
+      const urlState = readStateFromUrl();
+      setVibes(urlState.vibes);
+      setDists(urlState.dists);
+      setDurs(urlState.durs);
+      setTripTypes(urlState.tripTypes);
+      setTab(urlState.tab);
+      setShowFavouritesOnly(urlState.showFavouritesOnly);
+      setSurpriseIdFromUrl(urlState.surpriseId);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   // Favourites state
   const [favouritePlaces, setFavouritePlaces] = useState(() => {
     try {
@@ -107,8 +196,9 @@ function App() {
   const counts = { places: filtered.length, combos: filteredCombos.length };
 
   React.useEffect(() => {
-    if (!userLocation) setShowLocationSettings(true);
+    setShowLocationSettings(!userLocation);
   }, [userLocation]);
+
   return (
     <div className="app-container">
       <div className="content-wrapper">
@@ -133,9 +223,11 @@ function App() {
         {showLocationSettings && <LocationSettings onClose={() => setShowLocationSettings(false)} />}
 
         {/* Filters */}
-        <FilterBar label={t('filters.mood')} items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} />
-        <FilterBar label={t('filters.distance')} items={distanceRanges} active={dists} onSelect={(k) => toggle(dists, setDists, k)} />
-        <FilterBar label={t('filters.duration')} items={durationFilters} active={durs} onSelect={(k) => toggle(durs, setDurs, k)} />
+        <div className="primary-filters-grid">
+          <FilterBar label={t('filters.mood')} items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} />
+          <FilterBar label={t('filters.distance')} items={distanceRanges} active={dists} onSelect={(k) => toggle(dists, setDists, k)} />
+          <FilterBar label={t('filters.duration')} items={durationFilters} active={durs} onSelect={(k) => toggle(durs, setDurs, k)} />
+        </div>
 
         {/* Surprise Button */}
         <button 
@@ -193,7 +285,7 @@ function App() {
 
         {/* Places List */}
         {tab === 'places' && (
-          <div key={`places-filter-${vibes.join('-')}-${dists.join('-')}-${durs.join('-')}`} className="list-container">
+          <div key={`places-filter-${vibes.join('-')}-${dists.join('-')}-${durs.join('-')}`} className="list-container places-list">
             {filtered.length === 0 ? (
               <div className="empty-state">
                 <span style={{ fontSize:36 }}>🤷</span>
@@ -214,23 +306,25 @@ function App() {
 
         {/* Combos List */}
         {tab === 'combos' && (
-          <div key={`combos-filter-${vibes.join('-')}-${tripTypes.join('-')}`} className="list-container">
-            {filteredCombos.length === 0 ? (
-              <div className="empty-state">
-                <span style={{ fontSize:36 }}>🤷</span>
-                <p>{t('labels.noPlansMatch')}</p>
-              </div>
-            ) : (
-              <>
-                <FilterBar label={t('filters.tripType')} items={tripTypeFilters} active={tripTypes} onSelect={(k) => toggle(tripTypes, setTripTypes, k)} />
-                {filteredCombos.map((c, i) => (
+          <>
+            {filteredCombos.length > 0 && (
+              <FilterBar label={t('filters.tripType')} items={tripTypeFilters} active={tripTypes} onSelect={(k) => toggle(tripTypes, setTripTypes, k)} />
+            )}
+            <div key={`combos-filter-${vibes.join('-')}-${tripTypes.join('-')}`} className="list-container combos-list">
+              {filteredCombos.length === 0
+                ? (
+                  <div className="empty-state">
+                    <span style={{ fontSize:36 }}>🤷</span>
+                    <p>{t('labels.noPlansMatch')}</p>
+                  </div>
+                )
+                : filteredCombos.map((c, i) => (
                   <div key={c.id} className="fade-up" style={{ animationDelay:`${i*0.03}s` }}>
                     <ComboCard combo={c} />
                   </div>
                 ))}
-              </>
-            )}
-          </div>
+            </div>
+          </>
         )}
       </div>
     </div>
