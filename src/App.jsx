@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import { getLocalizedData } from './data/localizedData';
 import { PlaceCard } from './components/PlaceCard';
 import { ComboCard } from './components/ComboCard';
@@ -38,15 +38,30 @@ function sanitizeSelection(prev, validSet) {
 
 function App() {
   const initialUrlState = React.useMemo(() => readStateFromUrl(), []);
-  const { travelTimes, userLocation } = useLocation();
+  const filtersShellRef = useRef(null);
+  const activeFiltersRowRef = useRef(null);
+  const isHoveringActiveFiltersRef = useRef(false);
+  const hasAutoOpenedLocationPrompt = useRef(false);
+  const { travelTimes, userLocation, isFirstVisit } = useLocation();
   const { language, setLanguage, t } = useLanguage();
   const [showLocationSettings, setShowLocationSettings] = useState(false);
+  const [dismissedLocationPrompt, setDismissedLocationPrompt] = useState(false);
   const [showFavouritesOnly, setShowFavouritesOnly] = useState(initialUrlState.showFavouritesOnly);
   const [vibes, setVibes] = useState(initialUrlState.vibes);
   const [dists, setDists] = useState(initialUrlState.dists);
   const [durs, setDurs] = useState(initialUrlState.durs);
   const [tripTypes, setTripTypes] = useState(initialUrlState.tripTypes);
   const [tab, setTab] = useState(initialUrlState.tab);
+  const [filtersCollapsed, setFiltersCollapsed] = useState(() => {
+    try {
+      const saved = localStorage.getItem('filtersCollapsed');
+      return saved === null ? true : saved === '1';
+    } catch {
+      return true;
+    }
+  });
+  const [activePillsUi, setActivePillsUi] = useState({ hasOverflow: false, showLeftFade: false, showRightFade: false });
+  const [showFloatingFilterButton, setShowFloatingFilterButton] = useState(false);
   const [surprise, setSurprise] = useState(null);
   const [surpriseIdFromUrl, setSurpriseIdFromUrl] = useState(initialUrlState.surpriseId);
   const [shakeN, setShakeN] = useState(0);
@@ -107,6 +122,31 @@ function App() {
   }, [vibes, dists, durs, tripTypes, tab, showFavouritesOnly, surprise]);
 
   React.useEffect(() => {
+    localStorage.setItem('filtersCollapsed', filtersCollapsed ? '1' : '0');
+  }, [filtersCollapsed]);
+
+  React.useEffect(() => {
+    const onScroll = () => {
+      const node = filtersShellRef.current;
+      if (!node) {
+        setShowFloatingFilterButton(false);
+        return;
+      }
+      const rect = node.getBoundingClientRect();
+      setShowFloatingFilterButton(rect.bottom < 0);
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  React.useEffect(() => {
     const handlePopState = () => {
       const urlState = readStateFromUrl();
       setVibes(urlState.vibes);
@@ -159,6 +199,37 @@ function App() {
     setArr(prev => prev.includes(key) ? prev.filter(k => k !== key) : [...prev, key]);
   };
 
+  const clearAllFilters = () => {
+    setVibes([]);
+    setDists([]);
+    setDurs([]);
+    setTripTypes([]);
+    setShowFavouritesOnly(false);
+  };
+
+  const showFiltersFromAnywhere = () => {
+    setFiltersCollapsed(false);
+    window.requestAnimationFrame(() => {
+      filtersShellRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
+
+  const handleActiveFiltersWheel = (event) => {
+    const node = event.currentTarget;
+    const hasHorizontalOverflow = node.scrollWidth > node.clientWidth + 1;
+    if (!hasHorizontalOverflow) return;
+
+    const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX)
+      ? event.deltaY
+      : event.deltaX;
+
+    if (delta !== 0) {
+      node.scrollLeft += delta;
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  };
+
   const filtered = useMemo(() => places.filter(p => {
     if (showFavouritesOnly && !favouritePlaces.includes(p.id)) return false;
     if (vibes.length > 0 && !vibes.some(v => p.vibes.includes(v))) return false;
@@ -195,9 +266,116 @@ function App() {
 
   const counts = { places: filtered.length, combos: filteredCombos.length };
 
+  const filterLookup = useMemo(() => ({
+    vibes: Object.fromEntries(vibeFilters.map(item => [item.key, item])),
+    dists: Object.fromEntries(distanceRanges.map(item => [item.key, item])),
+    durs: Object.fromEntries(durationFilters.map(item => [item.key, item])),
+    tripTypes: Object.fromEntries(tripTypeFilters.map(item => [item.key, item])),
+  }), [vibeFilters, distanceRanges, durationFilters, tripTypeFilters]);
+
+  const activeFilterChips = useMemo(() => {
+    const chips = [];
+
+    vibes.forEach(key => {
+      const item = filterLookup.vibes[key];
+      if (item) chips.push({ key: `v-${key}`, label: item.label, icon: item.icon, remove: () => toggle(vibes, setVibes, key) });
+    });
+
+    dists.forEach(key => {
+      const item = filterLookup.dists[key];
+      if (item) chips.push({ key: `d-${key}`, label: item.label, icon: item.icon, remove: () => toggle(dists, setDists, key) });
+    });
+
+    durs.forEach(key => {
+      const item = filterLookup.durs[key];
+      if (item) chips.push({ key: `u-${key}`, label: item.label, icon: item.icon, remove: () => toggle(durs, setDurs, key) });
+    });
+
+    tripTypes.forEach(key => {
+      const item = filterLookup.tripTypes[key];
+      if (item) chips.push({ key: `tt-${key}`, label: item.label, icon: item.icon, remove: () => toggle(tripTypes, setTripTypes, key) });
+    });
+
+    if (showFavouritesOnly) {
+      chips.push({ key: 'fav-only', label: t('labels.favouritesOnly'), icon: '❤️', remove: () => setShowFavouritesOnly(false) });
+    }
+
+    return chips;
+  }, [vibes, dists, durs, tripTypes, showFavouritesOnly, filterLookup, t]);
+
+  const activeFiltersCount = activeFilterChips.length;
+
   React.useEffect(() => {
-    setShowLocationSettings(!userLocation);
+    const node = activeFiltersRowRef.current;
+    if (!node) {
+      setActivePillsUi({ hasOverflow: false, showLeftFade: false, showRightFade: false });
+      return undefined;
+    }
+
+    const updatePillEdges = () => {
+      const hasOverflow = node.scrollWidth > node.clientWidth + 1;
+      const showLeftFade = hasOverflow && node.scrollLeft > 1;
+      const showRightFade = hasOverflow && node.scrollLeft + node.clientWidth < node.scrollWidth - 1;
+      setActivePillsUi({ hasOverflow, showLeftFade, showRightFade });
+    };
+
+    updatePillEdges();
+    node.addEventListener('scroll', updatePillEdges, { passive: true });
+    window.addEventListener('resize', updatePillEdges);
+
+    return () => {
+      node.removeEventListener('scroll', updatePillEdges);
+      window.removeEventListener('resize', updatePillEdges);
+    };
+  }, [activeFiltersCount, filtersCollapsed, tab]);
+
+  React.useEffect(() => {
+    const onWindowWheel = (event) => {
+      if (!isHoveringActiveFiltersRef.current) return;
+
+      const node = activeFiltersRowRef.current;
+      if (!node) return;
+
+      const hasHorizontalOverflow = node.scrollWidth > node.clientWidth + 1;
+      if (!hasHorizontalOverflow) return;
+
+      const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX)
+        ? event.deltaY
+        : event.deltaX;
+
+      if (delta === 0) return;
+
+      node.scrollLeft += delta;
+      event.preventDefault();
+      event.stopPropagation();
+    };
+
+    window.addEventListener('wheel', onWindowWheel, { passive: false, capture: true });
+    return () => window.removeEventListener('wheel', onWindowWheel, { capture: true });
+  }, [filtersCollapsed, activeFiltersCount, tab]);
+
+  React.useEffect(() => {
+    if (!hasAutoOpenedLocationPrompt.current && isFirstVisit && !userLocation && !dismissedLocationPrompt) {
+      hasAutoOpenedLocationPrompt.current = true;
+      setShowLocationSettings(true);
+    }
+  }, [isFirstVisit, userLocation, dismissedLocationPrompt]);
+
+  React.useEffect(() => {
+    if (userLocation) {
+      setDismissedLocationPrompt(false);
+    }
   }, [userLocation]);
+
+  const openLocationSettings = () => {
+    setDismissedLocationPrompt(false);
+    setShowLocationSettings(true);
+  };
+
+  const closeLocationSettings = () => {
+    setDismissedLocationPrompt(true);
+    setShowLocationSettings(false);
+  };
 
   return (
     <div className="app-container">
@@ -213,21 +391,138 @@ function App() {
               <span className="lang-icon" aria-hidden="true">🌐</span>
               <span className="lang-code">{language === 'hu' ? 'HU' : 'EN'}</span>
             </button>
-            <button onClick={() => setShowLocationSettings(true)} className="settings-trigger-btn" title={t('labels.locationSettings')}>📍</button>
+            <button
+              onClick={showLocationSettings ? closeLocationSettings : openLocationSettings}
+              className="settings-trigger-btn"
+              title={t('labels.locationSettings')}
+            >
+              📍
+            </button>
           </div>
           <h1>{t('app.title')}</h1>
           <p className="subtitle">
             {t('app.subtitle', { places: places.length, combos: combos.length })}
           </p>
         </div>
-        {showLocationSettings && <LocationSettings onClose={() => setShowLocationSettings(false)} />}
+        {showLocationSettings && <LocationSettings onClose={closeLocationSettings} />}
 
         {/* Filters */}
-        <div className="primary-filters-grid">
-          <FilterBar label={t('filters.mood')} items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} />
-          <FilterBar label={t('filters.distance')} items={distanceRanges} active={dists} onSelect={(k) => toggle(dists, setDists, k)} />
-          <FilterBar label={t('filters.duration')} items={durationFilters} active={durs} onSelect={(k) => toggle(durs, setDurs, k)} />
+        <div ref={filtersShellRef} className="filters-shell">
+          {filtersCollapsed && (
+            <div className="filter-summary-bar">
+              <div className="filter-summary-left">
+                <span className="filter-summary-count">
+                  {activeFiltersCount > 0
+                    ? t('filters.activeSummary', { count: activeFiltersCount })
+                    : t('filters.noneSummary')}
+                </span>
+                {activeFiltersCount > 0 && (
+                  <button className="filter-summary-clear" onClick={clearAllFilters}>
+                    {t('filters.clearAll')}
+                  </button>
+                )}
+              </div>
+
+              <button className="filter-summary-toggle" onClick={showFiltersFromAnywhere}>
+                {t('filters.edit')}
+              </button>
+            </div>
+          )}
+
+          {!filtersCollapsed && (
+            <>
+              <div className="filter-summary-bar">
+                <div className="filter-summary-left">
+                  <span className="filter-summary-count">
+                    {activeFiltersCount > 0
+                      ? t('filters.activeSummary', { count: activeFiltersCount })
+                      : t('filters.noneSummary')}
+                  </span>
+                  {activeFiltersCount > 0 && (
+                    <button className="filter-summary-clear" onClick={clearAllFilters}>
+                      {t('filters.clearAll')}
+                    </button>
+                  )}
+                </div>
+
+                <button
+                  className="filter-summary-toggle"
+                  onClick={() => setFiltersCollapsed(true)}
+                  aria-expanded={!filtersCollapsed}
+                >
+                  {t('filters.hide')}
+                </button>
+              </div>
+
+              <div
+                className={`active-filters-row-shell ${activePillsUi.hasOverflow ? 'has-overflow' : ''} ${activePillsUi.showLeftFade ? 'show-left-fade' : ''} ${activePillsUi.showRightFade ? 'show-right-fade' : ''}`}
+              >
+                <div
+                  ref={activeFiltersRowRef}
+                  className="active-filters-row"
+                  aria-label={t('filters.selected')}
+                  onWheel={handleActiveFiltersWheel}
+                  onWheelCapture={handleActiveFiltersWheel}
+                  onMouseEnter={() => { isHoveringActiveFiltersRef.current = true; }}
+                  onMouseLeave={() => { isHoveringActiveFiltersRef.current = false; }}
+                >
+                  {activeFilterChips.map(chip => (
+                    <button key={chip.key} className="active-filter-pill" onClick={chip.remove}>
+                      <span>{chip.icon ? `${chip.icon} ` : ''}{chip.label}</span>
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {tab === 'places' ? (
+                <>
+                  <div className="primary-filters-grid">
+                    <FilterBar label={t('filters.mood')} items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} />
+                    <FilterBar label={t('filters.distance')} items={distanceRanges} active={dists} onSelect={(k) => toggle(dists, setDists, k)} />
+                    <FilterBar label={t('filters.duration')} items={durationFilters} active={durs} onSelect={(k) => toggle(durs, setDurs, k)} />
+                  </div>
+                  <div className="filter-utility-row">
+                    <label className="favourites-filter-label">
+                      <input
+                        type="checkbox"
+                        checked={showFavouritesOnly}
+                        onChange={e => setShowFavouritesOnly(e.target.checked)}
+                      />
+                      <span>{showFavouritesOnly ? '❤️' : '🤍'}</span>
+                      {t('labels.favouritesOnly')}
+                    </label>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="primary-filters-grid combo-filters-grid">
+                    <FilterBar label={t('filters.mood')} items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} />
+                    <FilterBar label={t('filters.tripType')} items={tripTypeFilters} active={tripTypes} onSelect={(k) => toggle(tripTypes, setTripTypes, k)} />
+                  </div>
+                  <div className="filter-utility-row">
+                    <label className="favourites-filter-label">
+                      <input
+                        type="checkbox"
+                        checked={showFavouritesOnly}
+                        onChange={e => setShowFavouritesOnly(e.target.checked)}
+                      />
+                      <span>{showFavouritesOnly ? '❤️' : '🤍'}</span>
+                      {t('labels.favouritesOnly')}
+                    </label>
+                  </div>
+                </>
+              )}
+            </>
+          )}
         </div>
+
+        {showFloatingFilterButton && (
+          <button className="sticky-show-filters" onClick={showFiltersFromAnywhere}>
+            {t('filters.edit')}
+            {activeFiltersCount > 0 && <span className="sticky-show-filters-count">{activeFiltersCount}</span>}
+          </button>
+        )}
 
         {/* Surprise Button */}
         <button 
@@ -251,20 +546,6 @@ function App() {
             />
           </div>
         )}
-
-        {/* Favourites Filter */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '18px 0 8px 0' }}>
-          <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', fontSize: 14, color: '#B5A693', userSelect: 'none' }}>
-            <input
-              type="checkbox"
-              checked={showFavouritesOnly}
-              onChange={e => setShowFavouritesOnly(e.target.checked)}
-              style={{ accentColor: '#E91E63', marginRight: 6 }}
-            />
-            <span style={{ fontSize: 18, marginRight: 4 }}>{showFavouritesOnly ? '❤️' : '🤍'}</span>
-            {t('labels.favouritesOnly')}
-          </label>
-        </div>
 
         {/* Tabs */}
         <div className="tabs">
@@ -306,25 +587,20 @@ function App() {
 
         {/* Combos List */}
         {tab === 'combos' && (
-          <>
-            {filteredCombos.length > 0 && (
-              <FilterBar label={t('filters.tripType')} items={tripTypeFilters} active={tripTypes} onSelect={(k) => toggle(tripTypes, setTripTypes, k)} />
-            )}
-            <div key={`combos-filter-${vibes.join('-')}-${tripTypes.join('-')}`} className="list-container combos-list">
-              {filteredCombos.length === 0
-                ? (
-                  <div className="empty-state">
-                    <span style={{ fontSize:36 }}>🤷</span>
-                    <p>{t('labels.noPlansMatch')}</p>
-                  </div>
-                )
-                : filteredCombos.map((c, i) => (
-                  <div key={c.id} className="fade-up" style={{ animationDelay:`${i*0.03}s` }}>
-                    <ComboCard combo={c} />
-                  </div>
-                ))}
-            </div>
-          </>
+          <div key={`combos-filter-${vibes.join('-')}-${tripTypes.join('-')}`} className="list-container combos-list">
+            {filteredCombos.length === 0
+              ? (
+                <div className="empty-state">
+                  <span style={{ fontSize:36 }}>🤷</span>
+                  <p>{t('labels.noPlansMatch')}</p>
+                </div>
+              )
+              : filteredCombos.map((c, i) => (
+                <div key={c.id} className="fade-up" style={{ animationDelay:`${i*0.03}s` }}>
+                  <ComboCard combo={c} />
+                </div>
+              ))}
+          </div>
         )}
       </div>
     </div>

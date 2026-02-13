@@ -12,7 +12,6 @@ export function FilterBar({ label, items, active, onSelect }) {
         {active.length > 0 && (
           <button
             onClick={(e) => { e.preventDefault(); onSelect("all"); }}
-            onTouchEnd={(e) => { e.preventDefault(); onSelect("all"); }}
             className="filter-clear-btn"
           >
             {t('filters.clear')}
@@ -27,7 +26,6 @@ export function FilterBar({ label, items, active, onSelect }) {
             <button
               key={item.key}
               onClick={(e) => { e.preventDefault(); onSelect(item.key); }}
-              onTouchEnd={(e) => { e.preventDefault(); onSelect(item.key); }}
               className={`filter-chip ${isActive ? 'active' : ''}`}
               aria-pressed={isActive}
               style={{

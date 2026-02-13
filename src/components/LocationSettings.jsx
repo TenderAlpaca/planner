@@ -50,7 +50,7 @@ export default function LocationSettings({ onClose }) {
         disabled={loading}
       />
       <button onClick={handleSave} disabled={loading} className="settings-btn">{t('actions.save')}</button>
-      <button onClick={onClose} disabled={loading} className="settings-btn cancel">{t('actions.cancel')}</button>
+      <button onClick={onClose} className="settings-btn cancel">{t('actions.cancel')}</button>
       <div className="divider">{t('labels.or')}</div>
       <button onClick={handleUseMyLocation} disabled={loading} className="settings-btn full">{t('actions.useMyLocation')}</button>
       {(error || localError) && <div className="error">{error || localError}</div>}
