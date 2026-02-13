@@ -456,8 +456,8 @@ function App() {
         <div ref={filtersShellRef} className="card border-0 shadow-sm mb-3 filters-panel">
           <div className="card-body">
           {filtersCollapsed && (
-            <div className="d-flex align-items-center justify-content-between gap-2 mb-2 filters-summary-bar">
-              <div className="d-flex align-items-center gap-2 flex-wrap">
+            <div className="filters-summary-bar">
+              <div className="filters-summary-left">
                 <span className="badge text-bg-secondary filters-summary-count">
                   {activeFiltersCount > 0
                     ? t('filters.activeSummary', { count: activeFiltersCount })
@@ -470,16 +470,18 @@ function App() {
                 )}
               </div>
 
-              <button className="btn btn-sm btn-primary filters-summary-action" onClick={showFiltersFromAnywhere}>
-                {t('filters.edit')}
-              </button>
+              <div className="filters-summary-actions">
+                <button className="btn btn-sm btn-primary filters-summary-action" onClick={showFiltersFromAnywhere}>
+                  {t('filters.edit')}
+                </button>
+              </div>
             </div>
           )}
 
           {!filtersCollapsed && (
             <>
-              <div className="d-flex align-items-center justify-content-between gap-2 mb-2 filters-summary-bar">
-                <div className="d-flex align-items-center gap-2 flex-wrap">
+              <div className="filters-summary-bar">
+                <div className="filters-summary-left">
                   <span className="badge text-bg-secondary filters-summary-count">
                     {activeFiltersCount > 0
                       ? t('filters.activeSummary', { count: activeFiltersCount })
@@ -492,21 +494,21 @@ function App() {
                   )}
                 </div>
 
-                <button
-                  className="btn btn-sm btn-outline-primary filters-summary-action"
-                  onClick={() => setFiltersCollapsed(true)}
-                  aria-expanded={!filtersCollapsed}
-                >
-                  {t('filters.hide')}
-                </button>
+                <div className="filters-summary-actions">
+                  <button
+                    className="btn btn-sm btn-outline-primary filters-summary-action"
+                    onClick={() => setFiltersCollapsed(true)}
+                    aria-expanded={!filtersCollapsed}
+                  >
+                    {t('filters.hide')}
+                  </button>
+                </div>
               </div>
 
-              <div
-                className="mb-3"
-              >
+              <div className="mb-3">
                 <div
                   ref={activeFiltersRowRef}
-                  className="d-flex gap-2 overflow-auto pb-1"
+                  className="d-flex gap-2 overflow-auto pb-1 filters-chip-row"
                   aria-label={t('filters.selected')}
                   onWheel={handleActiveFiltersWheel}
                   onWheelCapture={handleActiveFiltersWheel}
@@ -514,7 +516,7 @@ function App() {
                   onMouseLeave={() => { isHoveringActiveFiltersRef.current = false; }}
                 >
                   {activeFilterChips.map(chip => (
-                    <button key={chip.key} className="btn btn-sm btn-outline-secondary text-nowrap" onClick={chip.remove}>
+                    <button key={chip.key} className="btn btn-sm btn-outline-secondary text-nowrap filters-chip" onClick={chip.remove}>
                       <span>{chip.icon ? `${chip.icon} ` : ''}{chip.label}</span>
                       <span aria-hidden="true">×</span>
                     </button>
