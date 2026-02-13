@@ -4,7 +4,7 @@
   box-shadow: 0 4px 24px #8B735533 !important;
   border: 1px solid #E6D3B3 !important;
   background: #F5F1EC !important;
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Outfit', sans-serif !important;
   color: #8B7355 !important;
   z-index: 9999 !important;
 }
@@ -37,7 +37,7 @@
 .location-settings-modal h2 {
   margin-top: 0;
   font-size: 24px;
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Playfair Display', Georgia, serif;
   color: #8B7355;
   font-weight: 600;
   margin-bottom: 18px;

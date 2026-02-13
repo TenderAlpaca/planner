@@ -25,7 +25,7 @@ export function PlaceCard({ place, categories, isFavourite, onToggleFavourite })
           <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:6 }}>
             <span style={{ fontSize:22 }}>{place.emoji}</span>
             <h3 style={{ 
-              fontFamily:"'Cormorant Garamond', Georgia, serif", 
+              fontFamily:"'Playfair Display', Georgia, serif", 
               fontSize:21, 
               fontWeight:600, 
               color:"#F5F1EC", 

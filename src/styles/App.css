@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 * {
   margin: 0;
@@ -11,7 +11,7 @@ html, body {
   padding: 0;
   background: linear-gradient(135deg, #1a1416 0%, #0f0a0d 100%);
   min-height: 100vh;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Outfit', sans-serif;
 }
 
 ::-webkit-scrollbar { width: 5px; }
@@ -103,7 +103,7 @@ button:active {
 }
 
 .header h1 {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: 42px;
   font-weight: 600;
   color: #F5F1EC;
@@ -225,7 +225,7 @@ button:active {
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Outfit', sans-serif;
   letter-spacing: 0.03em;
   transition: all 0.2s ease;
   margin-bottom: 20px;
@@ -257,7 +257,7 @@ button:active {
 
 .surprise-label {
   font-size: 10px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Outfit', sans-serif;
   color: #DAA569;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -282,7 +282,7 @@ button:active {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Outfit', sans-serif;
   transition: all 0.2s ease;
   min-height: 52px;
   touch-action: manipulation;
