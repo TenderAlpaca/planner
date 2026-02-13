@@ -5,8 +5,25 @@ import { calculateDistances } from '../services/distanceService';
 import { places } from '../data/places';
 import { saveUserLocation, loadUserLocation, saveTravelTimeCache, loadTravelTimeCache } from '../utils/storage';
 import { useLanguage } from './LanguageContext';
+import type { DistanceResult, UserLocation } from '../types/domain';
 
-const LocationContext = createContext();
+interface LocationContextValue {
+  userLocation: UserLocation | null;
+  travelTimes: Record<number, DistanceResult>;
+  loading: boolean;
+  error: string | null;
+  isFirstVisit: boolean;
+  mapsLoaded: boolean;
+  updateLocation: (address: string) => Promise<void>;
+  useCurrentLocation: () => Promise<void>;
+  setIsFirstVisit: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface ProviderProps {
+  children: React.ReactNode;
+}
+
+const LocationContext = createContext<LocationContextValue | undefined>(undefined);
 
 export function useLocation() {
   const context = useContext(LocationContext);
@@ -16,13 +33,13 @@ export function useLocation() {
   return context;
 }
 
-export function LocationProvider({ children }) {
+export function LocationProvider({ children }: ProviderProps) {
   const { language, t } = useLanguage();
   const { loaded: mapsLoaded, error: mapsError } = useGoogleMaps(language);
-  const [userLocation, setUserLocation] = useState(null);
-  const [travelTimes, setTravelTimes] = useState({});
+  const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
+  const [travelTimes, setTravelTimes] = useState<Record<number, DistanceResult>>({});
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [isFirstVisit, setIsFirstVisit] = useState(false);
 
   function localizeErrorMessage(message) {

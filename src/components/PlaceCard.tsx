@@ -3,8 +3,16 @@ import React from 'react';
 import { useLocation } from '../context/LocationContext';
 import { useLanguage } from '../context/LanguageContext';
 import { getDistColor, getDistDot } from '../data/config';
+import type { Place } from '../types/domain';
 
-export function PlaceCard({ place, categories, isFavourite, onToggleFavourite }) {
+interface PlaceCardProps {
+  place: Place;
+  categories: Record<string, { label: string; color: string }>;
+  isFavourite: boolean;
+  onToggleFavourite?: () => void;
+}
+
+export function PlaceCard({ place, categories, isFavourite, onToggleFavourite }: PlaceCardProps) {
   const { travelTimes, loading, error } = useLocation();
   const { t } = useLanguage();
   const cat = categories[place.cat];

@@ -39,10 +39,10 @@ export const tripTypeFilters = [
   { key:"weekend", label:"Weekend Getaways" },
 ];
 
-export function getDistColor(d) { 
+export function getDistColor(d: number) { 
   return d <= 50 ? "#4CAF50" : d <= 150 ? "#FFC107" : d <= 250 ? "#FF5722" : "#E91E63"; 
 }
 
-export function getDistDot(d) { 
+export function getDistDot(d: number) { 
   return d <= 50 ? "🟢" : d <= 150 ? "🟡" : d <= 250 ? "🟠" : "🔴"; 
 }

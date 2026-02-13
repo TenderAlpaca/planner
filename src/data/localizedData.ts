@@ -10,8 +10,9 @@ import { places } from './places';
 import { placesHu } from './places.hu';
 import { combos } from './combos';
 import { combosHu } from './combos.hu';
+import type { LocalizedData } from '../types/domain';
 
-export function getLocalizedData(language) {
+export function getLocalizedData(language: 'en' | 'hu'): LocalizedData {
   const isHungarian = language === 'hu';
   return {
     places: isHungarian ? placesHu : places,

@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@use "./tokens" as t;
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap");
 
 * {
   margin: 0;
@@ -6,37 +7,74 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #1a1416 0%, #0f0a0d 100%);
+  background: linear-gradient(
+    135deg,
+    t.$color-bg-start 0%,
+    t.$color-bg-end 100%
+  );
   min-height: 100vh;
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
 }
 
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+}
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes pageLoadIn {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes floatButtonIn {
-  from { opacity: 0; transform: translateY(10px) scale(0.96); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes shake {
-  0%, 100% { transform: rotate(0); }
-  25% { transform: rotate(-8deg); }
-  75% { transform: rotate(8deg); }
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-8deg);
+  }
+  75% {
+    transform: rotate(8deg);
+  }
 }
 
 .fade-up {
@@ -77,8 +115,8 @@ button:active {
 }
 
 .language-switch-btn {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(230,211,179,0.35);
+  @include t.pill-button(rgba(230, 211, 179, 0.35), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(230, 211, 179, 0.35);
   color: #fff;
   border-radius: 999px;
   height: 34px;
@@ -88,7 +126,7 @@ button:active {
   font-weight: 700;
   letter-spacing: 0.05em;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -96,10 +134,12 @@ button:active {
   transition: all 0.2s ease;
 }
 
-.language-switch-btn:hover {
-  background: rgba(255,255,255,0.09);
-  border-color: rgba(230,211,179,0.55);
-  transform: translateY(-1px);
+.language-switch-btn {
+  &:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(230, 211, 179, 0.55);
+    transform: translateY(-1px);
+  }
 }
 
 .lang-icon {
@@ -114,17 +154,17 @@ button:active {
 }
 
 .header h1 {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: "Playfair Display", Georgia, serif;
   font-size: 42px;
   font-weight: 600;
-  color: #F5F1EC;
+  color: #f5f1ec;
   margin-bottom: 8px;
   letter-spacing: 0.02em;
 }
 
 .subtitle {
   font-size: 13px;
-  color: #8B7355;
+  color: #8b7355;
   letter-spacing: 0.05em;
 }
 
@@ -143,11 +183,9 @@ button:active {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  background: rgba(20,14,18,0.88);
-  border: 1px solid rgba(255,255,255,0.08);
+  @include t.glass-surface();
   border-radius: 12px;
   padding: 10px 12px;
-  backdrop-filter: blur(8px);
   margin-bottom: 10px;
 }
 
@@ -160,7 +198,7 @@ button:active {
 
 .filter-summary-count {
   font-size: 12px;
-  color: #CDB895;
+  color: #cdb895;
   font-weight: 600;
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -168,21 +206,18 @@ button:active {
 
 .filter-summary-toggle,
 .filter-summary-clear {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: #B5A693;
-  border-radius: 999px;
+  @include t.pill-button();
+  color: #b5a693;
   padding: 7px 12px;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .filter-summary-toggle:hover,
 .filter-summary-clear:hover {
-  border-color: rgba(218,165,105,0.35);
-  color: #F5F1EC;
+  border-color: rgba(218, 165, 105, 0.35);
+  color: #f5f1ec;
 }
 
 .active-filters-row-shell {
@@ -192,7 +227,7 @@ button:active {
 
 .active-filters-row-shell::before,
 .active-filters-row-shell::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;
@@ -205,12 +240,20 @@ button:active {
 
 .active-filters-row-shell::before {
   left: 0;
-  background: linear-gradient(to right, rgba(26,20,22,0.66), rgba(26,20,22,0));
+  background: linear-gradient(
+    to right,
+    rgba(26, 20, 22, 0.66),
+    rgba(26, 20, 22, 0)
+  );
 }
 
 .active-filters-row-shell::after {
   right: 0;
-  background: linear-gradient(to left, rgba(15,10,13,0.66), rgba(15,10,13,0));
+  background: linear-gradient(
+    to left,
+    rgba(15, 10, 13, 0.66),
+    rgba(15, 10, 13, 0)
+  );
 }
 
 .active-filters-row-shell.has-overflow.show-left-fade::before {
@@ -241,9 +284,9 @@ button:active {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid rgba(218,165,105,0.24);
-  background: rgba(218,165,105,0.08);
-  color: #DAA569;
+  border: 1px solid rgba(218, 165, 105, 0.24);
+  background: rgba(218, 165, 105, 0.08);
+  color: #daa569;
   border-radius: 999px;
   padding: 6px 10px;
   font-size: 12px;
@@ -268,14 +311,14 @@ button:active {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid rgba(218,165,105,0.4);
-  background: rgba(20,14,18,0.9);
-  color: #F5F1EC;
+  border: 1px solid rgba(218, 165, 105, 0.4);
+  background: rgba(20, 14, 18, 0.9);
+  color: #f5f1ec;
   border-radius: 999px;
   padding: 10px 14px;
   font-size: 13px;
   font-weight: 600;
-  box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
   animation: floatButtonIn 0.22s ease;
 }
 
@@ -283,7 +326,7 @@ button:active {
   min-width: 18px;
   height: 18px;
   border-radius: 999px;
-  background: #DAA569;
+  background: #daa569;
   color: #1a1416;
   display: inline-flex;
   align-items: center;
@@ -298,21 +341,25 @@ button:active {
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  color: #B5A693;
+  color: #b5a693;
   cursor: pointer;
   user-select: none;
 }
 
 .favourites-filter-label input {
-  accent-color: #E91E63;
+  accent-color: #e91e63;
 }
 
 .filter-bar {
   margin-bottom: 12px;
   padding: 12px 12px 10px;
-  border: 1px solid rgba(255,255,255,0.07);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 14px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
 }
 
 .filter-bar-header {
@@ -325,16 +372,16 @@ button:active {
 
 .filter-bar-label {
   font-size: 10px;
-  color: #8B7355;
+  color: #8b7355;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   font-weight: 700;
 }
 
 .filter-clear-btn {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: #B5A693;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #b5a693;
   border-radius: 999px;
   padding: 6px 10px;
   min-height: 30px;
@@ -343,13 +390,13 @@ button:active {
   cursor: pointer;
   transition: all 0.2s ease;
   touch-action: manipulation;
-  -webkit-tap-highlight-color: rgba(139,115,85,0.2);
+  -webkit-tap-highlight-color: rgba(139, 115, 85, 0.2);
 }
 
 .filter-clear-btn:hover {
-  color: #F5F1EC;
-  border-color: rgba(218,165,105,0.3);
-  background: rgba(218,165,105,0.08);
+  color: #f5f1ec;
+  border-color: rgba(218, 165, 105, 0.3);
+  background: rgba(218, 165, 105, 0.08);
 }
 
 .filter-chip-wrap {
@@ -359,9 +406,9 @@ button:active {
 }
 
 .filter-chip {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: #8B7355;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #8b7355;
   padding: 10px 14px;
   border-radius: 999px;
   font-size: 13px;
@@ -373,14 +420,14 @@ button:active {
   gap: 6px;
   min-height: 40px;
   touch-action: manipulation;
-  -webkit-tap-highlight-color: rgba(218,165,105,0.2);
+  -webkit-tap-highlight-color: rgba(218, 165, 105, 0.2);
   user-select: none;
   -webkit-user-select: none;
 }
 
 .filter-chip:hover {
-  border-color: rgba(218,165,105,0.3);
-  color: #CDB895;
+  border-color: rgba(218, 165, 105, 0.3);
+  color: #cdb895;
 }
 
 .filter-chip.active {
@@ -392,7 +439,7 @@ button:active {
 
 .filter-chip:focus-visible,
 .filter-clear-btn:focus-visible {
-  outline: 2px solid rgba(218,165,105,0.55);
+  outline: 2px solid rgba(218, 165, 105, 0.55);
   outline-offset: 1px;
 }
 
@@ -403,14 +450,18 @@ button:active {
 .surprise-button {
   width: 100%;
   padding: 18px;
-  background: linear-gradient(135deg, rgba(218,165,105,0.12) 0%, rgba(205,127,50,0.08) 100%);
-  border: 1px solid rgba(218,165,105,0.25);
+  background: linear-gradient(
+    135deg,
+    rgba(218, 165, 105, 0.12) 0%,
+    rgba(205, 127, 50, 0.08) 100%
+  );
+  border: 1px solid rgba(218, 165, 105, 0.25);
   border-radius: 12px;
-  color: #DAA569;
+  color: #daa569;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
   letter-spacing: 0.03em;
   transition: all 0.2s ease;
   margin-bottom: 20px;
@@ -418,33 +469,41 @@ button:active {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 4px 16px rgba(218,165,105,0.1);
+  box-shadow: 0 4px 16px rgba(218, 165, 105, 0.1);
   min-height: 52px;
   touch-action: manipulation;
-  -webkit-tap-highlight-color: rgba(218,165,105,0.2);
+  -webkit-tap-highlight-color: rgba(218, 165, 105, 0.2);
   user-select: none;
   -webkit-user-select: none;
   animation: pageLoadIn 0.5s ease 0.15s both;
 }
 
 .surprise-button:hover {
-  background: linear-gradient(135deg, rgba(218,165,105,0.18) 0%, rgba(205,127,50,0.12) 100%);
-  box-shadow: 0 6px 20px rgba(218,165,105,0.15);
+  background: linear-gradient(
+    135deg,
+    rgba(218, 165, 105, 0.18) 0%,
+    rgba(205, 127, 50, 0.12) 100%
+  );
+  box-shadow: 0 6px 20px rgba(218, 165, 105, 0.15);
 }
 
 .surprise-result {
-  background: linear-gradient(135deg, rgba(218,165,105,0.08) 0%, rgba(255,255,255,0.02) 100%);
-  border: 1px solid rgba(218,165,105,0.2);
+  background: linear-gradient(
+    135deg,
+    rgba(218, 165, 105, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  border: 1px solid rgba(218, 165, 105, 0.2);
   border-radius: 14px;
   padding: 16px 20px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 20px rgba(218,165,105,0.08);
+  box-shadow: 0 4px 20px rgba(218, 165, 105, 0.08);
 }
 
 .surprise-label {
   font-size: 10px;
-  font-family: 'Outfit', sans-serif;
-  color: #DAA569;
+  font-family: "Outfit", sans-serif;
+  color: #daa569;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin-bottom: 8px;
@@ -455,7 +514,7 @@ button:active {
   display: flex;
   gap: 0;
   margin-bottom: 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   animation: pageLoadIn 0.45s ease 0.2s both;
 }
 
@@ -465,22 +524,22 @@ button:active {
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
-  color: #8B7355;
+  color: #8b7355;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
   transition: all 0.2s ease;
   min-height: 52px;
   touch-action: manipulation;
-  -webkit-tap-highlight-color: rgba(218,165,105,0.2);
+  -webkit-tap-highlight-color: rgba(218, 165, 105, 0.2);
   user-select: none;
   -webkit-user-select: none;
 }
 
 .tab-button.active {
-  border-bottom-color: #DAA569;
-  color: #F5F1EC;
+  border-bottom-color: #daa569;
+  color: #f5f1ec;
 }
 
 .list-container {
@@ -497,7 +556,7 @@ button:active {
 .empty-state {
   text-align: center;
   padding: 40px;
-  color: #8B7355;
+  color: #8b7355;
 }
 
 .empty-state p {

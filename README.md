@@ -1,203 +1,130 @@
 # 🌹 Weekend Escape
 
-A beautiful weekend and date planning app for exploring 95+ places and 35 ready-made plans across Southern Hungary.
+Weekend and date-planning app for exploring 95+ places and 35 curated plans across Southern Hungary.
 
-## ✨ Features
+## What’s in this app
 
-- 95+ curated places (thermal baths, restaurants, castles, nature spots)
-- 35 ready-made date plans (day trips to weekend getaways)
-- Filter by mood, distance, duration
-- Surprise me button for spontaneous dates
-- Mobile-optimized interface
-- Beautiful romantic dark theme
-- English + Hungarian language switcher (auto-detects browser language on first visit)
+- Place discovery with filters (mood, distance, duration)
+- Ready-made combos (day trips + weekend plans)
+- Favorites + URL-persisted filter state
+- Optional Google Maps-based distance calculation from user location
+- English/Hungarian localization
+- TypeScript + SCSS codebase
 
-## 🚀 Quick Start
+## Developer setup
 
-### Local Development
+### Prerequisites
 
-1. **Install dependencies:**
+- Node.js 18+
+- npm 9+
+
+### Install
+
 ```bash
 npm install
 ```
 
-2. **Run dev server:**
+### Run locally
+
 ```bash
 npm run dev
 ```
 
-Open http://localhost:5173 in your browser.
+Open http://localhost:5173
 
-### Build for Production
+### Build (includes typecheck)
 
 ```bash
 npm run build
 ```
 
-This creates an optimized build in the `dist` folder.
+### Preview production build
 
-## 📦 Deploy to GitHub Pages
-
-### One-Time Setup
-
-1. **Update `vite.config.js`** - Change the base path to match your repo name:
-```js
-base: '/your-repo-name/',  // e.g., '/date-planner/'
-```
-
-2. **Install gh-pages** (if not already installed):
 ```bash
-npm install --save-dev gh-pages
+npm run preview
 ```
 
-### Deploy
+## Environment variables
 
-Run this command to build and deploy:
+Google Maps is optional, but required for distance-from-location features.
+
+Create `.env.local`:
+
+```bash
+VITE_GOOGLE_MAPS_API_KEY=your_key_here
+```
+
+If this key is missing, the app still works for static browsing/filtering but location distance features will show related errors.
+
+## Deploy to GitHub Pages
+
+1. Update base path in [vite.config.ts](vite.config.ts) to match your repo name:
+
+```ts
+base: '/planner/'
+```
+
+2. Deploy:
+
 ```bash
 npm run deploy
 ```
 
-This will:
-- Build your app
-- Push the built files to the `gh-pages` branch
-- Your site will be live at: `https://yourusername.github.io/your-repo-name/`
+This builds and publishes `dist` to the `gh-pages` branch.
 
-### Enable GitHub Pages
+## Project structure
 
-After first deploy:
-1. Go to your repo on GitHub
-2. Settings → Pages
-3. Source: `gh-pages` branch
-4. Save
-
-Your site will be live in ~1 minute!
-
-## 🎨 Customizing Data
-
-All data is in the `src/data/` folder:
-
-- **`places.js`** - All 95+ places (restaurants, thermal baths, etc.)
-- **`combos.js`** - All 35 date plans
-- **`config.js`** - Categories, filters, and settings
-
-### Easy Edits on GitHub
-
-You can edit the data files directly on GitHub:
-
-1. Navigate to `src/data/places.js` (or `combos.js`)
-2. Click the pencil icon to edit
-3. Make your changes
-4. Commit changes
-5. Run `npm run deploy` locally (or set up GitHub Actions - see below)
-
-### Adding a New Place
-
-In `src/data/places.js`:
-
-```js
-{ 
-  id: 96,  // Next available ID
-  name: "New Place",
-  loc: "City Name",
-  km: 45,
-  time: "40 min",
-  cat: "food",  // adventure, explore, thermal, food, special
-  vibes: ["romantic", "foodie"],
-  desc: "Description here",
-  tip: "Insider tip here",
-  maps: "https://maps.google.com/?q=Place+Name",
-  emoji: "🍷",
-  duration: "half"  // half, full, weekend
-}
+```text
+src/
+  components/         # UI components
+  context/            # App state providers (language, location)
+  data/               # Static localized content + filter config
+  hooks/              # Reusable React hooks (Google Maps loader)
+  i18n/               # Translation messages + translator
+  services/           # External/browser service integrations
+  styles/             # SCSS styles + tokens
+  types/              # Domain and app-wide TypeScript types
+  utils/              # Shared helper functions
 ```
 
-## 🤖 Auto-Deploy with GitHub Actions (Optional)
+## Editing content
 
-Want automatic deploys when you push? Create `.github/workflows/deploy.yml`:
+Primary content files:
 
-```yaml
-name: Deploy to GitHub Pages
+- [src/data/places.ts](src/data/places.ts)
+- [src/data/places.hu.ts](src/data/places.hu.ts)
+- [src/data/combos.ts](src/data/combos.ts)
+- [src/data/combos.hu.ts](src/data/combos.hu.ts)
+- [src/data/config.ts](src/data/config.ts)
+- [src/data/config.hu.ts](src/data/config.hu.ts)
 
-on:
-  push:
-    branches: [main]
+When adding a place, keep IDs unique and include:
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          
-      - name: Install dependencies
-        run: npm install
-        
-      - name: Build
-        run: npm run build
-        
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+- `id`, `name`, `loc`, `cat`, `vibes`
+- `lat`, `lng` (required for distance calculations)
+- `maps`, `duration`, `emoji`
+
+## Styling notes
+
+- SCSS entry files:
+  - [src/styles/App.scss](src/styles/App.scss)
+  - [src/styles/LocationSettings.scss](src/styles/LocationSettings.scss)
+- Shared tokens + mixins:
+  - [src/styles/_tokens.scss](src/styles/_tokens.scss)
+
+Use mixins/tokens first before introducing new raw style values.
+
+## QA checks
+
+Recommended before PR/merge:
+
+```bash
+npm run typecheck
+npm run build
+npm run test:e2e
 ```
 
-Now every push to `main` auto-deploys! 🎉
+## Documentation for AI/code agents
 
-## 📁 Project Structure
+For machine-targeted context, conventions, and safe edit workflow, see [AGENTS.md](AGENTS.md).
 
-```
-date-planner/
-├── src/
-│   ├── components/        # React components
-│   │   ├── PlaceCard.jsx
-│   │   ├── ComboCard.jsx
-│   │   └── FilterBar.jsx
-│   ├── data/             # All your data (edit these!)
-│   │   ├── places.js     # 95+ places
-│   │   ├── combos.js     # 35 date plans
-│   │   └── config.js     # Categories & filters
-│   ├── styles/
-│   │   └── App.css       # All styles
-│   ├── App.jsx           # Main app component
-│   └── main.jsx          # Entry point
-├── index.html
-├── package.json
-├── vite.config.js        # Vite config (update base path!)
-└── README.md
-```
-
-## 🛠️ Tech Stack
-
-- **React 18** - UI library
-- **Vite** - Fast build tool
-- **CSS** - Styling (no frameworks needed)
-- **GitHub Pages** - Free hosting
-
-## 💡 Tips
-
-- **Edit data in GitHub:** You can edit `places.js` and `combos.js` directly in GitHub's web interface
-- **Mobile testing:** Run `npm run dev` and open on your phone using your computer's IP
-- **Production preview:** Run `npm run preview` after building to test the production build locally
-
-## 🎯 Common Tasks
-
-**Add a new place:**
-Edit `src/data/places.js`
-
-**Add a new combo:**
-Edit `src/data/combos.js`
-
-**Change colors/styling:**
-Edit `src/styles/App.css`
-
-**Update filters:**
-Edit `src/data/config.js`
-
----
-
-Made with 🌹 for date planning in Southern Hungary

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
-let googleMapsPromise = null;
+let googleMapsPromise: Promise<typeof google> | null = null;
 
-export function useGoogleMaps(language = 'en') {
+export function useGoogleMaps(language: 'en' | 'hu' = 'en') {
   const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (window.google?.maps) {

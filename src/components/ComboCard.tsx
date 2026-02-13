@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import type { Combo } from '../types/domain';
 
-export function ComboCard({ combo }) {
+interface ComboCardProps {
+  combo: Combo;
+}
+
+export function ComboCard({ combo }: ComboCardProps) {
   const [open, setOpen] = useState(false);
   const { t } = useLanguage();
   const isWeekend = combo.type === "weekend";

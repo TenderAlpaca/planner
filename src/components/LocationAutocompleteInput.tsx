@@ -1,7 +1,25 @@
 import { useEffect, useRef } from 'react';
+import type { CSSProperties, ChangeEvent } from 'react';
 
-export function LocationAutocompleteInput({ value, onChange, onSelect, disabled, placeholder, style, className, language = 'en' }) {
-  const inputRef = useRef(null);
+interface SelectedLocation {
+  address: string;
+  lat: number;
+  lng: number;
+}
+
+interface LocationAutocompleteInputProps {
+  value: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onSelect?: (location: SelectedLocation) => void;
+  disabled?: boolean;
+  placeholder?: string;
+  style?: CSSProperties;
+  className?: string;
+  language?: 'en' | 'hu';
+}
+
+export function LocationAutocompleteInput({ value, onChange, onSelect, disabled, placeholder, style, className, language = 'en' }: LocationAutocompleteInputProps) {
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if (!window.google || !inputRef.current) return;

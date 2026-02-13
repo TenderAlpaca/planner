@@ -1,9 +1,16 @@
 // src/services/distanceService.js
+import type { DistanceResult, UserLocation } from '../types/domain';
 
 
 const BATCH_SIZE = 25;
 
-export async function calculateDistances(origin, destinations, language = 'en') {
+interface Destination {
+  id: number;
+  lat: number;
+  lng: number;
+}
+
+export async function calculateDistances(origin: UserLocation, destinations: Destination[], language: 'en' | 'hu' = 'en'): Promise<DistanceResult[]> {
   if (!window.google?.maps) {
     throw new Error('Google Maps not loaded');
   }
@@ -25,7 +32,7 @@ export async function calculateDistances(origin, destinations, language = 'en') 
   return results;
 }
 
-async function calculateBatch(origin, destinations, language) {
+async function calculateBatch(origin: UserLocation, destinations: Destination[], language: 'en' | 'hu'): Promise<DistanceResult[]> {
   return new Promise((resolve, reject) => {
     const service = new google.maps.DistanceMatrixService();
     // Validate again for safety

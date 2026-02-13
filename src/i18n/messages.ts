@@ -141,7 +141,7 @@ export const messages = {
   },
 };
 
-export function translateMessage(language, key, params = {}) {
+export function translateMessage(language: 'en' | 'hu', key: string, params: Record<string, string | number> = {}): string {
   const activeLanguage = messages[language] ? language : 'en';
   const fallback = messages.en;
   const segments = key.split('.');

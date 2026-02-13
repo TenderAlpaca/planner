@@ -1,7 +1,15 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import type { FilterItem } from '../types/domain';
 
-export function FilterBar({ label, items, active, onSelect }) {
+interface FilterBarProps {
+  label: string;
+  items: FilterItem[];
+  active: string[];
+  onSelect: (key: string) => void;
+}
+
+export function FilterBar({ label, items, active, onSelect }: FilterBarProps) {
   const { t } = useLanguage();
   return (
     <section className="filter-bar">
@@ -30,7 +38,7 @@ export function FilterBar({ label, items, active, onSelect }) {
               aria-pressed={isActive}
               style={{
                 '--chip-color': item.color || '#DAA569',
-              }}
+              } as React.CSSProperties}
             >
               {item.icon && <span className="filter-chip-icon">{item.icon}</span>}
               <span>{item.label}</span>

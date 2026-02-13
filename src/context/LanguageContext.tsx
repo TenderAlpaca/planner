@@ -1,10 +1,21 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { loadLanguage, saveLanguage } from '../utils/storage';
 import { translateMessage } from '../i18n/messages';
+import type { Language } from '../types/domain';
 
-const LanguageContext = createContext();
+interface LanguageContextValue {
+  language: Language;
+  setLanguage: React.Dispatch<React.SetStateAction<Language>>;
+  t: (key: string, params?: Record<string, string | number>) => string;
+}
 
-function detectInitialLanguage() {
+interface ProviderProps {
+  children: React.ReactNode;
+}
+
+const LanguageContext = createContext<LanguageContextValue | undefined>(undefined);
+
+function detectInitialLanguage(): Language {
   const savedLanguage = loadLanguage();
   if (savedLanguage === 'hu' || savedLanguage === 'en') {
     return savedLanguage;
@@ -14,7 +25,7 @@ function detectInitialLanguage() {
   return browserLanguage.startsWith('hu') ? 'hu' : 'en';
 }
 
-export function LanguageProvider({ children }) {
+export function LanguageProvider({ children }: ProviderProps) {
   const [language, setLanguage] = useState(detectInitialLanguage);
 
   useEffect(() => {

@@ -3,12 +3,14 @@ import { getLocalizedData } from './data/localizedData';
 import { PlaceCard } from './components/PlaceCard';
 import { ComboCard } from './components/ComboCard';
 import { FilterBar } from './components/FilterBar';
-import './styles/App.css';
+import './styles/App.scss';
 import { useLocation } from './context/LocationContext';
 import { useLanguage } from './context/LanguageContext';
 import LocationSettings from './components/LocationSettings';
+import { buildComboFilterSpecification, buildPlaceFilterSpecification } from './utils/filterSpecifications';
+import type { Combo, FilterItem, Place } from './types/domain';
 
-function parseListParam(value) {
+function parseListParam(value: string | null): string[] {
   if (!value) return [];
   return value.split(',').map(v => v.trim()).filter(Boolean);
 }
@@ -28,7 +30,7 @@ function readStateFromUrl() {
   };
 }
 
-function sanitizeSelection(prev, validSet) {
+function sanitizeSelection(prev: string[], validSet: Set<string>): string[] {
   const next = prev.filter(key => validSet.has(key));
   if (next.length === prev.length && next.every((value, index) => value === prev[index])) {
     return prev;
@@ -38,8 +40,8 @@ function sanitizeSelection(prev, validSet) {
 
 function App() {
   const initialUrlState = React.useMemo(() => readStateFromUrl(), []);
-  const filtersShellRef = useRef(null);
-  const activeFiltersRowRef = useRef(null);
+  const filtersShellRef = useRef<HTMLDivElement | null>(null);
+  const activeFiltersRowRef = useRef<HTMLDivElement | null>(null);
   const isHoveringActiveFiltersRef = useRef(false);
   const hasAutoOpenedLocationPrompt = useRef(false);
   const { travelTimes, userLocation, isFirstVisit } = useLocation();
@@ -62,7 +64,7 @@ function App() {
   });
   const [activePillsUi, setActivePillsUi] = useState({ hasOverflow: false, showLeftFade: false, showRightFade: false });
   const [showFloatingFilterButton, setShowFloatingFilterButton] = useState(false);
-  const [surprise, setSurprise] = useState(null);
+  const [surprise, setSurprise] = useState<Place | null>(null);
   const [surpriseIdFromUrl, setSurpriseIdFromUrl] = useState(initialUrlState.surpriseId);
   const [shakeN, setShakeN] = useState(0);
   const {
@@ -230,31 +232,28 @@ function App() {
     }
   };
 
-  const filtered = useMemo(() => places.filter(p => {
-    if (showFavouritesOnly && !favouritePlaces.includes(p.id)) return false;
-    if (vibes.length > 0 && !vibes.some(v => p.vibes.includes(v))) return false;
-    if (dists.length > 0) {
-      const travelData = travelTimes[p.id];
-      const km = travelData ? Math.round(travelData.distance / 1000) : null;
-      const match = dists.some(dk => {
-        const r = distanceRanges.find(d => d.key === dk);
-        if (!r) return false;
-        if (r.min !== undefined && (km === null || km < r.min)) return false;
-        if (r.max !== undefined && (km === null || km > r.max)) return false;
-        return true;
-      });
-      if (!match) return false;
-    }
-    if (durs.length > 0 && !durs.includes(p.duration)) return false;
-    return true;
-  }), [vibes, dists, durs, showFavouritesOnly, favouritePlaces, travelTimes]);
+  const filtered = useMemo(() => {
+    const specification = buildPlaceFilterSpecification({
+      showFavouritesOnly,
+      favourites: favouritePlaces,
+      vibes,
+      dists,
+      durs,
+      travelTimes,
+      distanceRanges,
+    });
+    return places.filter(specification);
+  }, [places, showFavouritesOnly, favouritePlaces, vibes, dists, durs, travelTimes, distanceRanges]);
 
-  const filteredCombos = useMemo(() => combos.filter(c => {
-    if (showFavouritesOnly && !favouriteCombos.includes(c.id)) return false;
-    if (vibes.length > 0 && !vibes.some(v => c.vibes.includes(v))) return false;
-    if (tripTypes.length > 0 && !tripTypes.includes(c.type)) return false;
-    return true;
-  }), [vibes, tripTypes, showFavouritesOnly, favouriteCombos]);
+  const filteredCombos = useMemo(() => {
+    const specification = buildComboFilterSpecification({
+      showFavouritesOnly,
+      favourites: favouriteCombos,
+      vibes,
+      tripTypes,
+    });
+    return combos.filter(specification);
+  }, [combos, showFavouritesOnly, favouriteCombos, vibes, tripTypes]);
 
   const doSurprise = () => {
     const pool = filtered.length > 0 ? filtered : places;
@@ -271,7 +270,7 @@ function App() {
     dists: Object.fromEntries(distanceRanges.map(item => [item.key, item])),
     durs: Object.fromEntries(durationFilters.map(item => [item.key, item])),
     tripTypes: Object.fromEntries(tripTypeFilters.map(item => [item.key, item])),
-  }), [vibeFilters, distanceRanges, durationFilters, tripTypeFilters]);
+  }) as Record<string, Record<string, FilterItem>>, [vibeFilters, distanceRanges, durationFilters, tripTypeFilters]);
 
   const activeFilterChips = useMemo(() => {
     const chips = [];

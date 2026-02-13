@@ -1,15 +1,20 @@
 
 import React, { useState } from 'react';
-import '../styles/LocationSettings.css';
+import '../styles/LocationSettings.scss';
 import { useLocation } from '../context/LocationContext';
 import { useLanguage } from '../context/LanguageContext';
 import { LocationAutocompleteInput } from './LocationAutocompleteInput';
+import type { UserLocation } from '../types/domain';
 
-export default function LocationSettings({ onClose }) {
+interface LocationSettingsProps {
+  onClose?: () => void;
+}
+
+export default function LocationSettings({ onClose }: LocationSettingsProps) {
   const { userLocation, updateLocation, useCurrentLocation, loading, error } = useLocation();
   const { language, t } = useLanguage();
   const [input, setInput] = useState(userLocation?.address || '');
-  const [localError, setLocalError] = useState(null);
+  const [localError, setLocalError] = useState<string | null>(null);
 
   const handleSave = async () => {
     if (!input.trim()) {
@@ -40,8 +45,8 @@ export default function LocationSettings({ onClose }) {
       <LocationAutocompleteInput
         language={language}
         value={input}
-        onChange={e => setInput(e.target.value)}
-        onSelect={loc => {
+        onChange={(e) => setInput(e.target.value)}
+        onSelect={(loc) => {
           setInput(loc.address);
           handleSaveWithLocation(loc);
         }}
@@ -58,7 +63,7 @@ export default function LocationSettings({ onClose }) {
     </div>
   );
 
-  async function handleSaveWithLocation(loc) {
+  async function handleSaveWithLocation(loc: UserLocation) {
     try {
       await updateLocation(loc.address);
       if (onClose) onClose();
