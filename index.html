@@ -438,9 +438,9 @@ const vibeFilters = [
 const distanceRanges = [
   { key:"all", label:"Any", color:"#888" },
   { key:"close", label:"🟢 < 1 hr", color:"#4CAF50", max:50 },
-  { key:"mid", label:"🟡 1–2 hr", color:"#FFC107", min:50, max:150 },
-  { key:"far", label:"🟠 2–3 hr", color:"#FF5722", min:150, max:250 },
-  { key:"weekend", label:"🔴 3+ hr", color:"#E91E63", min:250 },
+  { key:"mid", label:"🟡 1–2 hr", color:"#FFC107", min:51, max:150 },
+  { key:"far", label:"🟠 2–3 hr", color:"#FF5722", min:151, max:250 },
+  { key:"weekend", label:"🔴 3+ hr", color:"#E91E63", min:251 },
 ];
 
 const durationFilters = [
@@ -600,8 +600,9 @@ function App() {
       const match = dists.some(dk => {
         const r = distanceRanges.find(d => d.key === dk);
         if (!r) return false;
-        if (r.min && p.km < r.min) return false;
-        if (r.max && p.km >= r.max) return false;
+        // Fixed boundary logic: use < for max instead of >=
+        if (r.min !== undefined && p.km < r.min) return false;
+        if (r.max !== undefined && p.km > r.max) return false;
         return true;
       });
       if (!match) return false;
@@ -701,7 +702,7 @@ function App() {
 
         {/* Content */}
         {tab === "places" && (
-          <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
+          <div key={`places-filter-${vibes.join('-')}-${dists.join('-')}-${durs.join('-')}`} style={{ display:"flex", flexDirection:"column", gap:10 }}>
             {filtered.length === 0 ? (
               <div style={{ textAlign:"center", padding:40, color:"#8B7355" }}>
                 <span style={{ fontSize:36 }}>🤷</span>
@@ -714,7 +715,7 @@ function App() {
         )}
 
         {tab === "combos" && (
-          <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
+          <div key={`combos-filter-${vibes.join('-')}-${tripTypes.join('-')}`} style={{ display:"flex", flexDirection:"column", gap:10 }}>
             {filteredCombos.length === 0 ? (
               <div style={{ textAlign:"center", padding:40, color:"#8B7355" }}>
                 <span style={{ fontSize:36 }}>🤷</span>
