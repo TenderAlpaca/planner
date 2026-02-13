@@ -8,6 +8,7 @@ import { FilterBar } from './components/FilterBar';
 import './styles/App.css';
 
 function App() {
+    const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
   const [vibes, setVibes] = useState([]);
   const [dists, setDists] = useState([]);
   const [durs, setDurs] = useState([]);
@@ -53,6 +54,7 @@ function App() {
   };
 
   const filtered = useMemo(() => places.filter(p => {
+    if (showFavouritesOnly && !favouritePlaces.includes(p.id)) return false;
     if (vibes.length > 0 && !vibes.some(v => p.vibes.includes(v))) return false;
     if (dists.length > 0) {
       const match = dists.some(dk => {
@@ -66,13 +68,14 @@ function App() {
     }
     if (durs.length > 0 && !durs.includes(p.duration)) return false;
     return true;
-  }), [vibes, dists, durs]);
+  }), [vibes, dists, durs, showFavouritesOnly, favouritePlaces]);
 
   const filteredCombos = useMemo(() => combos.filter(c => {
+    if (showFavouritesOnly && !favouriteCombos.includes(c.id)) return false;
     if (vibes.length > 0 && !vibes.some(v => c.vibes.includes(v))) return false;
     if (tripTypes.length > 0 && !tripTypes.includes(c.type)) return false;
     return true;
-  }), [vibes, tripTypes]);
+  }), [vibes, tripTypes, showFavouritesOnly, favouriteCombos]);
 
   const doSurprise = () => {
     const pool = filtered.length > 0 ? filtered : places;
@@ -121,6 +124,20 @@ function App() {
             />
           </div>
         )}
+
+        {/* Favourites Filter */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '18px 0 8px 0' }}>
+          <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', fontSize: 14, color: '#B5A693', userSelect: 'none' }}>
+            <input
+              type="checkbox"
+              checked={showFavouritesOnly}
+              onChange={e => setShowFavouritesOnly(e.target.checked)}
+              style={{ accentColor: '#E91E63', marginRight: 6 }}
+            />
+            <span style={{ fontSize: 18, marginRight: 4 }}>{showFavouritesOnly ? '❤️' : '🤍'}</span>
+            Favourites only
+          </label>
+        </div>
 
         {/* Tabs */}
         <div className="tabs">
