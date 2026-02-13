@@ -8,7 +8,7 @@ export function FilterBar({ label, items, active, onSelect }) {
       <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:8 }}>
         <div style={{ 
           fontSize:10, 
-          fontFamily:"'Inter', sans-serif", 
+          fontFamily:"'Outfit', sans-serif", 
           color:"#8B7355", 
           letterSpacing:"0.15em", 
           textTransform:"uppercase", 
@@ -26,7 +26,7 @@ export function FilterBar({ label, items, active, onSelect }) {
               color:"#8B7355", 
               fontSize:12, 
               cursor:"pointer",
-              fontFamily:"'Inter', sans-serif", 
+              fontFamily:"'Outfit', sans-serif", 
               textDecoration:"underline", 
               padding:"6px 10px",
               minHeight:"32px", 
@@ -56,7 +56,7 @@ export function FilterBar({ label, items, active, onSelect }) {
                 borderRadius:26, 
                 fontSize:13, 
                 cursor:"pointer",
-                fontFamily:"'Inter', sans-serif",
+                fontFamily:"'Outfit', sans-serif",
                 fontWeight: isActive ? 600 : 500, 
                 transition:"all 0.2s ease",
                 display:"flex", 

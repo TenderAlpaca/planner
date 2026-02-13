@@ -26,7 +26,7 @@ export function ComboCard({ combo }) {
           <span style={{ fontSize:26 }}>{combo.emoji}</span>
           <div>
             <div style={{ 
-              fontFamily:"'Cormorant Garamond', Georgia, serif", 
+              fontFamily:"'Playfair Display', Georgia, serif", 
               fontSize:20, 
               fontWeight:600, 
               color:"#F5F1EC" 
