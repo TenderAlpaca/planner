@@ -1,15 +1,15 @@
 import React from 'react';
 import { categories, getDistColor, getDistDot } from '../data/config';
 
-export function PlaceCard({ place }) {
+export function PlaceCard({ place, isFavourite, onToggleFavourite }) {
   const cat = categories[place.cat];
-  
   return (
     <div style={{
       background:"rgba(255,255,255,0.03)",
       border:"1px solid rgba(255,255,255,0.08)",
       borderRadius:14, padding:"18px 20px",
       transition:"all 0.25s ease",
+      position: 'relative',
     }}>
       <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginBottom:10 }}>
         <div style={{ flex:1 }}>
@@ -45,6 +45,24 @@ export function PlaceCard({ place }) {
             {cat.label}
           </div>
         )}
+        {/* Favourite button */}
+        <button
+          aria-label={isFavourite ? 'Remove from favourites' : 'Add to favourites'}
+          onClick={e => { e.stopPropagation(); onToggleFavourite && onToggleFavourite(); }}
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            marginLeft: 10,
+            fontSize: 20,
+            color: isFavourite ? '#E91E63' : '#B5A693',
+            transition: 'color 0.2s',
+            outline: 'none',
+          }}
+          title={isFavourite ? 'Unfavourite' : 'Favourite'}
+        >
+          {isFavourite ? '❤️' : '🤍'}
+        </button>
       </div>
       <p style={{ fontSize:13, lineHeight:"1.6", color:"#B5A693", margin:"0 0 10px 0" }}>
         {place.desc}

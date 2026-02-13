@@ -15,6 +15,37 @@ function App() {
   const [tab, setTab] = useState("places");
   const [surprise, setSurprise] = useState(null);
   const [shakeN, setShakeN] = useState(0);
+  // Favourites state
+  const [favouritePlaces, setFavouritePlaces] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('favouritePlaces')) || [];
+    } catch {
+      return [];
+    }
+  });
+  const [favouriteCombos, setFavouriteCombos] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('favouriteCombos')) || [];
+    } catch {
+      return [];
+    }
+  });
+
+  // Persist favourites
+  React.useEffect(() => {
+    localStorage.setItem('favouritePlaces', JSON.stringify(favouritePlaces));
+  }, [favouritePlaces]);
+  React.useEffect(() => {
+    localStorage.setItem('favouriteCombos', JSON.stringify(favouriteCombos));
+  }, [favouriteCombos]);
+
+  // Handlers
+  const toggleFavouritePlace = (id) => {
+    setFavouritePlaces(prev => prev.includes(id) ? prev.filter(pid => pid !== id) : [...prev, id]);
+  };
+  const toggleFavouriteCombo = (id) => {
+    setFavouriteCombos(prev => prev.includes(id) ? prev.filter(cid => cid !== id) : [...prev, id]);
+  };
 
   const toggle = (arr, setArr, key) => {
     if (key === "all") return setArr([]);
@@ -83,7 +114,11 @@ function App() {
         {surprise && (
           <div id="surprise-result" className="surprise-result fade-up">
             <div className="surprise-label">TODAY'S PICK ✨</div>
-            <PlaceCard place={surprise} />
+            <PlaceCard 
+              place={surprise} 
+              isFavourite={favouritePlaces.includes(surprise.id)}
+              onToggleFavourite={() => toggleFavouritePlace(surprise.id)}
+            />
           </div>
         )}
 
@@ -114,7 +149,11 @@ function App() {
               </div>
             ) : filtered.map((p, i) => (
               <div key={p.id} className="fade-up" style={{ animationDelay:`${i*0.03}s` }}>
-                <PlaceCard place={p} />
+                <PlaceCard 
+                  place={p}
+                  isFavourite={favouritePlaces.includes(p.id)}
+                  onToggleFavourite={() => toggleFavouritePlace(p.id)}
+                />
               </div>
             ))}
           </div>
@@ -133,7 +172,11 @@ function App() {
                 <FilterBar label="TRIP TYPE" items={tripTypeFilters} active={tripTypes} onSelect={(k) => toggle(tripTypes, setTripTypes, k)} />
                 {filteredCombos.map((c, i) => (
                   <div key={c.id} className="fade-up" style={{ animationDelay:`${i*0.03}s` }}>
-                    <ComboCard combo={c} />
+                    <ComboCard 
+                      combo={c}
+                      isFavourite={favouriteCombos.includes(c.id)}
+                      onToggleFavourite={() => toggleFavouriteCombo(c.id)}
+                    />
                   </div>
                 ))}
               </>
