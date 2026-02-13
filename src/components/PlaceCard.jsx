@@ -1,8 +1,15 @@
+
 import React from 'react';
+import { useLocation } from '../context/LocationContext';
 import { categories, getDistColor, getDistDot } from '../data/config';
 
 export function PlaceCard({ place, isFavourite, onToggleFavourite }) {
+  const { travelTimes, loading, error } = useLocation();
   const cat = categories[place.cat];
+  // Get travel time for this place
+  const travelData = travelTimes[place.id];
+  const distance = travelData ? Math.round(travelData.distance / 1000) : null;
+  const time = travelData ? travelData.durationText : null;
   return (
     <div style={{
       background:"rgba(255,255,255,0.03)",
@@ -28,7 +35,17 @@ export function PlaceCard({ place, isFavourite, onToggleFavourite }) {
           <div style={{ display:"flex", alignItems:"center", gap:8, fontSize:12, color:"#9A8B7A" }}>
             <span>{place.loc}</span>
             <span>•</span>
-            <span style={{ color:getDistColor(place.km) }}>{getDistDot(place.km)} {place.km}km • {place.time}</span>
+            {loading && !travelData ? (
+              <span style={{ color:'#8B7355' }}>⏳ Calculating...</span>
+            ) : error ? (
+              <span style={{ color:'#E57373' }}>⚠️ {error}</span>
+            ) : travelData ? (
+              <span style={{ color:getDistColor(distance) }}>
+                {getDistDot(distance)} {distance}km • {time} ✓
+              </span>
+            ) : (
+              <span style={{ color:'#B5A693' }}>Distance unavailable</span>
+            )}
           </div>
         </div>
         {cat && (

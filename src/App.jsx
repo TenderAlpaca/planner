@@ -6,8 +6,12 @@ import { PlaceCard } from './components/PlaceCard';
 import { ComboCard } from './components/ComboCard';
 import { FilterBar } from './components/FilterBar';
 import './styles/App.css';
+import { useLocation } from './context/LocationContext';
+import LocationSettings from './components/LocationSettings';
 
 function App() {
+    const { travelTimes, isFirstVisit, setIsFirstVisit, userLocation } = useLocation();
+    const [showLocationSettings, setShowLocationSettings] = useState(false);
     const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
   const [vibes, setVibes] = useState([]);
   const [dists, setDists] = useState([]);
@@ -57,18 +61,20 @@ function App() {
     if (showFavouritesOnly && !favouritePlaces.includes(p.id)) return false;
     if (vibes.length > 0 && !vibes.some(v => p.vibes.includes(v))) return false;
     if (dists.length > 0) {
+      const travelData = travelTimes[p.id];
+      const km = travelData ? Math.round(travelData.distance / 1000) : null;
       const match = dists.some(dk => {
         const r = distanceRanges.find(d => d.key === dk);
         if (!r) return false;
-        if (r.min !== undefined && p.km < r.min) return false;
-        if (r.max !== undefined && p.km > r.max) return false;
+        if (r.min !== undefined && (km === null || km < r.min)) return false;
+        if (r.max !== undefined && (km === null || km > r.max)) return false;
         return true;
       });
       if (!match) return false;
     }
     if (durs.length > 0 && !durs.includes(p.duration)) return false;
     return true;
-  }), [vibes, dists, durs, showFavouritesOnly, favouritePlaces]);
+  }), [vibes, dists, durs, showFavouritesOnly, favouritePlaces, travelTimes]);
 
   const filteredCombos = useMemo(() => combos.filter(c => {
     if (showFavouritesOnly && !favouriteCombos.includes(c.id)) return false;
@@ -87,16 +93,21 @@ function App() {
 
   const counts = { places: filtered.length, combos: filteredCombos.length };
 
+  React.useEffect(() => {
+    if (!userLocation) setShowLocationSettings(true);
+  }, [userLocation]);
   return (
     <div className="app-container">
       <div className="content-wrapper">
         {/* Header */}
         <div className="header">
           <h1>Date Planner</h1>
+          <button onClick={() => setShowLocationSettings(true)} className="settings-trigger-btn" title="Location Settings">📍</button>
           <p className="subtitle">
             {places.length} places • {combos.length} ready-made plans • Day trips to weekend getaways
           </p>
         </div>
+        {showLocationSettings && <LocationSettings onClose={() => setShowLocationSettings(false)} />}
 
         {/* Filters */}
         <FilterBar label="MOOD" items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} />
