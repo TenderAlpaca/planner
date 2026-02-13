@@ -551,26 +551,39 @@ function FilterBar({ label, items, active, onSelect }) {
     <div style={{ marginBottom:14 }}>
       <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:8 }}>
         <div style={{ fontSize:10, fontFamily:"'Inter', sans-serif", color:"#8B7355", letterSpacing:"0.15em", textTransform:"uppercase", fontWeight:600 }}>{label}</div>
-        {active.length > 0 && <button onClick={() => onSelect("all")} style={{
-          background:"none", border:"none", color:"#8B7355", fontSize:10, cursor:"pointer",
-          fontFamily:"'Inter', sans-serif", textDecoration:"underline", padding:0,
+        {active.length > 0 && <button 
+          onClick={(e) => { e.preventDefault(); onSelect("all"); }}
+          onTouchEnd={(e) => { e.preventDefault(); onSelect("all"); }}
+          style={{
+          background:"none", border:"none", color:"#8B7355", fontSize:12, cursor:"pointer",
+          fontFamily:"'Inter', sans-serif", textDecoration:"underline", padding:"6px 10px",
+          minHeight:"32px", touchAction:"manipulation", 
+          WebkitTapHighlightColor:"rgba(139,115,85,0.2)",
+          userSelect:"none", WebkitUserSelect:"none",
         }}>clear</button>}
       </div>
       <div style={{ display:"flex", flexWrap:"wrap", gap:6 }}>
         {items.filter(i => i.key !== "all").map(item => {
           const isActive = active.includes(item.key);
           return (
-            <button key={item.key} onClick={() => onSelect(item.key)} style={{
+            <button 
+              key={item.key} 
+              onClick={(e) => { e.preventDefault(); onSelect(item.key); }}
+              onTouchEnd={(e) => { e.preventDefault(); onSelect(item.key); }}
+              style={{
               background: isActive ? "rgba(218,165,105,0.15)" : "rgba(255,255,255,0.035)",
               border: `1px solid ${isActive ? (item.color || "rgba(218,165,105,0.4)") + (item.color?"60":"") : "rgba(255,255,255,0.08)"}`,
               color: isActive ? (item.color || "#DAA569") : "#8B7355",
-              padding:"7px 16px", borderRadius:22, fontSize:12, cursor:"pointer",
+              padding:"14px 22px", borderRadius:26, fontSize:13, cursor:"pointer",
               fontFamily:"'Inter', sans-serif",
               fontWeight: isActive ? 600 : 500, transition:"all 0.2s ease",
-              display:"flex", alignItems:"center", gap:5,
+              display:"flex", alignItems:"center", gap:6,
+              minHeight:"48px", minWidth:"fit-content",
+              touchAction:"manipulation", WebkitTapHighlightColor:"rgba(218,165,105,0.2)",
+              userSelect:"none", WebkitUserSelect:"none",
             }}>
-              {item.icon && <span style={{ fontSize:13 }}>{item.icon}</span>}
-              {item.label}
+              {item.icon && <span style={{ fontSize:15, pointerEvents:"none" }}>{item.icon}</span>}
+              <span style={{ pointerEvents:"none" }}>{item.label}</span>
             </button>
           );
         })}
@@ -661,18 +674,24 @@ function App() {
         {tab === "combos" && <FilterBar label="TRIP TYPE" items={tripTypeFilters} active={tripTypes} onSelect={k => toggle(tripTypes, setTripTypes, k)} />}
 
         {/* Surprise */}
-        <button onClick={doSurprise} style={{
-          width:"100%", padding:"14px",
+        <button 
+          onClick={(e) => { e.preventDefault(); doSurprise(); }}
+          onTouchEnd={(e) => { e.preventDefault(); doSurprise(); }}
+          style={{
+          width:"100%", padding:"18px",
           background:"linear-gradient(135deg, rgba(218,165,105,0.12) 0%, rgba(205,127,50,0.08) 100%)",
           border:"1px solid rgba(218,165,105,0.25)", borderRadius:12,
-          color:"#DAA569", fontSize:14, fontWeight:600, cursor:"pointer",
+          color:"#DAA569", fontSize:15, fontWeight:600, cursor:"pointer",
           fontFamily:"'Inter', sans-serif", letterSpacing:"0.03em",
           transition:"all 0.2s ease", marginBottom:20,
           display:"flex", alignItems:"center", justifyContent:"center", gap:8,
           boxShadow:"0 4px 16px rgba(218,165,105,0.1)",
+          minHeight:"52px", touchAction:"manipulation", 
+          WebkitTapHighlightColor:"rgba(218,165,105,0.2)",
+          userSelect:"none", WebkitUserSelect:"none",
         }}>
-          <span key={shakeN} className={shakeN > 0 ? "shake" : ""} style={{ fontSize:20 }}>🎲</span>
-          SURPRISE ME
+          <span key={shakeN} className={shakeN > 0 ? "shake" : ""} style={{ fontSize:22, pointerEvents:"none" }}>🎲</span>
+          <span style={{ pointerEvents:"none" }}>SURPRISE ME</span>
         </button>
 
         {surprise && (
@@ -691,12 +710,21 @@ function App() {
         {/* Tabs */}
         <div style={{ display:"flex", gap:0, marginBottom:20, borderBottom:"1px solid rgba(255,255,255,0.08)" }}>
           {[{key:"places",label:`Places (${counts.places})`},{key:"combos",label:`Plans (${counts.combos})`}].map(t => (
-            <button key={t.key} onClick={() => setTab(t.key)} style={{
-              flex:1, padding:"12px 0", background:"none", border:"none",
+            <button 
+              key={t.key} 
+              onClick={(e) => { e.preventDefault(); setTab(t.key); }}
+              onTouchEnd={(e) => { e.preventDefault(); setTab(t.key); }}
+              style={{
+              flex:1, padding:"16px 0", background:"none", border:"none",
               borderBottom: tab === t.key ? "2px solid #DAA569" : "2px solid transparent",
-              color: tab === t.key ? "#F5F1EC" : "#8B7355", fontSize:13, fontWeight:600,
+              color: tab === t.key ? "#F5F1EC" : "#8B7355", fontSize:14, fontWeight:600,
               cursor:"pointer", fontFamily:"'Inter', sans-serif", transition:"all 0.2s ease",
-            }}>{t.label}</button>
+              minHeight:"52px", touchAction:"manipulation", 
+              WebkitTapHighlightColor:"rgba(218,165,105,0.2)",
+              userSelect:"none", WebkitUserSelect:"none",
+            }}>
+              <span style={{ pointerEvents:"none" }}>{t.label}</span>
+            </button>
           ))}
         </div>
 
