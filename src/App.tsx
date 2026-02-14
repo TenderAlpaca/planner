@@ -6,11 +6,13 @@ import { FilterBar } from './components/FilterBar';
 import { useLocation } from './context/LocationContext';
 import { useLanguage } from './context/LanguageContext';
 import SettingsModal from './components/SettingsModal';
+import { HeroWelcome } from './components/HeroWelcome';
 import { buildComboFilterSpecification, buildPlaceFilterSpecification } from './utils/filterSpecifications';
 import { loadAccentPreference, loadThemePreference, saveAccentPreference, saveThemePreference } from './utils/storage';
 import { accentOptions, accentPalettes } from './data/accentPalettes';
 import type { Combo, FilterItem, LocalizedData, Place } from './types/domain';
 import type { AccentPreference } from './data/accentPalettes';
+import './styles/HeroWelcome.scss';
 
 type ThemePreference = 'light' | 'dark';
 
@@ -53,6 +55,8 @@ function App() {
   const { travelTimes, userLocation, isFirstVisit } = useLocation();
   const { language, setLanguage, t } = useLanguage();
   const [showLocationSettings, setShowLocationSettings] = useState(false);
+  const [showWelcomeScreen, setShowWelcomeScreen] = useState(false);
+  const [welcomeComplete, setWelcomeComplete] = useState(false);
   const [themePreference, setThemePreference] = useState<ThemePreference | null>(() => loadThemePreference());
   const [accentPreference, setAccentPreference] = useState<AccentPreference>(() => loadAccentPreference() ?? 'blue');
   const [systemPrefersDark, setSystemPrefersDark] = useState(() => window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -494,7 +498,7 @@ function App() {
   React.useEffect(() => {
     if (!hasAutoOpenedLocationPrompt.current && isFirstVisit && !userLocation && !dismissedLocationPrompt) {
       hasAutoOpenedLocationPrompt.current = true;
-      setShowLocationSettings(true);
+      setShowWelcomeScreen(true);
     }
   }, [isFirstVisit, userLocation, dismissedLocationPrompt]);
 
@@ -520,10 +524,27 @@ function App() {
     setShowLocationSettings(false);
   };
 
+  const handleWelcomeComplete = () => {
+    setWelcomeComplete(true);
+    // Add a small delay for the fade-out animation before hiding
+    setTimeout(() => {
+      setShowWelcomeScreen(false);
+      setDismissedLocationPrompt(true);
+    }, 400);
+  };
+
   return (
     <div className="container py-4">
       <div className="mx-auto" style={{ maxWidth: 1140 }}>
-        <div className={`text-center app-hero ${isInitialLoad ? 'is-loading' : 'is-ready'}`}>
+        {showWelcomeScreen && (
+          <div className={welcomeComplete ? 'fade-out' : ''}>
+            <HeroWelcome onComplete={handleWelcomeComplete} />
+          </div>
+        )}
+
+        {!showWelcomeScreen && (
+          <div className={welcomeComplete ? 'main-content-enter' : ''}>
+            <div className={`text-center app-hero ${isInitialLoad ? 'is-loading' : 'is-ready'}`}>
           {!isInitialLoad && (
             <div className="d-flex justify-content-end align-items-center mb-2">
               <div className="header-controls" role="group" aria-label={t('labels.settings')}>
@@ -795,6 +816,8 @@ function App() {
               </div>
             )}
           </>
+        )}
+          </div>
         )}
       </div>
     </div>
