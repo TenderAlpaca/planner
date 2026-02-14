@@ -44,6 +44,7 @@ function sanitizeSelection(prev: string[], validSet: Set<string>): string[] {
 }
 
 function App() {
+  const hasThemeInitialized = useRef(false);
   const initialUrlState = React.useMemo(() => readStateFromUrl(), []);
   const filtersShellRef = useRef<HTMLDivElement | null>(null);
   const activeFiltersRowRef = useRef<HTMLDivElement | null>(null);
@@ -75,6 +76,7 @@ function App() {
   const [surprise, setSurprise] = useState<Place | null>(null);
   const [surpriseIdFromUrl, setSurpriseIdFromUrl] = useState(initialUrlState.surpriseId);
   const [shakeN, setShakeN] = useState(0);
+  const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
   const emptyLocalizedData = useMemo<LocalizedData>(() => ({
     places: [],
     combos: [],
@@ -202,6 +204,13 @@ function App() {
     const themeColor = document.querySelector('meta[name="theme-color"]');
     if (themeColor) {
       themeColor.setAttribute('content', palette.bodyBg);
+    }
+
+    if (!hasThemeInitialized.current) {
+      hasThemeInitialized.current = true;
+      window.requestAnimationFrame(() => {
+        root.classList.add('theme-ready');
+      });
     }
   }, [accentPreference, effectiveTheme]);
 
@@ -392,6 +401,7 @@ function App() {
 
   const counts = { places: filtered.length, combos: filteredCombos.length };
   const isDataReady = !isDataLoading && !dataError && places.length > 0;
+  const isInitialLoad = !hasLoadedOnce && isDataLoading;
 
   const filterLookup = useMemo(() => ({
     vibes: Object.fromEntries(vibeFilters.map(item => [item.key, item])),
@@ -494,6 +504,12 @@ function App() {
     }
   }, [userLocation]);
 
+  React.useEffect(() => {
+    if (!isDataLoading) {
+      setHasLoadedOnce(true);
+    }
+  }, [isDataLoading]);
+
   const openLocationSettings = () => {
     setDismissedLocationPrompt(false);
     setShowLocationSettings(true);
@@ -507,23 +523,36 @@ function App() {
   return (
     <div className="container py-4">
       <div className="mx-auto" style={{ maxWidth: 1140 }}>
-        <div className="text-center mb-4">
-          <div className="d-flex justify-content-end align-items-center mb-2">
-            <div className="header-controls" role="group" aria-label={t('labels.settings')}>
-              <button
-                onClick={showLocationSettings ? closeLocationSettings : openLocationSettings}
-                className="btn btn-outline-primary btn-sm location-settings-trigger-btn"
-                title={t('labels.settings')}
-                aria-label={t('labels.settings')}
-              >
-                ⚙️
-              </button>
+        <div className={`text-center app-hero ${isInitialLoad ? 'is-loading' : 'is-ready'}`}>
+          {!isInitialLoad && (
+            <div className="d-flex justify-content-end align-items-center mb-2">
+              <div className="header-controls" role="group" aria-label={t('labels.settings')}>
+                <button
+                  onClick={showLocationSettings ? closeLocationSettings : openLocationSettings}
+                  className="btn btn-outline-primary btn-sm location-settings-trigger-btn"
+                  title={t('labels.settings')}
+                  aria-label={t('labels.settings')}
+                >
+                  ⚙️
+                </button>
+              </div>
             </div>
+          )}
+          <div className="app-hero-inner">
+            <h1 className="display-6 fw-semibold app-hero-title">{t('app.title')}</h1>
+            <p className="text-secondary mb-0 app-hero-subtitle">
+              {isInitialLoad
+                ? t('labels.loading')
+                : t('app.subtitle', { places: places.length, combos: combos.length })}
+            </p>
+            {isInitialLoad && (
+              <div className="app-hero-loader" aria-live="polite">
+                <span className="app-hero-loader-dot" aria-hidden="true" />
+                <span className="app-hero-loader-dot" aria-hidden="true" />
+                <span className="app-hero-loader-dot" aria-hidden="true" />
+              </div>
+            )}
           </div>
-          <h1 className="display-6 fw-semibold">{t('app.title')}</h1>
-          <p className="text-secondary mb-0">
-            {t('app.subtitle', { places: places.length, combos: combos.length })}
-          </p>
         </div>
 
         {showLocationSettings && (
@@ -541,33 +570,10 @@ function App() {
           />
         )}
 
-        <div ref={filtersShellRef} className="card border-0 shadow-sm mb-3 filters-panel">
-          <div className="card-body">
-          {filtersCollapsed && (
-            <div className="filters-summary-bar">
-              <div className="filters-summary-left">
-                <span className="badge text-bg-secondary filters-summary-count">
-                  {activeFiltersCount > 0
-                    ? t('filters.activeSummary', { count: activeFiltersCount })
-                    : t('filters.noneSummary')}
-                </span>
-                {activeFiltersCount > 0 && (
-                  <button className="btn btn-sm btn-outline-secondary filters-summary-action" onClick={clearAllFilters}>
-                    {t('filters.clearAll')}
-                  </button>
-                )}
-              </div>
-
-              <div className="filters-summary-actions">
-                <button className="btn btn-sm btn-primary filters-summary-action" onClick={showFiltersFromAnywhere}>
-                  {t('filters.edit')}
-                </button>
-              </div>
-            </div>
-          )}
-
-          {!filtersCollapsed && (
-            <>
+        {!isInitialLoad && (
+          <div ref={filtersShellRef} className="card border-0 shadow-sm mb-3 filters-panel">
+            <div className="card-body">
+            {filtersCollapsed && (
               <div className="filters-summary-bar">
                 <div className="filters-summary-left">
                   <span className="badge text-bg-secondary filters-summary-count">
@@ -583,96 +589,123 @@ function App() {
                 </div>
 
                 <div className="filters-summary-actions">
-                  <button
-                    className="btn btn-sm btn-outline-primary filters-summary-action"
-                    onClick={() => setFiltersCollapsed(true)}
-                    aria-expanded={!filtersCollapsed}
-                  >
-                    {t('filters.hide')}
+                  <button className="btn btn-sm btn-primary filters-summary-action" onClick={showFiltersFromAnywhere}>
+                    {t('filters.edit')}
                   </button>
                 </div>
               </div>
+            )}
 
-              <div className="mb-3">
-                <div
-                  ref={activeFiltersRowRef}
-                  className="d-flex gap-2 overflow-auto pb-1 filters-chip-row"
-                  aria-label={t('filters.selected')}
-                  onWheel={handleActiveFiltersWheel}
-                  onWheelCapture={handleActiveFiltersWheel}
-                  onMouseEnter={() => { isHoveringActiveFiltersRef.current = true; }}
-                  onMouseLeave={() => { isHoveringActiveFiltersRef.current = false; }}
-                >
-                  {activeFilterChips.map(chip => (
-                    <button key={chip.key} className="btn btn-sm btn-outline-secondary text-nowrap filters-chip" onClick={chip.remove}>
-                      <span>{chip.icon ? `${chip.icon} ` : ''}{chip.label}</span>
-                      <span aria-hidden="true">×</span>
+            {!filtersCollapsed && (
+              <>
+                <div className="filters-summary-bar">
+                  <div className="filters-summary-left">
+                    <span className="badge text-bg-secondary filters-summary-count">
+                      {activeFiltersCount > 0
+                        ? t('filters.activeSummary', { count: activeFiltersCount })
+                        : t('filters.noneSummary')}
+                    </span>
+                    {activeFiltersCount > 0 && (
+                      <button className="btn btn-sm btn-outline-secondary filters-summary-action" onClick={clearAllFilters}>
+                        {t('filters.clearAll')}
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="filters-summary-actions">
+                    <button
+                      className="btn btn-sm btn-outline-primary filters-summary-action"
+                      onClick={() => setFiltersCollapsed(true)}
+                      aria-expanded={!filtersCollapsed}
+                    >
+                      {t('filters.hide')}
                     </button>
-                  ))}
+                  </div>
                 </div>
-              </div>
 
-              {tab === 'places' ? (
-                <>
-                  <div className="row g-2 mb-2">
-                    <div className="col-12 col-lg-4"><FilterBar label={t('filters.mood')} items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} /></div>
-                    <div className="col-12 col-lg-4"><FilterBar label={t('filters.distance')} items={distanceRanges} active={dists} onSelect={(k) => toggle(dists, setDists, k)} /></div>
-                    <div className="col-12 col-lg-4"><FilterBar label={t('filters.duration')} items={durationFilters} active={durs} onSelect={(k) => toggle(durs, setDurs, k)} /></div>
+                <div className="mb-3">
+                  <div
+                    ref={activeFiltersRowRef}
+                    className="d-flex gap-2 overflow-auto pb-1 filters-chip-row"
+                    aria-label={t('filters.selected')}
+                    onWheel={handleActiveFiltersWheel}
+                    onWheelCapture={handleActiveFiltersWheel}
+                    onMouseEnter={() => { isHoveringActiveFiltersRef.current = true; }}
+                    onMouseLeave={() => { isHoveringActiveFiltersRef.current = false; }}
+                  >
+                    {activeFilterChips.map(chip => (
+                      <button key={chip.key} className="btn btn-sm btn-outline-secondary text-nowrap filters-chip" onClick={chip.remove}>
+                        <span>{chip.icon ? `${chip.icon} ` : ''}{chip.label}</span>
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    ))}
                   </div>
-                  <div className="form-check mb-2">
-                    <label className="form-check-label d-flex align-items-center gap-2">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        checked={showFavouritesOnly}
-                        onChange={e => setShowFavouritesOnly(e.target.checked)}
-                      />
-                      <span>{showFavouritesOnly ? '❤️' : '🤍'}</span>
-                      {t('labels.favouritesOnly')}
-                    </label>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="row g-2 mb-2">
-                    <div className="col-12 col-lg-6"><FilterBar label={t('filters.mood')} items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} /></div>
-                    <div className="col-12 col-lg-6"><FilterBar label={t('filters.tripType')} items={tripTypeFilters} active={tripTypes} onSelect={(k) => toggle(tripTypes, setTripTypes, k)} /></div>
-                  </div>
-                  <div className="form-check mb-2">
-                    <label className="form-check-label d-flex align-items-center gap-2">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        checked={showFavouritesOnly}
-                        onChange={e => setShowFavouritesOnly(e.target.checked)}
-                      />
-                      <span>{showFavouritesOnly ? '❤️' : '🤍'}</span>
-                      {t('labels.favouritesOnly')}
-                    </label>
-                  </div>
-                </>
-              )}
-            </>
-          )}
+                </div>
+
+                {tab === 'places' ? (
+                  <>
+                    <div className="row g-2 mb-2">
+                      <div className="col-12 col-lg-4"><FilterBar label={t('filters.mood')} items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} /></div>
+                      <div className="col-12 col-lg-4"><FilterBar label={t('filters.distance')} items={distanceRanges} active={dists} onSelect={(k) => toggle(dists, setDists, k)} /></div>
+                      <div className="col-12 col-lg-4"><FilterBar label={t('filters.duration')} items={durationFilters} active={durs} onSelect={(k) => toggle(durs, setDurs, k)} /></div>
+                    </div>
+                    <div className="form-check mb-2">
+                      <label className="form-check-label d-flex align-items-center gap-2">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          checked={showFavouritesOnly}
+                          onChange={e => setShowFavouritesOnly(e.target.checked)}
+                        />
+                        <span>{showFavouritesOnly ? '❤️' : '🤍'}</span>
+                        {t('labels.favouritesOnly')}
+                      </label>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="row g-2 mb-2">
+                      <div className="col-12 col-lg-6"><FilterBar label={t('filters.mood')} items={vibeFilters} active={vibes} onSelect={(k) => toggle(vibes, setVibes, k)} /></div>
+                      <div className="col-12 col-lg-6"><FilterBar label={t('filters.tripType')} items={tripTypeFilters} active={tripTypes} onSelect={(k) => toggle(tripTypes, setTripTypes, k)} /></div>
+                    </div>
+                    <div className="form-check mb-2">
+                      <label className="form-check-label d-flex align-items-center gap-2">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          checked={showFavouritesOnly}
+                          onChange={e => setShowFavouritesOnly(e.target.checked)}
+                        />
+                        <span>{showFavouritesOnly ? '❤️' : '🤍'}</span>
+                        {t('labels.favouritesOnly')}
+                      </label>
+                    </div>
+                  </>
+                )}
+              </>
+            )}
+            </div>
           </div>
-        </div>
+        )}
 
-        {showFloatingFilterButton && (
+        {!isInitialLoad && showFloatingFilterButton && (
           <button className="btn btn-primary position-fixed bottom-0 end-0 m-3 rounded-pill shadow" onClick={showFiltersFromAnywhere}>
             {t('filters.edit')}
             {activeFiltersCount > 0 && <span className="badge text-bg-light ms-2">{activeFiltersCount}</span>}
           </button>
         )}
 
-        <button 
-          onClick={(e) => { e.preventDefault(); doSurprise(); }}
-          onTouchEnd={(e) => { e.preventDefault(); doSurprise(); }}
-          className="btn btn-warning w-100 mb-3"
-          disabled={!isDataReady}
-        >
-          <span key={shakeN} style={{ fontSize:22, pointerEvents:"none" }}>🎲</span>
-          <span style={{ pointerEvents:"none" }} className="ms-2">{t('actions.surpriseMe')}</span>
-        </button>
+        {!isInitialLoad && (
+          <button 
+            onClick={(e) => { e.preventDefault(); doSurprise(); }}
+            onTouchEnd={(e) => { e.preventDefault(); doSurprise(); }}
+            className="btn btn-warning w-100 mb-3"
+            disabled={!isDataReady}
+          >
+            <span key={shakeN} style={{ fontSize:22, pointerEvents:"none" }}>🎲</span>
+            <span style={{ pointerEvents:"none" }} className="ms-2">{t('actions.surpriseMe')}</span>
+          </button>
+        )}
 
         {surprise && (
           <div id="surprise-result" className="card border-0 shadow-sm mb-3">
@@ -688,7 +721,7 @@ function App() {
           </div>
         )}
 
-        {isDataLoading && (
+        {!isInitialLoad && isDataLoading && (
           <div className="alert alert-secondary text-center mb-3">
             <span style={{ fontSize:30 }}>⏳</span>
             <p className="mb-0 mt-2">{t('labels.loading')}</p>
