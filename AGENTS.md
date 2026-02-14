@@ -25,6 +25,7 @@ npm run dev
 npm run typecheck
 npm run build
 npm run test:e2e
+npm run test:e2e:ui
 ```
 
 ## Architecture map
@@ -67,6 +68,12 @@ npm run test:e2e
    - `npm run typecheck`
    - `npm run build`
 4. If edit impacts critical flows, run `npm run test:e2e`.
+
+Playwright browsers (first-time only):
+
+```bash
+npx playwright install
+```
 
 ## Known sensitive areas
 

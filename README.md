@@ -122,6 +122,13 @@ Recommended before PR/merge:
 npm run typecheck
 npm run build
 npm run test:e2e
+npm run test:e2e:ui
+```
+
+First-time Playwright run:
+
+```bash
+npx playwright install
 ```
 
 ## Documentation for AI/code agents

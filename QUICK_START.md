@@ -27,6 +27,26 @@ npm run build
 
 Build runs TypeScript checks and outputs production files in `dist`.
 
+## 3b) Optional: run end-to-end tests
+
+First time only:
+
+```bash
+npx playwright install
+```
+
+Run tests:
+
+```bash
+npm run test:e2e
+```
+
+UI mode:
+
+```bash
+npm run test:e2e:ui
+```
+
 ## 4) Deploy to GitHub Pages
 
 1. Ensure base path in [vite.config.ts](vite.config.ts) matches your repo name.
