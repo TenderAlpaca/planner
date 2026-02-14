@@ -30,8 +30,6 @@ export default function SettingsModal({
   const [input, setInput] = useState(userLocation?.address || '');
   const [localError, setLocalError] = useState<string | null>(null);
   const systemThemeLabel = t('theme.system');
-  const locationInputId = React.useId();
-  const errorId = React.useId();
 
   const handleSave = async () => {
     if (!input.trim()) {
@@ -62,7 +60,6 @@ export default function SettingsModal({
         role="dialog"
         aria-modal="true"
         aria-label={t('labels.settings')}
-        aria-busy={loading}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="card-body p-4 p-sm-4">
@@ -74,10 +71,9 @@ export default function SettingsModal({
                 {t('labels.locationMissing')}
               </div>
             )}
-            <label className="form-label fw-semibold mb-2" htmlFor={locationInputId}>{t('labels.yourLocation')}</label>
+            <label className="form-label fw-semibold mb-2">{t('labels.yourLocation')}</label>
             <LocationAutocompleteInput
               language={language}
-              id={locationInputId}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onSelect={(loc) => {
@@ -87,9 +83,6 @@ export default function SettingsModal({
               placeholder={t('labels.locationPlaceholder')}
               className="form-control mb-3"
               disabled={loading}
-              describedBy={(error || localError) ? errorId : undefined}
-              autoFocus
-              hasError={Boolean(error || localError)}
             />
             <div className="d-grid gap-2 d-sm-flex mb-3">
               <button onClick={handleSave} disabled={loading} className="btn btn-primary flex-fill">{t('actions.save')}</button>
@@ -166,12 +159,8 @@ export default function SettingsModal({
               ))}
             </div>
           </div>
-          {(error || localError) && (
-            <div id={errorId} className="alert alert-danger mt-3 mb-0 py-2" role="alert">
-              {error || localError}
-            </div>
-          )}
-          {loading && <div className="text-secondary small mt-3" aria-live="polite">{t('labels.loading')}</div>}
+          {(error || localError) && <div className="alert alert-danger mt-3 mb-0 py-2">{error || localError}</div>}
+          {loading && <div className="text-secondary small mt-3">{t('labels.loading')}</div>}
         </div>
       </div>
     </div>
