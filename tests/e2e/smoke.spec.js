@@ -145,7 +145,7 @@ test('touch scroll starting on a button does not trigger button click', async ({
   const surpriseButton = page.getByRole('button', { name: /surprise me/i });
   await expect(surpriseButton).toBeVisible();
 
-  await surpriseButton.evaluate((button) => {
+  const clickSuppressed = await surpriseButton.evaluate((button) => {
     const createTouch = (x, y) => new Touch({
       identifier: 1,
       target: button,
@@ -177,8 +177,15 @@ test('touch scroll starting on a button does not trigger button click', async ({
       bubbles: true,
       cancelable: true,
     }));
+
+    const clickEvent = new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
+    });
+    button.dispatchEvent(clickEvent);
+    return clickEvent.defaultPrevented;
   });
 
-  await surpriseButton.click();
+  expect(clickSuppressed).toBeTruthy();
   await expect(page.locator('#surprise-result')).toBeHidden();
 });
