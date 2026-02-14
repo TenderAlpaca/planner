@@ -2,6 +2,7 @@ export const messages = {
   en: {
     meta: {
       title: 'Weekend Escape - 95+ Places in Southern Hungary',
+      description: 'Plan day trips and weekend getaways across Southern Hungary with curated places and ready-made combos.',
     },
     app: {
       title: 'Weekend Escape',
@@ -89,6 +90,7 @@ export const messages = {
   hu: {
     meta: {
       title: 'Weekend Escape - 95+ hely Dél-Magyarországon',
+      description: 'Egynapos kirandulasok es hetvegi kikapcsolodasok Del-Magyarorszagon, valtogathato helyekkel es programcsomagokkal.',
     },
     app: {
       title: 'Weekend Escape',

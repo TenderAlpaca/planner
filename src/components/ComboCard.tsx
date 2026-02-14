@@ -10,10 +10,24 @@ export function ComboCard({ combo }: ComboCardProps) {
   const [open, setOpen] = useState(false);
   const { t } = useLanguage();
   const isWeekend = combo.type === "weekend";
+  const detailsId = React.useId();
+
+  const handleToggle = () => setOpen(prev => !prev);
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleToggle();
+    }
+  };
   
   return (
     <div 
-      onClick={() => setOpen(!open)} 
+      onClick={handleToggle}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+      aria-expanded={open}
+      aria-controls={detailsId}
       className={`card shadow-sm border-0 h-100 ${open ? 'bg-light' : ''}`}
       style={{ cursor: 'pointer' }}
     >
@@ -35,15 +49,13 @@ export function ComboCard({ combo }: ComboCardProps) {
         </div>
       </div>
       
-      {open && (
-        <div className="border-top mt-3 pt-3">
-          <ol className="mb-0" style={{ paddingLeft: 20, fontSize: 13, lineHeight: 1.8 }}>
-            {combo.steps.map((step, i) => (
-              <li key={i} className="mb-2 text-secondary">{step}</li>
-            ))}
-          </ol>
-        </div>
-      )}
+      <div className="border-top mt-3 pt-3" id={detailsId} hidden={!open}>
+        <ol className="mb-0" style={{ paddingLeft: 20, fontSize: 13, lineHeight: 1.8 }}>
+          {combo.steps.map((step, i) => (
+            <li key={i} className="mb-2 text-secondary">{step}</li>
+          ))}
+        </ol>
+      </div>
       </div>
     </div>
   );

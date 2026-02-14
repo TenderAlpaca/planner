@@ -87,7 +87,24 @@ function App() {
 
   React.useEffect(() => {
     document.title = t('meta.title');
-  }, [t]);
+    const description = t('meta.description');
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', description);
+    }
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) {
+      ogTitle.setAttribute('content', t('meta.title'));
+    }
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) {
+      ogDescription.setAttribute('content', description);
+    }
+    const ogLocale = document.querySelector('meta[property="og:locale"]');
+    if (ogLocale) {
+      ogLocale.setAttribute('content', language === 'hu' ? 'hu_HU' : 'en_US');
+    }
+  }, [t, language]);
 
   React.useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -144,6 +161,11 @@ function App() {
     root.style.setProperty('--bs-body-bg', palette.bodyBg);
 
     saveAccentPreference(accentPreference);
+
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) {
+      themeColor.setAttribute('content', palette.bodyBg);
+    }
   }, [accentPreference, effectiveTheme]);
 
   React.useEffect(() => {
