@@ -215,24 +215,36 @@ function App() {
   }, [filtersCollapsed]);
 
   React.useEffect(() => {
-    const onScroll = () => {
-      const node = filtersShellRef.current;
-      if (!node) {
-        setShowFloatingFilterButton(false);
-        return;
-      }
+    const node = filtersShellRef.current;
+    if (!node) {
+      setShowFloatingFilterButton(false);
+      return undefined;
+    }
+
+    const updateVisibility = () => {
       const rect = node.getBoundingClientRect();
       setShowFloatingFilterButton(rect.bottom < 0);
     };
 
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+    if (typeof IntersectionObserver === 'undefined') {
+      updateVisibility();
+      window.addEventListener('scroll', updateVisibility, { passive: true });
+      window.addEventListener('resize', updateVisibility);
+      return () => {
+        window.removeEventListener('scroll', updateVisibility);
+        window.removeEventListener('resize', updateVisibility);
+      };
+    }
 
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
+    updateVisibility();
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (entry) {
+        setShowFloatingFilterButton(entry.boundingClientRect.bottom < 0);
+      }
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
   }, []);
 
   React.useEffect(() => {
@@ -351,6 +363,11 @@ function App() {
   };
 
   const counts = { places: filtered.length, combos: filteredCombos.length };
+  const tabIdBase = React.useId();
+  const placesTabId = `${tabIdBase}-places`;
+  const combosTabId = `${tabIdBase}-combos`;
+  const placesPanelId = `${tabIdBase}-panel-places`;
+  const combosPanelId = `${tabIdBase}-panel-combos`;
 
   const filterLookup = useMemo(() => ({
     vibes: Object.fromEntries(vibeFilters.map(item => [item.key, item])),
@@ -646,7 +663,7 @@ function App() {
           </div>
         )}
 
-        <ul className="nav nav-tabs mb-3">
+        <ul className="nav nav-tabs mb-3" role="tablist">
           {[
             { key: 'places', label: `${t('labels.places')} (${counts.places})` },
             { key: 'combos', label: `${t('labels.plans')} (${counts.combos})` }
@@ -656,6 +673,10 @@ function App() {
                 onClick={(e) => { e.preventDefault(); setTab(t.key); }}
                 onTouchEnd={(e) => { e.preventDefault(); setTab(t.key); }}
                 className={`nav-link ${tab === t.key ? 'active' : ''}`}
+                id={t.key === 'places' ? placesTabId : combosTabId}
+                role="tab"
+                aria-selected={tab === t.key}
+                aria-controls={t.key === 'places' ? placesPanelId : combosPanelId}
               >
                 <span style={{ pointerEvents:"none" }}>{t.label}</span>
               </button>
@@ -664,7 +685,13 @@ function App() {
         </ul>
 
         {tab === 'places' && (
-          <div key={`places-filter-${vibes.join('-')}-${dists.join('-')}-${durs.join('-')}`} className="row g-3">
+          <div
+            key={`places-filter-${vibes.join('-')}-${dists.join('-')}-${durs.join('-')}`}
+            className="row g-3"
+            id={placesPanelId}
+            role="tabpanel"
+            aria-labelledby={placesTabId}
+          >
             {filtered.length === 0 ? (
               <div className="col-12">
                 <div className="alert alert-secondary text-center mb-0">
@@ -686,7 +713,13 @@ function App() {
         )}
 
         {tab === 'combos' && (
-          <div key={`combos-filter-${vibes.join('-')}-${tripTypes.join('-')}`} className="row g-3">
+          <div
+            key={`combos-filter-${vibes.join('-')}-${tripTypes.join('-')}`}
+            className="row g-3"
+            id={combosPanelId}
+            role="tabpanel"
+            aria-labelledby={combosTabId}
+          >
             {filteredCombos.length === 0
               ? (
                 <div className="col-12">

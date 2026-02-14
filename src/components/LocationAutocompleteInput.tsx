@@ -8,6 +8,7 @@ interface SelectedLocation {
 }
 
 interface LocationAutocompleteInputProps {
+  id?: string;
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onSelect?: (location: SelectedLocation) => void;
@@ -16,9 +17,25 @@ interface LocationAutocompleteInputProps {
   style?: CSSProperties;
   className?: string;
   language?: 'en' | 'hu';
+  describedBy?: string;
+  autoFocus?: boolean;
+  hasError?: boolean;
 }
 
-export function LocationAutocompleteInput({ value, onChange, onSelect, disabled, placeholder, style, className, language = 'en' }: LocationAutocompleteInputProps) {
+export function LocationAutocompleteInput({
+  id,
+  value,
+  onChange,
+  onSelect,
+  disabled,
+  placeholder,
+  style,
+  className,
+  language = 'en',
+  describedBy,
+  autoFocus,
+  hasError,
+}: LocationAutocompleteInputProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -47,6 +64,7 @@ export function LocationAutocompleteInput({ value, onChange, onSelect, disabled,
 
   return (
     <input
+      id={id}
       ref={inputRef}
       type="text"
       value={value}
@@ -55,6 +73,9 @@ export function LocationAutocompleteInput({ value, onChange, onSelect, disabled,
       style={style}
       disabled={disabled}
       autoComplete="off"
+      aria-describedby={describedBy}
+      aria-invalid={hasError || undefined}
+      autoFocus={autoFocus}
       className={className}
     />
   );
