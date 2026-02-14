@@ -163,19 +163,16 @@ test('floating filter button works on mobile tap (no scroll movement)', async ({
     return clickEvent.defaultPrevented;
   });
 
-  // Wait a bit for any scrolling animation
-  await page.waitForTimeout(1000);
-
-  const finalScrollY = await page.evaluate(() => window.scrollY);
-
-  // The button should work - scroll position should change (go up)
-  // If it doesn't work, clickSuppressed will be true and scroll won't happen
+  // The button should work - click should not be suppressed
   expect(clickSuppressed).toBeFalsy();
-  expect(finalScrollY).toBeLessThan(initialScrollY);
   
-  // Verify the filters panel is now visible (scrolled to top)
+  // Wait for the filters panel to be visible (scrolled to top)
   const filtersPanel = page.locator('.filters-panel');
   await expect(filtersPanel).toBeInViewport();
+
+  // Verify scroll position changed (went up)
+  const finalScrollY = await page.evaluate(() => window.scrollY);
+  expect(finalScrollY).toBeLessThan(initialScrollY);
 });
 
 test('floating filter button click is suppressed after scrolling on button', async ({ page }) => {
