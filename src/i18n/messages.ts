@@ -53,6 +53,11 @@ export const messages = {
       or: 'or',
       accentColor: 'Accent color',
     },
+    hero: {
+      welcome: 'Discover Southern Hungary',
+      subtitle: 'Get personalized recommendations based on your location',
+      getStarted: 'Get started by setting your location',
+    },
     colors: {
       blue: 'Blue',
       teal: 'Teal',
@@ -140,6 +145,11 @@ export const messages = {
       locationPlaceholder: 'Adj meg címet, várost vagy helyet',
       or: 'vagy',
       accentColor: 'Kiemelo szin',
+    },
+    hero: {
+      welcome: 'Fedezd fel Dél-Magyarországot',
+      subtitle: 'Kapj személyre szabott ajánlásokat a tartózkodási helyed alapján',
+      getStarted: 'Kezdd a helyzeted megadásával',
     },
     colors: {
       blue: 'Kek',

@@ -1,0 +1,113 @@
+.hero-location-prompt {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(to bottom, var(--app-bg-start), var(--app-bg-end));
+}
+
+.hero-content {
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  animation: hero-icon-bounce 2s ease-in-out infinite;
+}
+
+@keyframes hero-icon-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--app-text);
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 1.125rem;
+  color: var(--app-text-muted);
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.hero-instruction {
+  font-size: 0.95rem;
+  color: var(--app-text-soft);
+  margin-bottom: 2rem;
+}
+
+.hero-actions {
+  margin-top: 2rem;
+}
+
+.hero-location-input {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.hero-buttons .btn {
+  width: 100%;
+}
+
+.hero-divider {
+  position: relative;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+.hero-divider span {
+  display: inline-block;
+  padding: 0 1rem;
+  color: var(--app-text-soft);
+  font-size: 0.875rem;
+  background: linear-gradient(to bottom, var(--app-bg-start), var(--app-bg-end));
+  position: relative;
+  z-index: 1;
+}
+
+.hero-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--app-border-soft);
+  z-index: 0;
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .hero-content {
+    padding: 1.5rem;
+  }
+}

@@ -6,6 +6,7 @@ import { FilterBar } from './components/FilterBar';
 import { useLocation } from './context/LocationContext';
 import { useLanguage } from './context/LanguageContext';
 import SettingsModal from './components/SettingsModal';
+import HeroLocationPrompt from './components/HeroLocationPrompt';
 import { buildComboFilterSpecification, buildPlaceFilterSpecification } from './utils/filterSpecifications';
 import { loadAccentPreference, loadThemePreference, saveAccentPreference, saveThemePreference } from './utils/storage';
 import { accentOptions, accentPalettes } from './data/accentPalettes';
@@ -492,10 +493,7 @@ function App() {
   }, [filtersCollapsed, activeFiltersCount, tab]);
 
   React.useEffect(() => {
-    if (!hasAutoOpenedLocationPrompt.current && isFirstVisit && !userLocation && !dismissedLocationPrompt) {
-      hasAutoOpenedLocationPrompt.current = true;
-      setShowLocationSettings(true);
-    }
+    // Auto-opening of location settings removed - now using hero page for first visit
   }, [isFirstVisit, userLocation, dismissedLocationPrompt]);
 
   React.useEffect(() => {
@@ -519,6 +517,15 @@ function App() {
     setDismissedLocationPrompt(true);
     setShowLocationSettings(false);
   };
+
+  const handleSkipHero = () => {
+    setDismissedLocationPrompt(true);
+  };
+
+  // Show hero page on first visit without location
+  if (isFirstVisit && !userLocation && !dismissedLocationPrompt) {
+    return <HeroLocationPrompt onSkip={handleSkipHero} />;
+  }
 
   return (
     <div className="container py-4">
