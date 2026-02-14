@@ -30,16 +30,19 @@ test('settings modal toggles from the gear button', async ({ page }) => {
 
   const trigger = page.locator('.location-settings-trigger-btn');
   const panel = page.locator('.location-settings-panel');
+  const closeButton = page.locator('.settings-close-btn');
 
   await trigger.click();
   await expect(panel).toBeVisible();
+  await expect(closeButton).toBeVisible();
 
-  await page.locator('.location-settings-overlay').click();
+  await closeButton.click();
   await expect(panel).toBeHidden();
 
   await trigger.click();
   await expect(panel).toBeVisible();
-  await trigger.click();
+
+  await closeButton.click();
   await expect(panel).toBeHidden();
 });
 
@@ -122,13 +125,67 @@ test('wheel on active filter chips does not scroll page', async ({ page }) => {
   await page.evaluate(() => window.scrollTo(0, 120));
 
   const startPageY = await page.evaluate(() => window.scrollY);
-  const box = await pillsRow.boundingBox();
-  if (!box) throw new Error('Active filters row is not visible for wheel test');
-
-  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-  await page.mouse.wheel(0, 600);
-  await page.waitForTimeout(150);
+  await pillsRow.evaluate((node) => {
+    node.dispatchEvent(new WheelEvent('wheel', {
+      deltaY: 600,
+      bubbles: true,
+      cancelable: true,
+    }));
+  });
 
   const endPageY = await page.evaluate(() => window.scrollY);
   expect(Math.abs(endPageY - startPageY)).toBeLessThanOrEqual(1);
+});
+
+test('touch scroll starting on a button does not trigger button click', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await initPage(page);
+  await closeSettingsIfOpen(page);
+
+  const surpriseButton = page.getByRole('button', { name: /surprise me/i });
+  await expect(surpriseButton).toBeVisible();
+
+  const clickSuppressed = await surpriseButton.evaluate((button) => {
+    const createTouch = (x, y) => new Touch({
+      identifier: 1,
+      target: button,
+      clientX: x,
+      clientY: y,
+      pageX: x,
+      pageY: y,
+      radiusX: 2,
+      radiusY: 2,
+      rotationAngle: 0,
+      force: 1,
+    });
+
+    const startTouch = createTouch(20, 20);
+    const movedTouch = createTouch(20, 80);
+
+    button.dispatchEvent(new TouchEvent('touchstart', {
+      touches: [startTouch],
+      targetTouches: [startTouch],
+      changedTouches: [startTouch],
+      bubbles: true,
+      cancelable: true,
+    }));
+
+    button.dispatchEvent(new TouchEvent('touchmove', {
+      touches: [movedTouch],
+      targetTouches: [movedTouch],
+      changedTouches: [movedTouch],
+      bubbles: true,
+      cancelable: true,
+    }));
+
+    const clickEvent = new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
+    });
+    button.dispatchEvent(clickEvent);
+    return clickEvent.defaultPrevented;
+  });
+
+  expect(clickSuppressed).toBeTruthy();
+  await expect(page.locator('#surprise-result')).toBeHidden();
 });

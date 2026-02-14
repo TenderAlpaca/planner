@@ -51,6 +51,12 @@ function App() {
   const filtersShellRef = useRef<HTMLDivElement | null>(null);
   const activeFiltersRowRef = useRef<HTMLDivElement | null>(null);
   const isHoveringActiveFiltersRef = useRef(false);
+  const touchButtonGuardRef = useRef<{ button: HTMLElement | null; startX: number; startY: number; suppressClick: boolean }>({
+    button: null,
+    startX: 0,
+    startY: 0,
+    suppressClick: false,
+  });
   const hasAutoOpenedLocationPrompt = useRef(false);
   const { travelTimes, userLocation, isFirstVisit } = useLocation();
   const { language, setLanguage, t } = useLanguage();
@@ -156,6 +162,66 @@ function App() {
     };
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  React.useEffect(() => {
+    const moveThreshold = 8;
+
+    const handleTouchStart = (event: TouchEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const button = target.closest('button');
+      if (!button) {
+        touchButtonGuardRef.current.button = null;
+        touchButtonGuardRef.current.suppressClick = false;
+        return;
+      }
+      const touch = event.touches[0];
+      if (!touch) return;
+      touchButtonGuardRef.current.button = button as HTMLElement;
+      touchButtonGuardRef.current.startX = touch.clientX;
+      touchButtonGuardRef.current.startY = touch.clientY;
+      touchButtonGuardRef.current.suppressClick = false;
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      const { button, startX, startY, suppressClick } = touchButtonGuardRef.current;
+      if (!button || suppressClick) return;
+      const touch = event.touches[0];
+      if (!touch) return;
+      if (Math.abs(touch.clientX - startX) > moveThreshold || Math.abs(touch.clientY - startY) > moveThreshold) {
+        touchButtonGuardRef.current.suppressClick = true;
+      }
+    };
+
+    const handleTouchCancel = () => {
+      touchButtonGuardRef.current.button = null;
+      touchButtonGuardRef.current.suppressClick = false;
+    };
+
+    const handleClick = (event: MouseEvent) => {
+      const { button, suppressClick } = touchButtonGuardRef.current;
+      if (!button || !suppressClick) return;
+      const target = event.target;
+      if (target instanceof Node && button.contains(target)) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      touchButtonGuardRef.current.button = null;
+      touchButtonGuardRef.current.suppressClick = false;
+    };
+
+    document.addEventListener('touchstart', handleTouchStart, { passive: true });
+    document.addEventListener('touchmove', handleTouchMove, { passive: true });
+    document.addEventListener('touchcancel', handleTouchCancel, { passive: true });
+    document.addEventListener('click', handleClick, true);
+
+    return () => {
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchcancel', handleTouchCancel);
+      document.removeEventListener('click', handleClick, true);
+    };
   }, []);
 
   const effectiveTheme: ThemePreference = themePreference ?? (systemPrefersDark ? 'dark' : 'light');
