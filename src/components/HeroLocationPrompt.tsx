@@ -94,7 +94,7 @@ export default function HeroLocationPrompt({ onSkip }: HeroLocationPromptProps) 
               className="btn btn-link text-muted mt-3"
               onClick={onSkip}
             >
-              Skip for now
+              {t('actions.skipForNow')}
             </button>
           )}
         </div>

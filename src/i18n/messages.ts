@@ -33,6 +33,7 @@ export const messages = {
       save: 'Save',
       cancel: 'Cancel',
       useMyLocation: 'Use My Location',
+      skipForNow: 'Skip for now',
     },
     labels: {
       todaysPick: "TODAY'S PICK ✨",
@@ -126,6 +127,7 @@ export const messages = {
       save: 'Mentés',
       cancel: 'Mégse',
       useMyLocation: 'Saját helyzet használata',
+      skipForNow: 'Kihagyás most',
     },
     labels: {
       todaysPick: 'MAI AJÁNLAT ✨',
@@ -144,16 +146,16 @@ export const messages = {
       yourLocation: 'Tartózkodási helyed',
       locationPlaceholder: 'Adj meg címet, várost vagy helyet',
       or: 'vagy',
-      accentColor: 'Kiemelo szin',
+      accentColor: 'Kiemelő szín',
     },
     hero: {
       welcome: 'Fedezd fel Dél-Magyarországot',
       subtitle: 'Kapj személyre szabott ajánlásokat a tartózkodási helyed alapján',
-      getStarted: 'Kezdd a helyzeted megadásával',
+      getStarted: 'Kezdd a helyzetmegadásával',
     },
     colors: {
-      blue: 'Kek',
-      teal: 'Turkiz',
+      blue: 'Kék',
+      teal: 'Türkiz',
       green: 'Zold',
       amber: 'Borostyan',
       rose: 'Rozsa',
