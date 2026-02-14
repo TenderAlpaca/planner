@@ -785,7 +785,6 @@ function App() {
         {!isInitialLoad && (
           <button 
             onClick={(e) => { e.preventDefault(); doSurprise(); }}
-            onTouchEnd={(e) => { e.preventDefault(); doSurprise(); }}
             className="btn btn-warning w-100 mb-3"
             disabled={!isDataReady}
           >
@@ -832,7 +831,6 @@ function App() {
                 <li key={t.key} className="nav-item">
                   <button 
                     onClick={(e) => { e.preventDefault(); setTab(t.key); }}
-                    onTouchEnd={(e) => { e.preventDefault(); setTab(t.key); }}
                     className={`nav-link ${tab === t.key ? 'active' : ''}`}
                   >
                     <span style={{ pointerEvents:"none" }}>{t.label}</span>
