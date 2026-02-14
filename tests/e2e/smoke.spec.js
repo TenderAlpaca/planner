@@ -105,6 +105,140 @@ test('floating filter button appears after scrolling past filters', async ({ pag
   await expect(floatingButton).toBeVisible();
 });
 
+test('floating filter button works on mobile tap (no scroll movement)', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await initPage(page);
+  await closeSettingsIfOpen(page);
+
+  // Scroll down to make the floating button appear
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  
+  const floatingButton = page.locator('button.position-fixed.bottom-0.end-0');
+  await expect(floatingButton).toBeVisible();
+
+  // Get the initial scroll position
+  const initialScrollY = await page.evaluate(() => window.scrollY);
+
+  // Simulate a mobile tap using touch events that go through the global touch handler
+  const clickSuppressed = await floatingButton.evaluate((button) => {
+    const createTouch = (x, y) => new Touch({
+      identifier: 1,
+      target: button,
+      clientX: x,
+      clientY: y,
+      pageX: x,
+      pageY: y,
+      radiusX: 2,
+      radiusY: 2,
+      rotationAngle: 0,
+      force: 1,
+    });
+
+    const touch = createTouch(20, 20);
+
+    // Simulate a tap: touchstart -> touchend (no movement)
+    button.dispatchEvent(new TouchEvent('touchstart', {
+      touches: [touch],
+      targetTouches: [touch],
+      changedTouches: [touch],
+      bubbles: true,
+      cancelable: true,
+    }));
+
+    button.dispatchEvent(new TouchEvent('touchend', {
+      touches: [],
+      targetTouches: [],
+      changedTouches: [touch],
+      bubbles: true,
+      cancelable: true,
+    }));
+
+    // Browser naturally generates click event after touchend
+    const clickEvent = new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
+    });
+    button.dispatchEvent(clickEvent);
+    
+    return clickEvent.defaultPrevented;
+  });
+
+  // Wait a bit for any scrolling animation
+  await page.waitForTimeout(1000);
+
+  const finalScrollY = await page.evaluate(() => window.scrollY);
+
+  // The button should work - scroll position should change (go up)
+  // If it doesn't work, clickSuppressed will be true and scroll won't happen
+  expect(clickSuppressed).toBeFalsy();
+  expect(finalScrollY).toBeLessThan(initialScrollY);
+  
+  // Verify the filters panel is now visible (scrolled to top)
+  const filtersPanel = page.locator('.filters-panel');
+  await expect(filtersPanel).toBeInViewport();
+});
+
+test('floating filter button click is suppressed after scrolling on button', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await initPage(page);
+  await closeSettingsIfOpen(page);
+
+  // Scroll down to make the floating button appear
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  
+  const floatingButton = page.locator('button.position-fixed.bottom-0.end-0');
+  await expect(floatingButton).toBeVisible();
+
+  // Simulate a scroll that starts on the button (touch + move beyond threshold + click)
+  const clickSuppressed = await floatingButton.evaluate((button) => {
+    const createTouch = (x, y) => new Touch({
+      identifier: 1,
+      target: button,
+      clientX: x,
+      clientY: y,
+      pageX: x,
+      pageY: y,
+      radiusX: 2,
+      radiusY: 2,
+      rotationAngle: 0,
+      force: 1,
+    });
+
+    const startTouch = createTouch(20, 20);
+    const movedTouch = createTouch(20, 30); // Move 10px (beyond 8px threshold)
+
+    // Touch start on button
+    button.dispatchEvent(new TouchEvent('touchstart', {
+      touches: [startTouch],
+      targetTouches: [startTouch],
+      changedTouches: [startTouch],
+      bubbles: true,
+      cancelable: true,
+    }));
+
+    // Move beyond threshold (simulating scroll)
+    button.dispatchEvent(new TouchEvent('touchmove', {
+      touches: [movedTouch],
+      targetTouches: [movedTouch],
+      changedTouches: [movedTouch],
+      bubbles: true,
+      cancelable: true,
+    }));
+
+    // Browser generates click after scroll
+    const clickEvent = new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
+    });
+    button.dispatchEvent(clickEvent);
+    
+    return clickEvent.defaultPrevented;
+  });
+
+  // The click should be suppressed because we scrolled
+  expect(clickSuppressed).toBeTruthy();
+});
+
 test('wheel on active filter chips does not scroll page', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await initPage(page);
