@@ -1,26 +1,19 @@
-import {
-  categories,
-  vibeFilters,
-  distanceRanges,
-  durationFilters,
-  tripTypeFilters,
-} from './config';
-import { categoriesHu, vibeFiltersHu, distanceRangesHu, durationFiltersHu, tripTypeFiltersHu } from './config.hu';
-import { places } from './places';
-import { placesHu } from './places.hu';
-import { combos } from './combos';
-import { combosHu } from './combos.hu';
-import type { LocalizedData } from '../types/domain';
+import type { Language, LocalizedData } from '../types/domain';
 
-export function getLocalizedData(language: 'en' | 'hu'): LocalizedData {
-  const isHungarian = language === 'hu';
-  return {
-    places: isHungarian ? placesHu : places,
-    combos: isHungarian ? combosHu : combos,
-    categories: isHungarian ? categoriesHu : categories,
-    vibeFilters: isHungarian ? vibeFiltersHu : vibeFilters,
-    distanceRanges: isHungarian ? distanceRangesHu : distanceRanges,
-    durationFilters: isHungarian ? durationFiltersHu : durationFilters,
-    tripTypeFilters: isHungarian ? tripTypeFiltersHu : tripTypeFilters,
-  };
+const dataCache: Partial<Record<Language, LocalizedData>> = {};
+const dataBaseUrl = (import.meta.env.VITE_DATA_BASE_URL ?? `${import.meta.env.BASE_URL}data`).replace(/\/+$/, '');
+
+export async function fetchLocalizedData(language: Language): Promise<LocalizedData> {
+  if (dataCache[language]) {
+    return dataCache[language] as LocalizedData;
+  }
+
+  const response = await fetch(`${dataBaseUrl}/${language}.json`);
+  if (!response.ok) {
+    throw new Error(`Failed to load localized data for ${language}`);
+  }
+
+  const data = (await response.json()) as LocalizedData;
+  dataCache[language] = data;
+  return data;
 }

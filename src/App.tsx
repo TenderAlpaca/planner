@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef } from 'react';
-import { getLocalizedData } from './data/localizedData';
+import { fetchLocalizedData } from './data/localizedData';
 import { PlaceCard } from './components/PlaceCard';
 import { ComboCard } from './components/ComboCard';
 import { FilterBar } from './components/FilterBar';
@@ -9,7 +9,7 @@ import SettingsModal from './components/SettingsModal';
 import { buildComboFilterSpecification, buildPlaceFilterSpecification } from './utils/filterSpecifications';
 import { loadAccentPreference, loadThemePreference, saveAccentPreference, saveThemePreference } from './utils/storage';
 import { accentOptions, accentPalettes } from './data/accentPalettes';
-import type { Combo, FilterItem, Place } from './types/domain';
+import type { Combo, FilterItem, LocalizedData, Place } from './types/domain';
 import type { AccentPreference } from './data/accentPalettes';
 
 type ThemePreference = 'light' | 'dark';
@@ -75,6 +75,18 @@ function App() {
   const [surprise, setSurprise] = useState<Place | null>(null);
   const [surpriseIdFromUrl, setSurpriseIdFromUrl] = useState(initialUrlState.surpriseId);
   const [shakeN, setShakeN] = useState(0);
+  const emptyLocalizedData = useMemo<LocalizedData>(() => ({
+    places: [],
+    combos: [],
+    categories: {},
+    vibeFilters: [],
+    distanceRanges: [],
+    durationFilters: [],
+    tripTypeFilters: [],
+  }), []);
+  const [localizedData, setLocalizedData] = useState<LocalizedData | null>(null);
+  const [isDataLoading, setIsDataLoading] = useState(true);
+  const [dataError, setDataError] = useState<string | null>(null);
   const {
     places,
     combos,
@@ -83,7 +95,32 @@ function App() {
     distanceRanges,
     durationFilters,
     tripTypeFilters,
-  } = useMemo(() => getLocalizedData(language), [language]);
+  } = localizedData ?? emptyLocalizedData;
+
+  React.useEffect(() => {
+    let isActive = true;
+    setIsDataLoading(true);
+    setDataError(null);
+
+    fetchLocalizedData(language)
+      .then(data => {
+        if (!isActive) return;
+        setLocalizedData(data);
+      })
+      .catch(error => {
+        if (!isActive) return;
+        setLocalizedData(null);
+        setDataError(error instanceof Error ? error.message : String(error));
+      })
+      .finally(() => {
+        if (!isActive) return;
+        setIsDataLoading(false);
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, [language]);
 
   React.useEffect(() => {
     document.title = t('meta.title');
@@ -169,6 +206,7 @@ function App() {
   }, [accentPreference, effectiveTheme]);
 
   React.useEffect(() => {
+    if (isDataLoading || dataError) return;
     const vibeKeys = new Set(vibeFilters.map(item => item.key).filter(key => key !== 'all'));
     const distKeys = new Set(distanceRanges.map(item => item.key).filter(key => key !== 'all'));
     const durationKeys = new Set(durationFilters.map(item => item.key).filter(key => key !== 'all'));
@@ -179,7 +217,7 @@ function App() {
     setDurs(prev => sanitizeSelection(prev, durationKeys));
     setTripTypes(prev => sanitizeSelection(prev, tripTypeKeys));
     setTab(prev => (prev === 'places' || prev === 'combos' ? prev : 'places'));
-  }, [vibeFilters, distanceRanges, durationFilters, tripTypeFilters]);
+  }, [vibeFilters, distanceRanges, durationFilters, tripTypeFilters, isDataLoading, dataError]);
 
   React.useEffect(() => {
     if (!surpriseIdFromUrl) {
@@ -343,7 +381,9 @@ function App() {
   }, [combos, showFavouritesOnly, favouriteCombos, vibes, tripTypes]);
 
   const doSurprise = () => {
+    if (places.length === 0) return;
     const pool = filtered.length > 0 ? filtered : places;
+    if (pool.length === 0) return;
     const rand = pool[Math.floor(Math.random() * pool.length)];
     setSurprise(rand);
     setShakeN(n => n + 1);
@@ -351,6 +391,7 @@ function App() {
   };
 
   const counts = { places: filtered.length, combos: filteredCombos.length };
+  const isDataReady = !isDataLoading && !dataError && places.length > 0;
 
   const filterLookup = useMemo(() => ({
     vibes: Object.fromEntries(vibeFilters.map(item => [item.key, item])),
@@ -627,6 +668,7 @@ function App() {
           onClick={(e) => { e.preventDefault(); doSurprise(); }}
           onTouchEnd={(e) => { e.preventDefault(); doSurprise(); }}
           className="btn btn-warning w-100 mb-3"
+          disabled={!isDataReady}
         >
           <span key={shakeN} style={{ fontSize:22, pointerEvents:"none" }}>🎲</span>
           <span style={{ pointerEvents:"none" }} className="ms-2">{t('actions.surpriseMe')}</span>
@@ -646,62 +688,80 @@ function App() {
           </div>
         )}
 
-        <ul className="nav nav-tabs mb-3">
-          {[
-            { key: 'places', label: `${t('labels.places')} (${counts.places})` },
-            { key: 'combos', label: `${t('labels.plans')} (${counts.combos})` }
-          ].map(t => (
-            <li key={t.key} className="nav-item">
-              <button 
-                onClick={(e) => { e.preventDefault(); setTab(t.key); }}
-                onTouchEnd={(e) => { e.preventDefault(); setTab(t.key); }}
-                className={`nav-link ${tab === t.key ? 'active' : ''}`}
-              >
-                <span style={{ pointerEvents:"none" }}>{t.label}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-
-        {tab === 'places' && (
-          <div key={`places-filter-${vibes.join('-')}-${dists.join('-')}-${durs.join('-')}`} className="row g-3">
-            {filtered.length === 0 ? (
-              <div className="col-12">
-                <div className="alert alert-secondary text-center mb-0">
-                  <span style={{ fontSize:30 }}>🤷</span>
-                  <p className="mb-0 mt-2">{t('labels.noPlacesMatch')}</p>
-                </div>
-              </div>
-            ) : filtered.map((p, i) => (
-              <div key={p.id} className="col-12 col-md-6 col-xl-4">
-                <PlaceCard 
-                  place={p}
-                  categories={categories}
-                  isFavourite={favouritePlaces.includes(p.id)}
-                  onToggleFavourite={() => toggleFavouritePlace(p.id)}
-                />
-              </div>
-            ))}
+        {isDataLoading && (
+          <div className="alert alert-secondary text-center mb-3">
+            <span style={{ fontSize:30 }}>⏳</span>
+            <p className="mb-0 mt-2">{t('labels.loading')}</p>
           </div>
         )}
 
-        {tab === 'combos' && (
-          <div key={`combos-filter-${vibes.join('-')}-${tripTypes.join('-')}`} className="row g-3">
-            {filteredCombos.length === 0
-              ? (
-                <div className="col-12">
-                  <div className="alert alert-secondary text-center mb-0">
-                    <span style={{ fontSize:30 }}>🤷</span>
-                    <p className="mb-0 mt-2">{t('labels.noPlansMatch')}</p>
-                  </div>
-                </div>
-              )
-              : filteredCombos.map((c, i) => (
-                <div key={c.id} className="col-12 col-xl-6">
-                  <ComboCard combo={c} />
-                </div>
-              ))}
+        {!isDataLoading && dataError && (
+          <div className="alert alert-danger text-center mb-3">
+            <span style={{ fontSize:30 }}>⚠️</span>
+            <p className="mb-0 mt-2">{t('errors.unknown')}</p>
           </div>
+        )}
+
+        {!isDataLoading && !dataError && (
+          <>
+            <ul className="nav nav-tabs mb-3">
+              {[
+                { key: 'places', label: `${t('labels.places')} (${counts.places})` },
+                { key: 'combos', label: `${t('labels.plans')} (${counts.combos})` }
+              ].map(t => (
+                <li key={t.key} className="nav-item">
+                  <button 
+                    onClick={(e) => { e.preventDefault(); setTab(t.key); }}
+                    onTouchEnd={(e) => { e.preventDefault(); setTab(t.key); }}
+                    className={`nav-link ${tab === t.key ? 'active' : ''}`}
+                  >
+                    <span style={{ pointerEvents:"none" }}>{t.label}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+
+            {tab === 'places' && (
+              <div key={`places-filter-${vibes.join('-')}-${dists.join('-')}-${durs.join('-')}`} className="row g-3">
+                {filtered.length === 0 ? (
+                  <div className="col-12">
+                    <div className="alert alert-secondary text-center mb-0">
+                      <span style={{ fontSize:30 }}>🤷</span>
+                      <p className="mb-0 mt-2">{t('labels.noPlacesMatch')}</p>
+                    </div>
+                  </div>
+                ) : filtered.map((p, i) => (
+                  <div key={p.id} className="col-12 col-md-6 col-xl-4">
+                    <PlaceCard 
+                      place={p}
+                      categories={categories}
+                      isFavourite={favouritePlaces.includes(p.id)}
+                      onToggleFavourite={() => toggleFavouritePlace(p.id)}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {tab === 'combos' && (
+              <div key={`combos-filter-${vibes.join('-')}-${tripTypes.join('-')}`} className="row g-3">
+                {filteredCombos.length === 0
+                  ? (
+                    <div className="col-12">
+                      <div className="alert alert-secondary text-center mb-0">
+                        <span style={{ fontSize:30 }}>🤷</span>
+                        <p className="mb-0 mt-2">{t('labels.noPlansMatch')}</p>
+                      </div>
+                    </div>
+                  )
+                  : filteredCombos.map((c, i) => (
+                    <div key={c.id} className="col-12 col-xl-6">
+                      <ComboCard combo={c} />
+                    </div>
+                  ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

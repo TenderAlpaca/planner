@@ -1,0 +1,2628 @@
+{
+  "places": [
+    {
+      "id": 1,
+      "name": "Alföld Gyöngye Kalandpark",
+      "loc": "Orosháza",
+      "km": 33,
+      "time": "25 min",
+      "cat": "adventure",
+      "vibes": [
+        "active",
+        "outdoors"
+      ],
+      "desc": "50-hectare adventure park with a 29-task rope course 4m up in the trees. Easier and harder routes, takes 1.5–2 hours. Forest setting is beautiful.",
+      "lat": 46.5672,
+      "lng": 20.6756,
+      "tip": "Call ahead for winter hours. Bring gloves — cables get cold.",
+      "maps": "https://maps.google.com/?q=Orosháza+Alföld+Gyöngye+Kalandpark",
+      "emoji": "🧗",
+      "duration": "half"
+    },
+    {
+      "id": 2,
+      "name": "Ópusztaszer Emlékpark",
+      "loc": "Ópusztaszer",
+      "km": 40,
+      "time": "35 min",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "history"
+      ],
+      "desc": "Where Hungarian tribal chiefs first gathered. The Feszty panorama — a 120m circular painting of the conquest — is mind-blowing. Skansen, monastery ruins, Nomad Park, yurts. Next door: Csillagösvény maze.",
+      "lat": 46.4842,
+      "lng": 20.0892,
+      "tip": "Feszty panorama requires PRE-BOOKING in winter! Budget 3–4 hours.",
+      "maps": "https://maps.google.com/?q=Ópusztaszer+Nemzeti+Történeti+Emlékpark",
+      "emoji": "🏛️",
+      "duration": "full"
+    },
+    {
+      "id": 3,
+      "name": "Makó Town Walk + Lombkorona",
+      "loc": "Makó",
+      "km": 25,
+      "time": "20 min",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "chill"
+      ],
+      "desc": "Tree-top walkway with bird's-eye views, József Attila Museum, veteran vehicle center with classic cars. The onion is a Hungarikum here — you'll see it everywhere.",
+      "lat": 46.2181,
+      "lng": 20.4842,
+      "tip": "Perfect half-day: morning Makó → afternoon Hagymatikum. Walkway gorgeous in morning light.",
+      "maps": "https://maps.google.com/?q=Makó+lombkorona+sétány",
+      "emoji": "🌳",
+      "duration": "half"
+    },
+    {
+      "id": 4,
+      "name": "Hagymatikum Fürdő",
+      "loc": "Makó",
+      "km": 25,
+      "time": "20 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill",
+        "romantic"
+      ],
+      "desc": "Makovecz Imre architecture — breathtaking organic curves. 18 pools, cave pool with rainforest effects, 7 saunas, new 'Atlantisz' section (2024) with water bar. 41°C medicinal water. Full wellness. Mon-Thu 9-20, Fri-Sat 9-22.",
+      "lat": 46.2201,
+      "lng": 20.4782,
+      "tip": "Friday evening = night bathing vibes. Book couple's massage ahead. Weekdays to avoid crowds.",
+      "maps": "https://maps.google.com/?q=Hagymatikum+Makó",
+      "emoji": "♨️",
+      "duration": "half"
+    },
+    {
+      "id": 5,
+      "name": "Gyopárosfürdő",
+      "loc": "Orosháza",
+      "km": 33,
+      "time": "25 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill"
+      ],
+      "desc": "Low-key, less crowded than Makó. Beautiful 50-hectare old parkland setting. Modern pools, wellness, medicinal water. Connected to the Kalandpark for active + thermal combo.",
+      "lat": 46.5732,
+      "lng": 20.6647,
+      "tip": "Best when you want thermal without crowds. Nice with Orosháza's renovated főtér.",
+      "maps": "https://maps.google.com/?q=Gyopárosfürdő+Orosháza",
+      "emoji": "🌅",
+      "duration": "half"
+    },
+    {
+      "id": 6,
+      "name": "Mindszent Csárda",
+      "loc": "Mindszent",
+      "km": 20,
+      "time": "15 min",
+      "cat": "food",
+      "vibes": [
+        "chill",
+        "romantic",
+        "foodie"
+      ],
+      "desc": "100+ year old csárda with classic Hungarian comfort food. Tisza riverside walk after. The coziest half-day imaginable.",
+      "lat": 46.5022,
+      "lng": 20.2471,
+      "tip": "Perfect lazy Sunday: long lunch with pörkölt and wine, Tisza walk, drive home.",
+      "maps": "https://maps.google.com/?q=Mindszent+csárda",
+      "emoji": "🍲",
+      "duration": "half"
+    },
+    {
+      "id": 7,
+      "name": "Szentes",
+      "loc": "Szentes",
+      "km": 30,
+      "time": "30 min",
+      "cat": "explore",
+      "vibes": [
+        "chill",
+        "culture",
+        "nature"
+      ],
+      "desc": "Underrated gem. The Kurca stream through the center is called the 'green main street.' 71 bridges. Péter-Pál Polgárház Museum, vintage motorcycle collection, Széchenyi Liget. Thermal bath with 15 pools.",
+      "lat": 46.6512,
+      "lng": 20.2603,
+      "tip": "Kurca waterfront is lovely even in winter. Ask about the retro motorcycle collection.",
+      "maps": "https://maps.google.com/?q=Szentes+belváros",
+      "emoji": "🌉",
+      "duration": "half"
+    },
+    {
+      "id": 8,
+      "name": "Nagymágocsi Kastély",
+      "loc": "Nagymágocs",
+      "km": 35,
+      "time": "30 min",
+      "cat": "special",
+      "vibes": [
+        "romantic",
+        "culture",
+        "history"
+      ],
+      "desc": "19th century eclectic/neo-baroque castle with a nice park. Atmospheric and quiet. Sometimes hosts events.",
+      "lat": 46.6017,
+      "lng": 20.4847,
+      "tip": "Works as a 1-hour stop on the way somewhere. Check if events are running.",
+      "maps": "https://maps.google.com/?q=Nagymágocsi+kastély",
+      "emoji": "🏰",
+      "duration": "half"
+    },
+    {
+      "id": 9,
+      "name": "Emlékpont Múzeum",
+      "loc": "Hódmezővásárhely",
+      "km": 0,
+      "time": "You live here!",
+      "cat": "special",
+      "vibes": [
+        "culture",
+        "history"
+      ],
+      "desc": "Communist era museum + first permanent Holocaust exhibition outside Budapest. Genuinely powerful. Alföldi Galéria has rotating shows and annual Vásárhelyi Őszi Tárlat. Tornyai Museum for local art.",
+      "lat": 46.4167,
+      "lng": 20.3333,
+      "tip": "For rainy days. One of the best museums in the region.",
+      "maps": "https://maps.google.com/?q=Emlékpont+Hódmezővásárhely",
+      "emoji": "📖",
+      "duration": "half"
+    },
+    {
+      "id": 10,
+      "name": "Orosháza Főtér Dining",
+      "loc": "Orosháza",
+      "km": 33,
+      "time": "25 min",
+      "cat": "food",
+      "vibes": [
+        "chill",
+        "foodie"
+      ],
+      "desc": "Renovated main square with restaurants, outdoor terraces, Üveg Körtefa glass sculpture lit up at night, Art Nouveau Gémes Palace. Hungary's only Well Museum (Kútmúzeum).",
+      "lat": 46.5672,
+      "lng": 20.6756,
+      "tip": "Evening date: dinner on the lit-up főtér, then thermal bath.",
+      "maps": "https://maps.google.com/?q=Orosháza+Főtér",
+      "emoji": "🍷",
+      "duration": "half"
+    },
+    {
+      "id": 36,
+      "name": "Régi Híd Vendéglő",
+      "loc": "Szeged",
+      "km": 25,
+      "time": "20 min",
+      "cat": "food",
+      "vibes": [
+        "romantic",
+        "foodie"
+      ],
+      "desc": "Traditional Hungarian restaurant by the Tisza with exposed-brick walls and rustic-chic vibe. Famous for Szegedi halászlé (fish soup) and generous portions. Romantic candlelit atmosphere.",
+      "lat": 46.253,
+      "lng": 20.1482,
+      "tip": "Reserve ahead for riverside window seats. The fish soup is legendary but spicy!",
+      "maps": "https://maps.google.com/?q=Régi+Híd+Vendéglő+Szeged",
+      "emoji": "🐟",
+      "duration": "half"
+    },
+    {
+      "id": 37,
+      "name": "Kiskőrössy Halászcsárda",
+      "loc": "Szeged",
+      "km": 27,
+      "time": "22 min",
+      "cat": "food",
+      "vibes": [
+        "romantic",
+        "nature",
+        "foodie"
+      ],
+      "desc": "Riverfront fish tavern with outdoor seating on the Tisza. Massive portions, live folk music on weekends, traditional Hungarian fish dishes paired with local wines.",
+      "lat": 46.2582,
+      "lng": 20.1701,
+      "tip": "Come for sunset. The terrace jutting onto the water is pure magic in summer.",
+      "maps": "https://maps.google.com/?q=Kiskőrössy+Halászcsárda+Szeged",
+      "emoji": "🌅",
+      "duration": "half"
+    },
+    {
+      "id": 38,
+      "name": "Szeged Dom",
+      "loc": "Szeged",
+      "km": 26,
+      "time": "20 min",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "history",
+        "romantic"
+      ],
+      "desc": "Votive Church with 91m twin towers, stunning Neo-Romanesque architecture. Dom tér hosts open-air opera in summer. Climb the tower for panoramic views.",
+      "lat": 46.253,
+      "lng": 20.1482,
+      "tip": "Check for Szegedi Szabadtéri schedule (summer opera festival). Evening when lit up is breathtaking.",
+      "maps": "https://maps.google.com/?q=Szeged+Dom",
+      "emoji": "⛪",
+      "duration": "half"
+    },
+    {
+      "id": 39,
+      "name": "Mórahalom Fürdő",
+      "loc": "Mórahalom",
+      "km": 35,
+      "time": "30 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill"
+      ],
+      "desc": "21 pools including thermal, medical, adventure, and children's pools. Water from 2,300m deep. Modern winter bath opened in 2020. Set in beautiful Szent László park.",
+      "lat": 46.2186,
+      "lng": 19.8882,
+      "tip": "Less touristy than others. Great for a quiet thermal day. Combine with Szeged visit.",
+      "maps": "https://maps.google.com/?q=Mórahalom+Fürdő",
+      "emoji": "💧",
+      "duration": "half"
+    },
+    {
+      "id": 40,
+      "name": "Algyő Fürdő",
+      "loc": "Algyő",
+      "km": 18,
+      "time": "15 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill",
+        "active"
+      ],
+      "desc": "Family-friendly spa with 8 pools, slides, and wellness section. 42°C thermal water helps rheumatism. Newly renovated facilities. Large green areas for picnics.",
+      "lat": 46.3442,
+      "lng": 20.2022,
+      "tip": "Perfect for active couples — spa + cycling on Tisza paths nearby.",
+      "maps": "https://maps.google.com/?q=Algyő+Fürdő",
+      "emoji": "🏊",
+      "duration": "half"
+    },
+    {
+      "id": 41,
+      "name": "Körös-Maros National Park",
+      "loc": "Szarvas",
+      "km": 45,
+      "time": "40 min",
+      "cat": "adventure",
+      "vibes": [
+        "nature",
+        "outdoors",
+        "active"
+      ],
+      "desc": "Gateway to protected wetlands and forests. Guided tours, bird watching, canoeing on Körös. Mini-zoo with native species. Educational exhibits on Great Plain ecology.",
+      "lat": 46.8667,
+      "lng": 20.55,
+      "tip": "Best in spring for bird migration. Rent canoes for peaceful water exploration.",
+      "maps": "https://maps.google.com/?q=Körös-Maros+Nemzeti+Park",
+      "emoji": "🦅",
+      "duration": "full"
+    },
+    {
+      "id": 42,
+      "name": "Szarvas Arborétum",
+      "loc": "Szarvas",
+      "km": 46,
+      "time": "40 min",
+      "cat": "explore",
+      "vibes": [
+        "nature",
+        "chill",
+        "romantic"
+      ],
+      "desc": "82-hectare botanical garden with over 1,600 plant species. Peacocks roam free. Small zoo with deer, goats. Romantic willow-lined paths, ponds, bridges.",
+      "lat": 46.8667,
+      "lng": 20.55,
+      "tip": "Morning is best — peacocks are most active. Bring snacks for a picnic by the pond.",
+      "maps": "https://maps.google.com/?q=Szarvas+Arborétum",
+      "emoji": "🦚",
+      "duration": "half"
+    },
+    {
+      "id": 43,
+      "name": "Szarvas Thermal Bath",
+      "loc": "Szarvas",
+      "km": 46,
+      "time": "40 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill"
+      ],
+      "desc": "6 covered pools including medical, thermal sitting, hot tub, training, and swimming. Modern facility, excellent for joint problems. Intimate atmosphere.",
+      "lat": 46.8667,
+      "lng": 20.55,
+      "tip": "Combine with arborétum visit. Less crowded weekday mornings.",
+      "maps": "https://maps.google.com/?q=Szarvas+Thermal+Bath",
+      "emoji": "♨️",
+      "duration": "half"
+    },
+    {
+      "id": 44,
+      "name": "Gyula Castle",
+      "loc": "Gyula",
+      "km": 48,
+      "time": "45 min",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "history",
+        "romantic"
+      ],
+      "desc": "Only intact brick Gothic castle on the Great Plain. Built early 15th century, survived Ottoman era. Summer castle theatre, medieval knights' hall, exhibitions. At night: beautifully lit.",
+      "lat": 46.6469,
+      "lng": 21.2794,
+      "tip": "Catch a summer theatre performance in the courtyard. Magical setting.",
+      "maps": "https://maps.google.com/?q=Gyula+Castle",
+      "emoji": "🏰",
+      "duration": "half"
+    },
+    {
+      "id": 45,
+      "name": "Gyula Várfürdő",
+      "loc": "Gyula",
+      "km": 48,
+      "time": "45 min",
+      "cat": "thermal",
+      "vibes": [
+        "romantic",
+        "chill"
+      ],
+      "desc": "Castle Bath — thermal spa in park next to medieval castle. 10 pools, medicinal water, wellness. The setting is unique: soak while gazing at castle walls. Open-air pools stay open year-round.",
+      "lat": 46.6469,
+      "lng": 21.2794,
+      "tip": "Evening bathing with castle floodlit is unforgettable. Book couple's massage in spa hotel.",
+      "maps": "https://maps.google.com/?q=Gyula+Várfürdő",
+      "emoji": "🏰",
+      "duration": "half"
+    },
+    {
+      "id": 46,
+      "name": "Gyula Almásy Kastély",
+      "loc": "Gyula",
+      "km": 48,
+      "time": "45 min",
+      "cat": "special",
+      "vibes": [
+        "culture",
+        "history"
+      ],
+      "desc": "Baroque castle of the Harruckern-Wenckheim-Almásy family. First Hungarian castle to host stage plays (1746). Beautiful park, cultural events. Ferenc Erkel's grandfather lived here.",
+      "lat": 46.6461,
+      "lng": 21.2772,
+      "tip": "Castle park is free to wander. Great photo spot. Check for classical concerts.",
+      "maps": "https://maps.google.com/?q=Gyula+Almásy+Kastély",
+      "emoji": "🎭",
+      "duration": "half"
+    },
+    {
+      "id": 47,
+      "name": "100 Years Old Reinhardt Cukrászda",
+      "loc": "Gyula",
+      "km": 48,
+      "time": "45 min",
+      "cat": "food",
+      "vibes": [
+        "romantic",
+        "foodie"
+      ],
+      "desc": "Hungary's second-oldest continuously operating patisserie (since 1840). Historic ambience, authentic Hungarian cakes. Somlói galuska, Esterházy torte, túró rudi. Coffee shop with 180+ year legacy.",
+      "lat": 46.6467,
+      "lng": 21.2777,
+      "tip": "Try the Esterházy cake — it's legendary. Perfect afternoon date stop.",
+      "maps": "https://maps.google.com/?q=Reinhardt+Cukrászda+Gyula",
+      "emoji": "🍰",
+      "duration": "half"
+    },
+    {
+      "id": 48,
+      "name": "Szeged Riverside Walk",
+      "loc": "Szeged",
+      "km": 26,
+      "time": "20 min",
+      "cat": "explore",
+      "vibes": [
+        "romantic",
+        "nature",
+        "chill"
+      ],
+      "desc": "Promenade along the Tisza from Roosevelt tér to Belvárosi Bridge. Tree-lined paths, benches, sunset views. Pass by historic buildings, cross ornate bridges. Street musicians in summer.",
+      "lat": 46.2532,
+      "lng": 20.1487,
+      "tip": "Sunset walk followed by dinner at riverside restaurant. Bring a blanket for grass areas.",
+      "maps": "https://maps.google.com/?q=Szeged+Tisza+part",
+      "emoji": "🌅",
+      "duration": "half"
+    },
+    {
+      "id": 49,
+      "name": "Hatos Rétes Szeged",
+      "loc": "Szeged",
+      "km": 26,
+      "time": "20 min",
+      "cat": "food",
+      "vibes": [
+        "foodie"
+      ],
+      "desc": "Famous strudel shop with 20+ fillings, always freshly made. Sour cherry, poppy seed, cottage cheese, apple-walnut. Locals queue out the door. Tiny shop, huge reputation.",
+      "lat": 46.2537,
+      "lng": 20.1482,
+      "tip": "Go early — popular flavors sell out. Eat fresh while warm. Best strudel in southern Hungary.",
+      "maps": "https://maps.google.com/?q=Hatos+Rétes+Szeged",
+      "emoji": "🥐",
+      "duration": "half"
+    },
+    {
+      "id": 50,
+      "name": "Virag Cukrászda",
+      "loc": "Szeged",
+      "km": 26,
+      "time": "20 min",
+      "cat": "food",
+      "vibes": [
+        "foodie",
+        "romantic"
+      ],
+      "desc": "Historic 1920s confectionery, old-school Hungarian coffee house vibe. Try Grandma's Favorite (sugar-free, Hungary cake award 2022). Vintage decor, elegant pastries.",
+      "lat": 46.2536,
+      "lng": 20.1481,
+      "tip": "Order coffee and múzeumi rétes (museum strudel). Sit by window for people-watching.",
+      "maps": "https://maps.google.com/?q=Virag+Cukrászda+Szeged",
+      "emoji": "☕",
+      "duration": "half"
+    },
+    {
+      "id": 51,
+      "name": "Szeged Botanical Garden",
+      "loc": "Szeged",
+      "km": 28,
+      "time": "23 min",
+      "cat": "explore",
+      "vibes": [
+        "nature",
+        "romantic",
+        "chill"
+      ],
+      "desc": "Peaceful 7-hectare garden with over 5,000 plant species. Japanese garden, rock garden, aquatic plants, greenhouse. University-owned, rarely crowded. Perfect for quiet dates.",
+      "lat": 46.2477,
+      "lng": 20.1167,
+      "tip": "Spring is spectacular for blooms. Benches hidden among plants for intimate conversations.",
+      "maps": "https://maps.google.com/?q=Szeged+Botanical+Garden",
+      "emoji": "🌸",
+      "duration": "half"
+    },
+    {
+      "id": 52,
+      "name": "Szeged Reök Palace",
+      "loc": "Szeged",
+      "km": 26,
+      "time": "20 min",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "romantic"
+      ],
+      "desc": "Stunning Art Nouveau palace (1907) by Ede Magyar. Flowing organic lines, pink and white facade. Now houses contemporary art exhibitions. One of Hungary's most beautiful Secession buildings.",
+      "lat": 46.2536,
+      "lng": 20.1481,
+      "tip": "Even if museum's closed, the exterior is worth seeing. Golden hour photography is incredible.",
+      "maps": "https://maps.google.com/?q=Szeged+Reök+Palace",
+      "emoji": "🎨",
+      "duration": "half"
+    },
+    {
+      "id": 53,
+      "name": "Csongrád Thermal Bath",
+      "loc": "Csongrád",
+      "km": 42,
+      "time": "35 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill"
+      ],
+      "desc": "6 pools including thermal, training, children's pools. Covered and outdoor sections. Set in nice park. Water good for joint issues. Local favorite, not touristy.",
+      "lat": 46.7082,
+      "lng": 20.1432,
+      "tip": "Combine with old town walk. Weekday afternoons are quietest.",
+      "maps": "https://maps.google.com/?q=Csongrád+Thermal+Bath",
+      "emoji": "💦",
+      "duration": "half"
+    },
+    {
+      "id": 54,
+      "name": "Tápé Tisza Strand",
+      "loc": "Tápé (Szeged)",
+      "km": 30,
+      "time": "25 min",
+      "cat": "adventure",
+      "vibes": [
+        "active",
+        "nature",
+        "outdoors"
+      ],
+      "desc": "Natural Tisza river beach with grass, willows, and shallow water. SUP rentals, kayaking, swimming. Csárda nearby. Summer vibes, less crowded than pools.",
+      "lat": 46.2822,
+      "lng": 20.1707,
+      "tip": "July-August only. Bring picnic. Water shoes recommended for riverbed.",
+      "maps": "https://maps.google.com/?q=Tápé+Tisza+Strand",
+      "emoji": "🏖️",
+      "duration": "full"
+    },
+    {
+      "id": 55,
+      "name": "Szőreg Rosarium",
+      "loc": "Szőreg (Szeged)",
+      "km": 24,
+      "time": "18 min",
+      "cat": "explore",
+      "vibes": [
+        "romantic",
+        "nature"
+      ],
+      "desc": "Rose garden with hundreds of varieties. Peak bloom May-June. Fragrant paths, benches, photo spots. Small but lovely. Free entry.",
+      "lat": 46.2207,
+      "lng": 20.2342,
+      "tip": "Early June for peak blooms. Morning for best light and fragrance. Engagement photo favorite.",
+      "maps": "https://maps.google.com/?q=Szőreg+Rosarium",
+      "emoji": "🌹",
+      "duration": "half"
+    },
+    {
+      "id": 56,
+      "name": "Csongrád-Bokros Wine Cellars",
+      "loc": "Csongrád-Bokros",
+      "km": 47,
+      "time": "40 min",
+      "cat": "food",
+      "vibes": [
+        "romantic",
+        "foodie"
+      ],
+      "desc": "Traditional wine cellars built into hillside. Taste Kadarka, Kékfrankos, local wines. Small family wineries. Rustic atmosphere, sometimes with live music and grilled food.",
+      "lat": 46.715,
+      "lng": 20.12,
+      "tip": "Call ahead to arrange tasting. Bring cash. The Kadarka is unique to the region.",
+      "maps": "https://maps.google.com/?q=Csongrád-Bokros+Wine+Cellars",
+      "emoji": "🍷",
+      "duration": "half"
+    },
+    {
+      "id": 57,
+      "name": "Apátfalva Pottery Workshop",
+      "loc": "Apátfalva",
+      "km": 22,
+      "time": "18 min",
+      "cat": "special",
+      "vibes": [
+        "culture"
+      ],
+      "desc": "Traditional black pottery (fekete kerámia) workshop. Watch artisans work, try your hand at pottery wheel. Unique local craft. Buy handmade pieces.",
+      "lat": 46.18,
+      "lng": 20.583,
+      "tip": "Book workshop session in advance. Great for creative couples. Pieces can be shipped if fragile.",
+      "maps": "https://maps.google.com/?q=Apátfalva+Pottery",
+      "emoji": "🏺",
+      "duration": "half"
+    },
+    {
+      "id": 58,
+      "name": "Forráskút Recreation Area",
+      "loc": "Forráskút",
+      "km": 17,
+      "time": "14 min",
+      "cat": "adventure",
+      "vibes": [
+        "active",
+        "nature",
+        "outdoors"
+      ],
+      "desc": "Large lake with beach, water sports, fishing. Cycling paths, picnic areas. Popular with locals, quieter than Tisza-tó. Windsurfing and SUP rentals.",
+      "lat": 46.3667,
+      "lng": 19.9833,
+      "tip": "Summer weekends best. Bring picnic blanket. Good for active day: swim, cycle, paddleboard.",
+      "maps": "https://maps.google.com/?q=Forráskút+Recreation+Area",
+      "emoji": "🏄",
+      "duration": "full"
+    },
+    {
+      "id": 59,
+      "name": "Deszk Horse Farm",
+      "loc": "Deszk",
+      "km": 31,
+      "time": "25 min",
+      "cat": "adventure",
+      "vibes": [
+        "active",
+        "outdoors"
+      ],
+      "desc": "Traditional Hungarian horse farm. Horseback riding lessons, trail rides through countryside. Petting zoo with farm animals. Authentic puszta experience close to home.",
+      "lat": 46.22,
+      "lng": 20.333,
+      "tip": "Book rides in advance. Even beginners welcome. Sunset rides available in summer.",
+      "maps": "https://maps.google.com/?q=Deszk+Horse+Farm",
+      "emoji": "🐴",
+      "duration": "half"
+    },
+    {
+      "id": 60,
+      "name": "Tisza-tó South Beaches",
+      "loc": "Tiszaug",
+      "km": 50,
+      "time": "45 min",
+      "cat": "adventure",
+      "vibes": [
+        "active",
+        "nature"
+      ],
+      "desc": "Hungary's second largest lake — artificial but beautiful. Sandy beaches, shallow water, water sports. Sailing, windsurfing, kayaking. Several beach complexes.",
+      "lat": 46.996,
+      "lng": 20.166,
+      "tip": "Summer weekends can be busy. Try Tiszaug beach for quieter vibe. Bring sunscreen.",
+      "maps": "https://maps.google.com/?q=Tisza-tó+Tiszaug",
+      "emoji": "⛵",
+      "duration": "full"
+    },
+    {
+      "id": 61,
+      "name": "Szeged Market Hall",
+      "loc": "Szeged",
+      "km": 28,
+      "time": "22 min",
+      "cat": "food",
+      "vibes": [
+        "foodie",
+        "culture"
+      ],
+      "desc": "Vibrant local market with fresh produce, Pick salami, Szeged paprika, craft vendors. Upstairs food stalls serve lángos, kürtőskalács. Authentic local experience.",
+      "lat": 46.2536,
+      "lng": 20.1481,
+      "tip": "Saturday mornings are liveliest. Try lángos with sour cream and cheese — cheap and delicious.",
+      "maps": "https://maps.google.com/?q=Szeged+Market+Hall",
+      "emoji": "🧺",
+      "duration": "half"
+    },
+    {
+      "id": 62,
+      "name": "Szatymaz Stork Colony",
+      "loc": "Szatymaz",
+      "km": 19,
+      "time": "15 min",
+      "cat": "adventure",
+      "vibes": [
+        "nature",
+        "outdoors"
+      ],
+      "desc": "Village with 30+ stork nests on rooftops and poles. April-August, storks raise chicks. Observation platform, info boards. Authentic rural Hungary.",
+      "lat": 46.35,
+      "lng": 20.083,
+      "tip": "May-June for chicks. Bring binoculars. Early morning for feeding activity.",
+      "maps": "https://maps.google.com/?q=Szatymaz+Stork+Colony",
+      "emoji": "🦩",
+      "duration": "half"
+    },
+    {
+      "id": 63,
+      "name": "Csanytelek Tisza Bridge",
+      "loc": "Csanytelek",
+      "km": 35,
+      "time": "30 min",
+      "cat": "explore",
+      "vibes": [
+        "nature",
+        "romantic"
+      ],
+      "desc": "Beautiful pedestrian bridge over the Tisza. Sunset spot, fishing, riverside walks. Small village charm. Nearby csárda for traditional food.",
+      "lat": 46.633,
+      "lng": 20.133,
+      "tip": "Perfect for a quiet evening. Watch the sunset from the bridge, then dinner at csárda.",
+      "maps": "https://maps.google.com/?q=Csanytelek+Tisza+Bridge",
+      "emoji": "🌉",
+      "duration": "half"
+    },
+    {
+      "id": 64,
+      "name": "Mórahalom African Museum",
+      "loc": "Mórahalom",
+      "km": 35,
+      "time": "30 min",
+      "cat": "special",
+      "vibes": [
+        "culture"
+      ],
+      "desc": "Unique museum with African art, hunting trophies, tribal artifacts. Built by local collector Nagy László. Quirky but fascinating. Only one of its kind in the region.",
+      "lat": 46.217,
+      "lng": 19.883,
+      "tip": "Call ahead for opening hours. Combine with thermal bath visit. Unexpectedly interesting.",
+      "maps": "https://maps.google.com/?q=Mórahalom+African+Museum",
+      "emoji": "🦒",
+      "duration": "half"
+    },
+    {
+      "id": 65,
+      "name": "Ásotthalom Salt Hills",
+      "loc": "Ásotthalom",
+      "km": 38,
+      "time": "32 min",
+      "cat": "adventure",
+      "vibes": [
+        "nature",
+        "outdoors"
+      ],
+      "desc": "Unique landscape created by ancient salt deposits. Small 'hills' on the flat puszta. Rare halophyte plants. Geological curiosity. Short trails for exploring.",
+      "lat": 46.2,
+      "lng": 19.75,
+      "tip": "Not dramatic but geologically interesting. Best combined with Mórahalom or Szeged visit.",
+      "maps": "https://maps.google.com/?q=Ásotthalom+Salt+Hills",
+      "emoji": "⛰️",
+      "duration": "half"
+    },
+    {
+      "id": 11,
+      "name": "Csongrád Belsőváros",
+      "loc": "Csongrád",
+      "km": 45,
+      "time": "40 min",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "history",
+        "chill"
+      ],
+      "desc": "Medieval street layout intact. Kézművesházak as living skansen. Unique baby doll collection, town museum, beautiful Tisza riverside. 26.7 km cycling route along the Tisza.",
+      "lat": 46.7111,
+      "lng": 20.1433,
+      "tip": "Feels like stepping back in time. Combine cycling + Belsőváros walk.",
+      "maps": "https://maps.google.com/?q=Csongrád+Belsőváros",
+      "emoji": "🏘️",
+      "duration": "full"
+    },
+    {
+      "id": 12,
+      "name": "Békéscsaba",
+      "loc": "Békéscsaba",
+      "km": 60,
+      "time": "45 min",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "foodie"
+      ],
+      "desc": "World's largest Munkácsy collection. Central Europe's largest Lutheran church. Walking street. Csabai kolbász is local pride. Jókai Theatre for shows. Slovak heritage house.",
+      "lat": 46.6833,
+      "lng": 21.0833,
+      "tip": "Check Jókai Theatre schedule. Dinner + show = underrated date.",
+      "maps": "https://maps.google.com/?q=Munkácsy+Mihály+Múzeum+Békéscsaba",
+      "emoji": "🎨",
+      "duration": "full"
+    },
+    {
+      "id": 13,
+      "name": "Pósteleki erdő & Wenckheim Castles",
+      "loc": "Békéscsaba/Szabadkígyós",
+      "km": 70,
+      "time": "55 min",
+      "cat": "adventure",
+      "vibes": [
+        "active",
+        "outdoors",
+        "romantic"
+      ],
+      "desc": "NATURA 2000 forest with ancient oaks, ironwood, blood beeches. The Wenckheim family built 17 castles — the bicycle route connects them through countryside. 42 km total, pick your segment.",
+      "lat": 46.6683,
+      "lng": 21.0033,
+      "tip": "Bring a backpack with snacks. Even a short segment between castles is gorgeous.",
+      "maps": "https://maps.google.com/?q=Pósteleki+erdő+Békéscsaba",
+      "emoji": "🚲",
+      "duration": "full"
+    },
+    {
+      "id": 14,
+      "name": "Szentesi Fürdő",
+      "loc": "Szentes",
+      "km": 30,
+      "time": "30 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill"
+      ],
+      "desc": "15 pools, 8 slides, saunas, sports pool. Set in Széchenyi Liget park. Rarely overcrowded. New indoor pool.",
+      "lat": 46.6512,
+      "lng": 20.2603,
+      "tip": "Sleeper pick. Combine with Szentes town walk.",
+      "maps": "https://maps.google.com/?q=Szentes+Üdülőközpont+fürdő",
+      "emoji": "🏊",
+      "duration": "half"
+    },
+    {
+      "id": 15,
+      "name": "Csillagösvény Maze",
+      "loc": "Ópusztaszer",
+      "km": 45,
+      "time": "40 min",
+      "cat": "special",
+      "vibes": [
+        "active",
+        "outdoors"
+      ],
+      "desc": "Maze shaped like the wonder-stag from 3.5 km of privet hedges. History questions at junctions. Plus a 1,200m willow labyrinth. Genuinely fun for couples.",
+      "lat": 46.4842,
+      "lng": 20.0892,
+      "tip": "Competitive or cooperative — your call. Usually open March–November.",
+      "maps": "https://maps.google.com/?q=Csillagösvény+Ópusztaszer",
+      "emoji": "🌀",
+      "duration": "half"
+    },
+    {
+      "id": 16,
+      "name": "Cserkeszőlő Fürdő",
+      "loc": "Cserkeszőlő",
+      "km": 82,
+      "time": "1 hr 5 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill"
+      ],
+      "desc": "Cult-favorite. Water from 2,300m deep at 82°C. Online reviews are fanatical. 9 pools, modern winter bath. The Tiszazug area is beautiful cycling country.",
+      "lat": 46.8711,
+      "lng": 20.125,
+      "tip": "Legendary water for joints/back. Combine with Tiszakürt Arboretum next door.",
+      "maps": "https://maps.google.com/?q=Cserkeszőlő+Gyógy+és+Strandfürdő",
+      "emoji": "🔥",
+      "duration": "half"
+    },
+    {
+      "id": 17,
+      "name": "Tiszakürt Arborétum",
+      "loc": "Tiszakürt",
+      "km": 85,
+      "time": "1 hr 15 min",
+      "cat": "explore",
+      "vibes": [
+        "nature",
+        "chill"
+      ],
+      "desc": "60-hectare arboretum by the Tisza founded in the 1800s. 1000+ species, paved walking paths, wood carvings, 14m observation tower. Artesian mineral well you can drink from.",
+      "lat": 46.8667,
+      "lng": 20.3667,
+      "tip": "Combine with Cserkeszőlő. Best in May/October but beautiful year-round.",
+      "maps": "https://maps.google.com/?q=Tiszakürti+Arborétum",
+      "emoji": "🌿",
+      "duration": "half"
+    },
+    {
+      "id": 18,
+      "name": "Gyomaendrőd",
+      "loc": "Gyomaendrőd",
+      "km": 75,
+      "time": "1 hr 10 min",
+      "cat": "explore",
+      "vibes": [
+        "nature",
+        "culture"
+      ],
+      "desc": "Town with 16 oxbow lakes — unique in Hungary. Tree canopy walkway + tower in Erzsébet Liget. Fishing Experience Park on a dead river branch. Hungary's only printing museum.",
+      "lat": 46.94,
+      "lng": 20.82,
+      "tip": "The lombkorona here is in a forest by a dead river — atmospheric.",
+      "maps": "https://maps.google.com/?q=Gyomaendrőd+Erzsébet+liget+lombkorona",
+      "emoji": "🌊",
+      "duration": "full"
+    },
+    {
+      "id": 66,
+      "name": "Békéscsaba Árpád Fürdő",
+      "loc": "Békéscsaba",
+      "km": 60,
+      "time": "45 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill"
+      ],
+      "desc": "Only year-round thermal facility in Békés County seat. 6 pools, barrier-free, large green areas, sports facilities. Modern renovation in 2003.",
+      "lat": 46.6833,
+      "lng": 21.0833,
+      "tip": "County seat bath — good value, big terraces. Combine with Munkácsy Museum.",
+      "maps": "https://maps.google.com/?q=Békéscsaba+Árpád+Fürdő",
+      "emoji": "💧",
+      "duration": "half"
+    },
+    {
+      "id": 67,
+      "name": "Békéscsaba Munkácsy Museum",
+      "loc": "Békéscsaba",
+      "km": 60,
+      "time": "45 min",
+      "cat": "explore",
+      "vibes": [
+        "culture"
+      ],
+      "desc": "World's largest Munkácsy collection. County museum founded 1899. Rotating exhibits, local history, art. The Munkácsy paintings alone are worth the visit.",
+      "lat": 46.6833,
+      "lng": 21.0833,
+      "tip": "Free on certain days. Check schedule. Combine with Lutheran church and walking street.",
+      "maps": "https://maps.google.com/?q=Munkácsy+Mihály+Múzeum+Békéscsaba",
+      "emoji": "🎨",
+      "duration": "half"
+    },
+    {
+      "id": 68,
+      "name": "Békéscsaba Lutheran Church",
+      "loc": "Békéscsaba",
+      "km": 60,
+      "time": "45 min",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "history"
+      ],
+      "desc": "Central Europe's largest Lutheran church. Built 1817, stunning neoclassical architecture. Massive pipe organ. Climb tower for city views. Slovak heritage center nearby.",
+      "lat": 46.6833,
+      "lng": 21.0833,
+      "tip": "Free entry but donations appreciated. Sunday services have beautiful organ music.",
+      "maps": "https://maps.google.com/?q=Békéscsaba+Lutheran+Church",
+      "emoji": "⛪",
+      "duration": "half"
+    },
+    {
+      "id": 69,
+      "name": "Csabai Sausage Festival",
+      "loc": "Békéscsaba",
+      "km": 60,
+      "time": "45 min",
+      "cat": "food",
+      "vibes": [
+        "foodie",
+        "culture"
+      ],
+      "desc": "Annual October festival celebrating Csabai kolbász (local salami/sausage). Hungarikum product. Tastings, cooking demos, craft fair, live music. Biggest food festival in the region.",
+      "lat": 46.6833,
+      "lng": 21.0833,
+      "tip": "Mid-October. Book accommodation early. Try all the kolbász varieties — spicy is best.",
+      "maps": "https://maps.google.com/?q=Csabai+Kolbászfesztivál",
+      "emoji": "🌭",
+      "duration": "full"
+    },
+    {
+      "id": 70,
+      "name": "Mezőberény Petrics Museum",
+      "loc": "Mezőberény",
+      "km": 55,
+      "time": "50 min",
+      "cat": "special",
+      "vibes": [
+        "culture",
+        "history"
+      ],
+      "desc": "Orlai Petrics Soma Museum in beautiful Wenckheim castle. Historical painting collection. Castle built 1800s in Louis Seize-empire style. 5-hectare park. Petőfi connection — his wife attended school here.",
+      "lat": 47,
+      "lng": 20.9,
+      "tip": "Castle exterior alone worth seeing. Park is free. Small but quality collection inside.",
+      "maps": "https://maps.google.com/?q=Mezőberény+Orlai+Petrics+Museum",
+      "emoji": "🏰",
+      "duration": "half"
+    },
+    {
+      "id": 71,
+      "name": "Doboz Wenckheim Castle",
+      "loc": "Doboz",
+      "km": 75,
+      "time": "1 hr",
+      "cat": "special",
+      "vibes": [
+        "culture",
+        "history",
+        "romantic"
+      ],
+      "desc": "Wenckheim manor built 1805-1810. Castle park is nature conservation area. Neo-romanesque chapel nearby. Historically center of vast Wenckheim estates.",
+      "lat": 46.9,
+      "lng": 21.1,
+      "tip": "Park is lovely for walks. Check if castle events are happening. Chapel is photogenic.",
+      "maps": "https://maps.google.com/?q=Doboz+Wenckheim+Castle",
+      "emoji": "🏰",
+      "duration": "half"
+    },
+    {
+      "id": 72,
+      "name": "Békés-Tarhos Wenckheim Castle",
+      "loc": "Békés-Tarhos",
+      "km": 70,
+      "time": "55 min",
+      "cat": "special",
+      "vibes": [
+        "culture",
+        "history"
+      ],
+      "desc": "19th century castle with 23-hectare arboretum. Former music school — György Gulyás opened singing school here 1946. Bandstand built 1953. Békés-Tarhos Music Days in summer.",
+      "lat": 46.9,
+      "lng": 21.1,
+      "tip": "Castle is private property but arboretum accessible. Summer music festival is excellent.",
+      "maps": "https://maps.google.com/?q=Békés-Tarhos+Castle",
+      "emoji": "🎶",
+      "duration": "half"
+    },
+    {
+      "id": 73,
+      "name": "Gyomaendrőd Printing Museum",
+      "loc": "Gyomaendrőd",
+      "km": 75,
+      "time": "1 hr 10 min",
+      "cat": "special",
+      "vibes": [
+        "culture"
+      ],
+      "desc": "Hungary's only printing museum. Historic presses, typography exhibits, bookbinding demonstrations. Hands-on activities. Unique niche museum.",
+      "lat": 46.94,
+      "lng": 20.82,
+      "tip": "Call ahead for demos. Book lovers will geek out. Combine with oxbow lakes visit.",
+      "maps": "https://maps.google.com/?q=Gyomaendrőd+Printing+Museum",
+      "emoji": "📜",
+      "duration": "half"
+    },
+    {
+      "id": 74,
+      "name": "Gyomaendrőd Liget Spa",
+      "loc": "Gyomaendrőd",
+      "km": 75,
+      "time": "1 hr 10 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill"
+      ],
+      "desc": "Thermal bath in Erzsébet Liget forest. Unique setting among oxbow lakes. 8 pools, wellness. Forest location makes it special — swim surrounded by trees.",
+      "lat": 46.94,
+      "lng": 20.82,
+      "tip": "Summer is best — combine swimming with forest walks. Quieter than famous spas.",
+      "maps": "https://maps.google.com/?q=Gyomaendrőd+Liget+Spa",
+      "emoji": "🌲",
+      "duration": "half"
+    },
+    {
+      "id": 75,
+      "name": "Dévaványa Fishing Lake",
+      "loc": "Dévaványa",
+      "km": 80,
+      "time": "1 hr 5 min",
+      "cat": "adventure",
+      "vibes": [
+        "active",
+        "nature"
+      ],
+      "desc": "Large fishing lake complex, bird watching paradise. Hortobágy National Park territory. Rare water birds, herons, egrets. Fishing permits available. Observation towers.",
+      "lat": 47,
+      "lng": 20.9,
+      "tip": "Spring migration is spectacular. Bring binoculars. Combine with Cserkeszőlő spa nearby.",
+      "maps": "https://maps.google.com/?q=Dévaványa+Fishing+Lake",
+      "emoji": "🎣",
+      "duration": "full"
+    },
+    {
+      "id": 76,
+      "name": "Sarkad Thermal Bath",
+      "loc": "Sarkad",
+      "km": 70,
+      "time": "55 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill"
+      ],
+      "desc": "Family-friendly spa, 8 pools including thermal, adventure, children's. Water from 1,800m depth. New sections opened 2010. Good value, never crowded.",
+      "lat": 46.75,
+      "lng": 21.3833,
+      "tip": "Weekdays are very quiet. Good for budget thermal day. Small town charm nearby.",
+      "maps": "https://maps.google.com/?q=Sarkad+Thermal+Bath",
+      "emoji": "♨️",
+      "duration": "half"
+    },
+    {
+      "id": 77,
+      "name": "Vésztő-Mágor Archaeological Site",
+      "loc": "Vésztő",
+      "km": 75,
+      "time": "1 hr",
+      "cat": "special",
+      "vibes": [
+        "history"
+      ],
+      "desc": "Neolithic settlement from 5500 BC. Reconstructed prehistoric houses, excavation site. One of Hungary's most important archaeological sites. Educational center.",
+      "lat": 46.94,
+      "lng": 21.25,
+      "tip": "Fascinating for history buffs. Reconstructions give real sense of ancient life. Free entry.",
+      "maps": "https://maps.google.com/?q=Vésztő-Mágor+Archaeological+Site",
+      "emoji": "🏺",
+      "duration": "half"
+    },
+    {
+      "id": 78,
+      "name": "Mezőhegyes Stud Farm",
+      "loc": "Mezőhegyes",
+      "km": 85,
+      "time": "1 hr 15 min",
+      "cat": "adventure",
+      "vibes": [
+        "active",
+        "culture"
+      ],
+      "desc": "One of Europe's oldest state stud farms (1784). Breeds Nonius, Furioso, Gidran horses. Baroque buildings, horse shows, museum. Can visit stables, watch training.",
+      "lat": 46.34,
+      "lng": 21.16,
+      "tip": "Call ahead for tour times. Horse shows on weekends. Architecture alone is impressive.",
+      "maps": "https://maps.google.com/?q=Mezőhegyes+Stud+Farm",
+      "emoji": "🐎",
+      "duration": "full"
+    },
+    {
+      "id": 79,
+      "name": "Battonya Serbian Church",
+      "loc": "Battonya",
+      "km": 70,
+      "time": "55 min",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "history"
+      ],
+      "desc": "Beautiful Serbian Orthodox church with unique architecture. Serbian minority heritage. Iconostasis, frescoes. Small Serbian cultural museum nearby.",
+      "lat": 46.4333,
+      "lng": 21.0333,
+      "tip": "Check opening hours — often locked. Town has Serbian restaurants worth trying.",
+      "maps": "https://maps.google.com/?q=Battonya+Serbian+Church",
+      "emoji": "⛪",
+      "duration": "half"
+    },
+    {
+      "id": 80,
+      "name": "Tiszakürt Arborétum",
+      "loc": "Tiszakürt",
+      "km": 85,
+      "time": "1 hr 15 min",
+      "cat": "explore",
+      "vibes": [
+        "nature",
+        "chill"
+      ],
+      "desc": "60-hectare arboretum by the Tisza founded in the 1800s. 1000+ species, paved walking paths, wood carvings, 14m observation tower. Artesian mineral well you can drink from.",
+      "lat": 46.8667,
+      "lng": 20.3667,
+      "tip": "Combine with Cserkeszőlő. Best in May/October but beautiful year-round.",
+      "maps": "https://maps.google.com/?q=Tiszakürti+Arborétum",
+      "emoji": "🌿",
+      "duration": "half"
+    },
+    {
+      "id": 81,
+      "name": "Túrkeve Pottery House",
+      "loc": "Túrkeve",
+      "km": 95,
+      "time": "1 hr 20 min",
+      "cat": "special",
+      "vibes": [
+        "culture"
+      ],
+      "desc": "Traditional pottery workshop with demonstrations. Famous Túrkeve pottery style. Buy handmade ceramics, try your hand at wheel. Folk art center.",
+      "lat": 47.1,
+      "lng": 20.75,
+      "tip": "Book ahead for workshops. Great for unique souvenirs. Traditional Hungarian designs.",
+      "maps": "https://maps.google.com/?q=Túrkeve+Pottery+House",
+      "emoji": "🏺",
+      "duration": "half"
+    },
+    {
+      "id": 82,
+      "name": "Mezőtúr Thermal Bath",
+      "loc": "Mezőtúr",
+      "km": 100,
+      "time": "1 hr 25 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill"
+      ],
+      "desc": "5 pools: open medical, beach, children's, covered swimming pools. Set in park. Medicinal water for rheumatism. Traditional local spa.",
+      "lat": 47,
+      "lng": 20.65,
+      "tip": "Very affordable. Combine with pottery museum in town. Authentic local experience.",
+      "maps": "https://maps.google.com/?q=Mezőtúr+Thermal+Bath",
+      "emoji": "💦",
+      "duration": "half"
+    },
+    {
+      "id": 83,
+      "name": "Kunszentmárton Steppe",
+      "loc": "Kunszentmárton",
+      "km": 95,
+      "time": "1 hr 20 min",
+      "cat": "adventure",
+      "vibes": [
+        "nature",
+        "outdoors"
+      ],
+      "desc": "Protected steppe landscape, rare plants, birdwatching. Traditional Great Plain scenery. Walking trails, observation points. Part of Kiskunság National Park.",
+      "lat": 46.9,
+      "lng": 20.2833,
+      "tip": "Best spring for wildflowers. Bring good walking shoes. Vast horizons, incredible sunsets.",
+      "maps": "https://maps.google.com/?q=Kunszentmárton+Steppe",
+      "emoji": "🌾",
+      "duration": "full"
+    },
+    {
+      "id": 84,
+      "name": "Tiszafüred Pottery Workshop",
+      "loc": "Tiszafüred",
+      "km": 115,
+      "time": "1 hr 35 min",
+      "cat": "special",
+      "vibes": [
+        "culture"
+      ],
+      "desc": "Famous for unique Tiszafüred pottery style. Workshop visits, demonstrations, sales. Traditional designs, hand-painted. UNESCO Intangible Cultural Heritage.",
+      "lat": 47.6167,
+      "lng": 20.7667,
+      "tip": "Buy directly from artisans. Prices better than Budapest. Watch painting process.",
+      "maps": "https://maps.google.com/?q=Tiszafüred+Pottery",
+      "emoji": "🎨",
+      "duration": "half"
+    },
+    {
+      "id": 85,
+      "name": "Tiszafüred Bird Hospital",
+      "loc": "Tiszafüred",
+      "km": 115,
+      "time": "1 hr 35 min",
+      "cat": "special",
+      "vibes": [
+        "nature"
+      ],
+      "desc": "Rehabilitation center for injured wild birds. Educational programs, can see rescued birds up close. Eagles, owls, storks being treated. Unique experience.",
+      "lat": 47.6167,
+      "lng": 20.7667,
+      "tip": "Call ahead for visiting hours. Donations appreciated. Great for animal lovers.",
+      "maps": "https://maps.google.com/?q=Tiszafüred+Bird+Hospital",
+      "emoji": "🦅",
+      "duration": "half"
+    },
+    {
+      "id": 19,
+      "name": "Kecskemét",
+      "loc": "Kecskemét",
+      "km": 110,
+      "time": "1 hr 30 min",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "foodie"
+      ],
+      "desc": "Hungary's 7th largest city. Cifrapalota (stunning Art Nouveau), Lechner-designed Városháza, Toy Museum, Photography Museum, Science House. Home of barack pálinka. Always lively.",
+      "lat": 46.9062,
+      "lng": 19.6926,
+      "tip": "Architecture is incredible. Pálinka tasting is THE thing. Great date city.",
+      "maps": "https://maps.google.com/?q=Kecskemét+Cifrapalota",
+      "emoji": "🏛️",
+      "duration": "full"
+    },
+    {
+      "id": 20,
+      "name": "Bugac Puszta",
+      "loc": "Kiskunsági NP",
+      "km": 120,
+      "time": "1 hr 40 min",
+      "cat": "adventure",
+      "vibes": [
+        "active",
+        "culture",
+        "foodie"
+      ],
+      "desc": "THE iconic puszta experience. Horse shows with csikós doing the legendary 'puszta five,' shepherd museum, indigenous animal zoo, ancient juniper forest. Eat at Karikás Csárda after.",
+      "lat": 46.6833,
+      "lng": 19.6833,
+      "tip": "Check horse show schedule — not daily. Full day trip.",
+      "maps": "https://maps.google.com/?q=Bugac+Puszta+Kiskunsági+Nemzeti+Park",
+      "emoji": "🐎",
+      "duration": "full"
+    },
+    {
+      "id": 21,
+      "name": "Debrecen",
+      "loc": "Debrecen",
+      "km": 170,
+      "time": "2 hr",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "foodie"
+      ],
+      "desc": "Hungary's 2nd largest city. The Great Reformed Church, Déri Museum, amazing restaurant scene. The Nagyerdő park and Aquaticum thermal bath complex. University campus is beautiful.",
+      "lat": 47.5316,
+      "lng": 21.6273,
+      "tip": "Worth a full day. The Déri Museum's Munkácsy trilogy is legendary.",
+      "maps": "https://maps.google.com/?q=Debrecen+Nagytemplom",
+      "emoji": "⛪",
+      "duration": "full"
+    },
+    {
+      "id": 22,
+      "name": "Hortobágy Nemzeti Park",
+      "loc": "Hortobágy",
+      "km": 160,
+      "time": "1 hr 50 min",
+      "cat": "adventure",
+      "vibes": [
+        "nature",
+        "culture",
+        "outdoors"
+      ],
+      "desc": "UNESCO World Heritage puszta. The Nine-Arch Bridge is iconic. Horse shows, shepherd demonstrations, traditional Hortobágy csárda, bird watching (huge migration spot). Unique landscape unlike anything else.",
+      "lat": 47.5833,
+      "lng": 21.1667,
+      "tip": "Best in spring/autumn for bird migration. The csárda here is one of Hungary's oldest.",
+      "maps": "https://maps.google.com/?q=Hortobágy+Kilenclyukú+híd",
+      "emoji": "🦅",
+      "duration": "full"
+    },
+    {
+      "id": 86,
+      "name": "Tisza-tó Abádszalók Beach",
+      "loc": "Abádszalók",
+      "km": 125,
+      "time": "1 hr 40 min",
+      "cat": "adventure",
+      "vibes": [
+        "active",
+        "nature"
+      ],
+      "desc": "Main beach area of Tisza Lake. Sandy beaches, water sports rentals, restaurants. Sailing school, windsurfing, kitesurfing. Summer resort vibe.",
+      "lat": 47.3667,
+      "lng": 20.6167,
+      "tip": "Book accommodation ahead for summer. Great for active water sports weekend.",
+      "maps": "https://maps.google.com/?q=Abádszalók+Beach+Tisza-tó",
+      "emoji": "🏄",
+      "duration": "full"
+    },
+    {
+      "id": 87,
+      "name": "Tiszafüred Thermal Bath",
+      "loc": "Tiszafüred",
+      "km": 115,
+      "time": "1 hr 35 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill"
+      ],
+      "desc": "Large bath complex on Tisza Lake shore. Indoor and outdoor pools, wellness, slides. Beautiful setting. Combine lake activities with thermal relaxation.",
+      "lat": 47.6167,
+      "lng": 20.7667,
+      "tip": "Off-season best for avoiding crowds. Lake views from outdoor pools.",
+      "maps": "https://maps.google.com/?q=Tiszafüred+Thermal+Bath",
+      "emoji": "♨️",
+      "duration": "half"
+    },
+    {
+      "id": 88,
+      "name": "Jászberény Zoo & Botanical Garden",
+      "loc": "Jászberény",
+      "km": 145,
+      "time": "1 hr 50 min",
+      "cat": "explore",
+      "vibes": [
+        "nature"
+      ],
+      "desc": "Regional zoo with 300+ animal species. Large botanical collection. Playgrounds, petting zoo. Well-maintained, family-friendly but great for adult couples too.",
+      "lat": 47.5,
+      "lng": 19.9167,
+      "tip": "Spring is best for baby animals. Budget 3-4 hours. Picnic areas available.",
+      "maps": "https://maps.google.com/?q=Jászberény+Zoo",
+      "emoji": "🦁",
+      "duration": "full"
+    },
+    {
+      "id": 89,
+      "name": "Szolnok Thermal Bath",
+      "loc": "Szolnok",
+      "km": 120,
+      "time": "1 hr 35 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill"
+      ],
+      "desc": "Large thermal complex on Tisza riverside. 12 pools including thermal, medical, adventure, wave pool. Wellness center. Modern facilities.",
+      "lat": 47.1833,
+      "lng": 20.2,
+      "tip": "Combine with Szolnok old town walk. Riverside location is beautiful.",
+      "maps": "https://maps.google.com/?q=Szolnok+Thermal+Bath",
+      "emoji": "💧",
+      "duration": "half"
+    },
+    {
+      "id": 90,
+      "name": "Szolnok Gallery",
+      "loc": "Szolnok",
+      "km": 120,
+      "time": "1 hr 35 min",
+      "cat": "explore",
+      "vibes": [
+        "culture"
+      ],
+      "desc": "Famous artists' colony history. Gallery showcases Szolnok school painters. Beautiful riverside setting. Contemporary and historical Hungarian art.",
+      "lat": 47.1833,
+      "lng": 20.2,
+      "tip": "Free entry certain days. Riverside walk after. Szolnok has strong art tradition.",
+      "maps": "https://maps.google.com/?q=Szolnok+Gallery",
+      "emoji": "🎨",
+      "duration": "half"
+    },
+    {
+      "id": 91,
+      "name": "Tisza-tó Eco-Center",
+      "loc": "Poroszló",
+      "km": 130,
+      "time": "1 hr 45 min",
+      "cat": "explore",
+      "vibes": [
+        "nature",
+        "culture"
+      ],
+      "desc": "Interactive natural history museum about Tisza Lake ecology. Aquarium with local fish, wetland exhibits, observation tower. Educational but fun.",
+      "lat": 47.65,
+      "lng": 20.6833,
+      "tip": "Great for rainy days. Tower has panoramic lake views. Combine with lake activities.",
+      "maps": "https://maps.google.com/?q=Poroszló+Tisza-tó+Eco-Center",
+      "emoji": "🐠",
+      "duration": "full"
+    },
+    {
+      "id": 92,
+      "name": "Kisújszállás Pottery Museum",
+      "loc": "Kisújszállás",
+      "km": 135,
+      "time": "1 hr 45 min",
+      "cat": "special",
+      "vibes": [
+        "culture"
+      ],
+      "desc": "Traditional Sárköz pottery collection. Museum in historic building. Demonstrations on weekends. Unique regional pottery style.",
+      "lat": 47.25,
+      "lng": 20.8,
+      "tip": "Check demo schedule. Buy authentic pieces directly. Traditional designs.",
+      "maps": "https://maps.google.com/?q=Kisújszállás+Pottery+Museum",
+      "emoji": "🏺",
+      "duration": "half"
+    },
+    {
+      "id": 93,
+      "name": "Hajdúszoboszló Thermal Bath",
+      "loc": "Hajdúszoboszló",
+      "km": 155,
+      "time": "1 hr 55 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill",
+        "active"
+      ],
+      "desc": "One of Hungary's largest spa complexes. 13 pools, aquapark, medical section. Huge outdoor area. Famous for iodine-rich water. Can easily spend full day.",
+      "lat": 47.4489,
+      "lng": 21.3981,
+      "tip": "Summer is crowded but fun. Medical section quieter. Bring sunscreen for outdoor pools.",
+      "maps": "https://maps.google.com/?q=Hajdúszoboszló+Thermal+Bath",
+      "emoji": "🏊",
+      "duration": "full"
+    },
+    {
+      "id": 94,
+      "name": "Hajdúszoboszló Greek Catholic Church",
+      "loc": "Hajdúszoboszló",
+      "km": 155,
+      "time": "1 hr 55 min",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "history"
+      ],
+      "desc": "Beautiful Greek Catholic church with ornate iconostasis. Unique architecture for the region. Colorful interior, religious art.",
+      "lat": 47.4489,
+      "lng": 21.3981,
+      "tip": "Combine with thermal bath visit. Opening hours limited, check ahead.",
+      "maps": "https://maps.google.com/?q=Hajdúszoboszló+Greek+Catholic+Church",
+      "emoji": "⛪",
+      "duration": "half"
+    },
+    {
+      "id": 95,
+      "name": "Nagykunság Steppe",
+      "loc": "Karcag area",
+      "km": 140,
+      "time": "1 hr 48 min",
+      "cat": "adventure",
+      "vibes": [
+        "nature",
+        "outdoors"
+      ],
+      "desc": "Protected steppe landscape, part of Hortobágy National Park. Traditional puszta ecosystem. Birdwatching, rare plants, shepherd culture. Vast open spaces.",
+      "lat": 47.3167,
+      "lng": 20.6,
+      "tip": "Spring for wildflowers and birds. Bring good walking shoes. Authentic Great Plain.",
+      "maps": "https://maps.google.com/?q=Nagykunság+Steppe",
+      "emoji": "🌾",
+      "duration": "full"
+    },
+    {
+      "id": 23,
+      "name": "Budapest",
+      "loc": "Budapest",
+      "km": 190,
+      "time": "2 hr 10 min",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "romantic",
+        "foodie"
+      ],
+      "desc": "The capital needs no introduction. Buda Castle, Parliament, ruin bars, Széchenyi/Rudas/Gellért baths, Danube cruise, incredible food scene. Every couple should do a Budapest weekend at least once a year.",
+      "lat": 47.4979,
+      "lng": 19.0402,
+      "tip": "Book a boutique hotel in District VII. Friday night ruin bars → Saturday culture → Sunday thermal.",
+      "maps": "https://maps.google.com/?q=Budapest+belváros",
+      "emoji": "🌃",
+      "duration": "weekend"
+    },
+    {
+      "id": 24,
+      "name": "Eger",
+      "loc": "Eger",
+      "km": 250,
+      "time": "2 hr 45 min",
+      "cat": "food",
+      "vibes": [
+        "culture",
+        "foodie",
+        "romantic"
+      ],
+      "desc": "One of Hungary's most beautiful cities. Baroque architecture, Eger Castle, the famous Szépasszony-völgy (Valley of Beautiful Women) wine cellars. Egri Bikavér (Bull's Blood) wine. The minaret is the northernmost Ottoman relic in Europe. Thermal bath in the city center.",
+      "lat": 47.9025,
+      "lng": 20.3772,
+      "tip": "Stay overnight. Wine tasting in the valley is a must. The castle views at sunset are insane.",
+      "maps": "https://maps.google.com/?q=Eger+vár",
+      "emoji": "🍷",
+      "duration": "weekend"
+    },
+    {
+      "id": 25,
+      "name": "Miskolctapolca Barlangfürdő",
+      "loc": "Miskolc",
+      "km": 270,
+      "time": "2 hr 50 min",
+      "cat": "thermal",
+      "vibes": [
+        "chill",
+        "romantic"
+      ],
+      "desc": "Europe's unique cave thermal bath — you swim through actual natural caves. The water is warm and the atmosphere is magical. Nearby: Diósgyőr Castle and Lillafüred with its waterfall and hanging gardens.",
+      "lat": 48.07,
+      "lng": 20.75,
+      "tip": "Combine with Lillafüred for a weekend. The cave bath alone is worth the drive.",
+      "maps": "https://maps.google.com/?q=Miskolctapolca+Barlangfürdő",
+      "emoji": "🦇",
+      "duration": "weekend"
+    },
+    {
+      "id": 26,
+      "name": "Tokaj Wine Region",
+      "loc": "Tokaj",
+      "km": 300,
+      "time": "3 hr",
+      "cat": "food",
+      "vibes": [
+        "foodie",
+        "romantic",
+        "culture"
+      ],
+      "desc": "UNESCO World Heritage wine region. The legendary Tokaji Aszú — Louis XIV called it 'wine of kings, king of wines.' Ancient cellars, furmint tastings, Zemplén mountain backdrop. Gorgeous riverside town.",
+      "lat": 48.12,
+      "lng": 21.41,
+      "tip": "Stay 2 nights. Winery visits + cellar tastings + riverside walks. Hotel Minaro is excellent.",
+      "maps": "https://maps.google.com/?q=Tokaj+Hungary",
+      "emoji": "🥂",
+      "duration": "weekend"
+    },
+    {
+      "id": 27,
+      "name": "Pécs",
+      "loc": "Pécs",
+      "km": 250,
+      "time": "2 hr 40 min",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "foodie"
+      ],
+      "desc": "Mediterranean vibes in Hungary. The Mosque Church (Gázi Kászim pasa dzsámija) is stunning. Roman necropolis (UNESCO), Zsolnay Cultural Quarter, amazing gastro scene. Warm even in winter. Combine with Villány wine region (30 min away).",
+      "lat": 46.0727,
+      "lng": 18.2323,
+      "tip": "Stay 2 nights: Day 1 Pécs, Day 2 Villány wine route. The Zsolnay Quarter alone is worth it.",
+      "maps": "https://maps.google.com/?q=Pécs+Széchenyi+tér",
+      "emoji": "☀️",
+      "duration": "weekend"
+    },
+    {
+      "id": 28,
+      "name": "Villány Wine Route",
+      "loc": "Villány",
+      "km": 270,
+      "time": "2 hr 50 min",
+      "cat": "food",
+      "vibes": [
+        "foodie",
+        "romantic"
+      ],
+      "desc": "Hungary's 'Red Wine Capital.' Famous for bold Cabernet Franc. Hungary's first dedicated wine trail. Beautiful sculpture park among the vineyards. Combine with Pécs for the ultimate weekend.",
+      "lat": 45.8667,
+      "lng": 18.45,
+      "tip": "Sauska, Gere, Vylyan are top wineries. Book tastings ahead.",
+      "maps": "https://maps.google.com/?q=Villány+borút",
+      "emoji": "🍇",
+      "duration": "weekend"
+    },
+    {
+      "id": 29,
+      "name": "Balaton (North Shore)",
+      "loc": "Balatonfüred/Tihany",
+      "km": 260,
+      "time": "2 hr 45 min",
+      "cat": "explore",
+      "vibes": [
+        "nature",
+        "romantic",
+        "chill"
+      ],
+      "desc": "The 'Hungarian Sea.' Tihany Abbey with lavender fields and stunning lake views. Balatonfüred is the old-money spa town with beautiful promenades. Wine tasting along the north shore. Even in off-season, it's gorgeous and uncrowded.",
+      "lat": 46.95,
+      "lng": 17.89,
+      "tip": "Stay in Balatonfüred or Tihany. Off-season is actually better — no crowds, same views. The wine is excellent.",
+      "maps": "https://maps.google.com/?q=Tihany+apátsági+templom",
+      "emoji": "🌊",
+      "duration": "weekend"
+    },
+    {
+      "id": 30,
+      "name": "Hévíz Thermal Lake",
+      "loc": "Hévíz",
+      "km": 290,
+      "time": "3 hr",
+      "cat": "thermal",
+      "vibes": [
+        "chill",
+        "romantic"
+      ],
+      "desc": "The world's largest biologically active natural thermal lake. You literally swim in a warm lake surrounded by water lilies. Open year-round — swimming in winter steam is magical. Nearby: Keszthely with its Festetics Palace.",
+      "lat": 46.7919,
+      "lng": 17.1856,
+      "tip": "Combine with Balaton north shore for a 3-day trip. The winter steam experience is unforgettable.",
+      "maps": "https://maps.google.com/?q=Hévíz+Tófürdő",
+      "emoji": "🌸",
+      "duration": "weekend"
+    },
+    {
+      "id": 31,
+      "name": "Szentendre",
+      "loc": "Szentendre",
+      "km": 210,
+      "time": "2 hr 20 min",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "romantic"
+      ],
+      "desc": "Artsy riverside town near Budapest. Cobblestone streets, colorful buildings, galleries everywhere, Serbian churches, marzipan museum. Perfect for a wandering afternoon. Often combined with a Budapest trip.",
+      "lat": 47.6667,
+      "lng": 19.0833,
+      "tip": "Makes a great Saturday day trip if you're already in Budapest for the weekend.",
+      "maps": "https://maps.google.com/?q=Szentendre+főtér",
+      "emoji": "🎨",
+      "duration": "full"
+    },
+    {
+      "id": 32,
+      "name": "Lillafüred",
+      "loc": "Miskolc",
+      "km": 275,
+      "time": "2 hr 55 min",
+      "cat": "explore",
+      "vibes": [
+        "nature",
+        "romantic"
+      ],
+      "desc": "Fairy-tale setting in the Bükk mountains. Hanging gardens, waterfall, cave systems (István-barlang + Anna-barlang), the palatial Hotel Palota on a lake. Forest hiking trails everywhere.",
+      "lat": 48.0833,
+      "lng": 20.6333,
+      "tip": "Combine with Miskolctapolca cave bath for the ultimate nature + thermal weekend.",
+      "maps": "https://maps.google.com/?q=Lillafüred+Hungary",
+      "emoji": "🏔️",
+      "duration": "weekend"
+    },
+    {
+      "id": 33,
+      "name": "Hollókő",
+      "loc": "Hollókő",
+      "km": 280,
+      "time": "3 hr",
+      "cat": "special",
+      "vibes": [
+        "culture",
+        "history"
+      ],
+      "desc": "UNESCO World Heritage village — perfectly preserved Palóc folk architecture. The castle overlooks everything. Feels like stepping into the 18th century. Famous Easter festival with traditional costumes.",
+      "lat": 47.9333,
+      "lng": 19.6,
+      "tip": "Best at Easter for the festival, but charming year-round. The castle hike is short but rewarding.",
+      "maps": "https://maps.google.com/?q=Hollókő+Hungary",
+      "emoji": "🏡",
+      "duration": "weekend"
+    },
+    {
+      "id": 34,
+      "name": "Aggtelek Caves",
+      "loc": "Aggtelek",
+      "km": 310,
+      "time": "3 hr 15 min",
+      "cat": "adventure",
+      "vibes": [
+        "active",
+        "nature",
+        "outdoors"
+      ],
+      "desc": "UNESCO-listed Baradla cave system — one of Europe's most impressive. Stalactites, underground rivers, concert hall inside. Different tour lengths available (1–7 hours). The surrounding national park has great hiking.",
+      "lat": 48.4667,
+      "lng": 20.4833,
+      "tip": "Book the medium-length tour (2.5 hrs). The acoustics tour with music is unforgettable.",
+      "maps": "https://maps.google.com/?q=Aggtelek+Baradla+barlang",
+      "emoji": "🕳️",
+      "duration": "weekend"
+    },
+    {
+      "id": 35,
+      "name": "Székesfehérvár",
+      "loc": "Székesfehérvár",
+      "km": 230,
+      "time": "2 hr 30 min",
+      "cat": "explore",
+      "vibes": [
+        "culture",
+        "history"
+      ],
+      "desc": "Ancient coronation city of Hungarian kings. Ruins Garden (medieval basilica remains), Bory Castle (one man's 40-year art project), beautiful baroque center, good restaurants.",
+      "lat": 47.186,
+      "lng": 18.4221,
+      "tip": "Bory Castle is unlike anything else — built by one man over his lifetime. Genuinely wild.",
+      "maps": "https://maps.google.com/?q=Bory+vár+Székesfehérvár",
+      "emoji": "👑",
+      "duration": "full"
+    }
+  ],
+  "combos": [
+    {
+      "id": 1,
+      "title": "The Classic Relaxer",
+      "emoji": "💆",
+      "drive": "20 min each way",
+      "vibe": "Relaxed, romantic, zero stress",
+      "type": "day",
+      "steps": [
+        "Morning: Makó town walk + lombkorona sétány (1.5 hrs)",
+        "Lunch: Restaurant in Makó center",
+        "Afternoon: Hagymatikum thermal bath until evening",
+        "Optional: Book a couple's massage"
+      ],
+      "vibes": [
+        "chill",
+        "romantic"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "The History Explorer",
+      "emoji": "🏛️",
+      "drive": "~40 min total",
+      "vibe": "Culture-heavy, lots of walking",
+      "type": "day",
+      "steps": [
+        "Morning: Ópusztaszer + Feszty panorama (2–3 hrs)",
+        "Midday: Csillagösvény maze (1 hr)",
+        "Lunch: Csárda near Ópusztaszer",
+        "Afternoon: Drive to Csongrád, walk Belsőváros + Tisza"
+      ],
+      "vibes": [
+        "culture",
+        "history"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "The Active Duo",
+      "emoji": "🚴",
+      "drive": "40 min each way",
+      "vibe": "Sporty, outdoorsy, satisfying tired",
+      "type": "day",
+      "steps": [
+        "Morning: Drive to Csongrád, Tisza cycling route (2–3 hrs)",
+        "Lunch: Eat in Csongrád Belsőváros",
+        "Afternoon: Csongrád thermal bath to recover",
+        "Drive home feeling great"
+      ],
+      "vibes": [
+        "active",
+        "outdoors"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "The Foodie Circuit",
+      "emoji": "🍷",
+      "drive": "45 min each way",
+      "vibe": "Cultural, gastro, classy evening",
+      "type": "day",
+      "steps": [
+        "Morning: Békéscsaba sétálóutca + Munkácsy Museum (2 hrs)",
+        "Lunch: Sit-down with Csabai kolbász",
+        "Afternoon: Evangélikus Nagytemplom + Slovak Tájház",
+        "Evening: Jókai Theatre show"
+      ],
+      "vibes": [
+        "foodie",
+        "culture"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "The Nature Day",
+      "emoji": "🌿",
+      "drive": "~1 hr 15 min each way",
+      "vibe": "Trees, peace, hot water",
+      "type": "day",
+      "steps": [
+        "Morning: Tiszakürt Arboretum (2–3 hrs)",
+        "Lunch: Picnic or nearby restaurant",
+        "Afternoon: Cserkeszőlő thermal bath until closing",
+        "Bonus: Tiszazug levee walk between spots"
+      ],
+      "vibes": [
+        "nature",
+        "chill"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "The Kecskemét Grand Day",
+      "emoji": "🎭",
+      "drive": "1 hr 30 min each way",
+      "vibe": "Big city energy, culture overload",
+      "type": "day",
+      "steps": [
+        "Morning: Cifrapalota + Városháza walk",
+        "Late AM: Toy Museum or Photography Museum",
+        "Lunch: Main square or Lechner Kávéház",
+        "Afternoon: Barack pálinka tasting",
+        "Late PM: Kecskeméti Fürdő",
+        "Optional: Katona József Theatre"
+      ],
+      "vibes": [
+        "culture",
+        "foodie"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "The Puszta Adventure",
+      "emoji": "🐎",
+      "drive": "1 hr 40 min each way",
+      "vibe": "Once-in-a-lifetime Hungarian experience",
+      "type": "day",
+      "steps": [
+        "Morning: Drive to Bugac, horse show",
+        "Early PM: Indigenous animal zoo + Shepherd Museum",
+        "Lunch: Karikás Csárda — puszta food on the puszta",
+        "Afternoon: Walk through ancient juniper forest"
+      ],
+      "vibes": [
+        "active",
+        "foodie"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "The Quick & Cozy",
+      "emoji": "☕",
+      "drive": "30 min each way",
+      "vibe": "Low-effort, home early",
+      "type": "day",
+      "steps": [
+        "Late morning: Szentes, walk along the Kurca (1 hr)",
+        "Lunch: Spot by the Kurca or in center",
+        "Afternoon: Péter-Pál Museum, Széchenyi Liget walk",
+        "Home by 4pm, couch + chill"
+      ],
+      "vibes": [
+        "chill",
+        "romantic"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "The Orosháza Double",
+      "emoji": "🎯",
+      "drive": "25 min each way",
+      "vibe": "Active morning, lazy afternoon",
+      "type": "day",
+      "steps": [
+        "Morning: Kalandpark rope course (2 hrs)",
+        "Lunch: Orosháza Főtér — Üveg Körtefa view",
+        "Afternoon: Gyopárosfürdő thermal to recover",
+        "Bonus: Kútmúzeum if time"
+      ],
+      "vibes": [
+        "active",
+        "chill"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "The Castle Route",
+      "emoji": "🏰",
+      "drive": "55 min to start",
+      "vibe": "Cycling through castles, romantic",
+      "type": "day",
+      "steps": [
+        "Morning: Drive to Szabadkígyós, Wenckheim route",
+        "Ride through Pósteleki forest between castles",
+        "Lunch: Pack food or village stop",
+        "Afternoon: Békéscsaba, coffee + cake on sétálóutca"
+      ],
+      "vibes": [
+        "active",
+        "romantic"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Budapest Weekend",
+      "emoji": "🌃",
+      "drive": "2 hr 10 min",
+      "vibe": "Capital city, ruin bars, thermal, culture",
+      "type": "weekend",
+      "steps": [
+        "Friday: Arrive, check in, evening ruin bar crawl (Szimpla Kert → Instant)",
+        "Saturday AM: Buda Castle + Fisherman's Bastion + Matthias Church",
+        "Saturday PM: Walk across Chain Bridge, lunch at Great Market Hall",
+        "Saturday Evening: Danube cruise at sunset",
+        "Sunday AM: Széchenyi or Rudas thermal bath (Rudas rooftop!)",
+        "Sunday PM: Heroes' Square → Városliget → drive home"
+      ],
+      "vibes": [
+        "culture",
+        "romantic",
+        "foodie"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Eger Wine Weekend",
+      "emoji": "🍷",
+      "drive": "2 hr 45 min",
+      "vibe": "Wine, castle, baroque city, thermal",
+      "type": "weekend",
+      "steps": [
+        "Friday: Arrive, dinner in old town, walk lit-up streets",
+        "Saturday AM: Eger Castle — panoramic views, museum inside",
+        "Saturday PM: Szépasszony-völgy (Valley of Beautiful Women) wine cellar tour",
+        "Saturday Eve: Dinner at a good restaurant in the center",
+        "Sunday AM: Eger thermal bath (city center)",
+        "Sunday PM: Walk the baroque streets, visit the minaret, drive home"
+      ],
+      "vibes": [
+        "foodie",
+        "culture",
+        "romantic"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Miskolc + Lillafüred Nature Weekend",
+      "emoji": "🏔️",
+      "drive": "2 hr 50 min",
+      "vibe": "Cave bath, mountains, fairy-tale vibes",
+      "type": "weekend",
+      "steps": [
+        "Friday: Arrive at Lillafüred, check into Hotel Palota",
+        "Saturday AM: Hike to the waterfall + hanging gardens",
+        "Saturday PM: István cave + Anna cave tours",
+        "Saturday Eve: Dinner at the hotel, walk by the lake",
+        "Sunday AM: Miskolctapolca Cave Bath — swim through caves",
+        "Sunday PM: Diósgyőr Castle, then drive home"
+      ],
+      "vibes": [
+        "nature",
+        "romantic",
+        "chill"
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Pécs + Villány Wine Route",
+      "emoji": "☀️",
+      "drive": "2 hr 40 min",
+      "vibe": "Mediterranean vibes, wine, UNESCO culture",
+      "type": "weekend",
+      "steps": [
+        "Friday: Arrive Pécs, dinner on Széchenyi tér, walk the lit streets",
+        "Saturday AM: Mosque Church → Roman necropolis (UNESCO)",
+        "Saturday PM: Zsolnay Cultural Quarter",
+        "Saturday Eve: Great dinner — Pécs gastro is excellent",
+        "Sunday: Drive to Villány (30 min), wine route: Sauska, Gere, Vylyan",
+        "Sunday PM: Drive home with a case of wine"
+      ],
+      "vibes": [
+        "culture",
+        "foodie",
+        "romantic"
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Balaton + Hévíz Relaxation",
+      "emoji": "🌊",
+      "drive": "2 hr 45 min",
+      "vibe": "Lake views, thermal lake, wine, slow pace",
+      "type": "weekend",
+      "steps": [
+        "Friday: Drive to Balatonfüred, check in, evening promenade walk",
+        "Saturday AM: Ferry to Tihany — Abbey, lavender, lake views",
+        "Saturday PM: Wine tasting on the north shore",
+        "Saturday Eve: Sunset dinner by the lake",
+        "Sunday AM: Drive to Hévíz (30 min) — swim in the thermal lake",
+        "Sunday PM: Keszthely Festetics Palace if time, drive home"
+      ],
+      "vibes": [
+        "romantic",
+        "chill",
+        "nature"
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Tokaj Wine Escape",
+      "emoji": "🥂",
+      "drive": "3 hr",
+      "vibe": "World-class wine, riverside romance, mountain air",
+      "type": "weekend",
+      "steps": [
+        "Friday: Arrive Tokaj, riverside walk, dinner at local restaurant",
+        "Saturday: Full day winery visits — underground cellars, furmint + aszú tastings",
+        "Saturday Eve: Wine + dinner pairing at Hotel Minaro or similar",
+        "Sunday AM: Walk along the Tisza/Bodrog confluence",
+        "Sunday PM: Optional Boldogkő Castle detour (30 min), drive home"
+      ],
+      "vibes": [
+        "foodie",
+        "romantic"
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Hortobágy + Debrecen",
+      "emoji": "🦅",
+      "drive": "2 hr",
+      "vibe": "Puszta wildlife, city culture, thermal",
+      "type": "weekend",
+      "steps": [
+        "Friday: Drive to Debrecen, dinner, explore Kossuth tér",
+        "Saturday AM: Hortobágy National Park — Nine-Arch Bridge, horse show",
+        "Saturday PM: Shepherd demos, bird watching, csárda lunch",
+        "Saturday Eve: Back to Debrecen — Déri Museum, dinner",
+        "Sunday AM: Debrecen Aquaticum thermal complex",
+        "Sunday PM: Walk the Nagyerdő park, drive home"
+      ],
+      "vibes": [
+        "nature",
+        "culture",
+        "active"
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Hollókő + Eger Combo",
+      "emoji": "🏡",
+      "drive": "~3 hr",
+      "vibe": "UNESCO village + wine city",
+      "type": "weekend",
+      "steps": [
+        "Friday: Drive to Eger, dinner + evening walk",
+        "Saturday: Day trip to Hollókő (1 hr) — village walk, castle hike",
+        "Saturday PM: Return to Eger, wine tasting in the valley",
+        "Sunday AM: Eger castle + thermal bath",
+        "Sunday PM: Drive home through pretty countryside"
+      ],
+      "vibes": [
+        "culture",
+        "history",
+        "foodie"
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Sopron + Esterházy",
+      "emoji": "🗼",
+      "drive": "3 hr 40 min",
+      "vibe": "Medieval town, palace, Austrian border vibes",
+      "type": "weekend",
+      "steps": [
+        "Friday: Drive to Sopron (long but scenic), dinner in medieval center",
+        "Saturday AM: Fire Tower, Storno House, old town walking",
+        "Saturday PM: Drive to Fertőd — Esterházy Palace tour",
+        "Saturday Eve: Wine tasting — Sopron Kékfrankos is excellent",
+        "Sunday: Leisurely breakfast, one more walk, drive home (consider M1 route through Budapest)"
+      ],
+      "vibes": [
+        "culture",
+        "romantic",
+        "foodie"
+      ]
+    },
+    {
+      "id": 20,
+      "title": "The Szeged Special",
+      "emoji": "🐟",
+      "drive": "20 min each way",
+      "vibe": "Classic fish soup, culture, riverside charm",
+      "type": "day",
+      "steps": [
+        "Morning: Szeged Dom + climb tower for views (1 hr)",
+        "Late AM: Walk Tisza promenade, cross to Újszeged",
+        "Lunch: Régi Híd Vendéglő — the legendary halászlé",
+        "Afternoon: Reök Palace + Botanical Garden stroll",
+        "Optional: Virag Cukrászda for coffee and cake"
+      ],
+      "vibes": [
+        "foodie",
+        "culture",
+        "romantic"
+      ]
+    },
+    {
+      "id": 21,
+      "title": "The Gyula Castle Day",
+      "emoji": "⚔️",
+      "drive": "45 min each way",
+      "vibe": "Medieval castle, thermal spa, old pastry shop",
+      "type": "day",
+      "steps": [
+        "Morning: Gyula Castle exploration + knights' hall (2 hrs)",
+        "Midday: 100 Years Old Reinhardt Cukrászda — cake & coffee",
+        "Lunch: Restaurant near castle",
+        "Afternoon: Gyula Várfürdő thermal bath with castle views",
+        "Evening option: Castle theatre performance if available"
+      ],
+      "vibes": [
+        "culture",
+        "romantic",
+        "chill"
+      ]
+    },
+    {
+      "id": 22,
+      "title": "The Arborétum Loop",
+      "emoji": "🦚",
+      "drive": "40 min each way",
+      "vibe": "Botanical garden + thermal recovery",
+      "type": "day",
+      "steps": [
+        "Morning: Szarvas Arborétum — peacocks, 1,600 plant species (2–3 hrs)",
+        "Picnic lunch in the arborétum",
+        "Afternoon: Szarvas Thermal Bath to relax",
+        "Optional: National Park info center if interested"
+      ],
+      "vibes": [
+        "nature",
+        "chill",
+        "romantic"
+      ]
+    },
+    {
+      "id": 23,
+      "title": "The Pottery Trail",
+      "emoji": "🏺",
+      "drive": "varies",
+      "vibe": "Crafts, hands-on workshops, unique souvenirs",
+      "type": "day",
+      "steps": [
+        "Morning: Apátfalva black pottery workshop (1.5 hrs)",
+        "Drive to Túrkeve (45 min), lunch",
+        "Afternoon: Túrkeve pottery house — try the wheel yourself",
+        "Optional: Buy handmade pieces as gifts/souvenirs"
+      ],
+      "vibes": [
+        "culture",
+        "chill"
+      ]
+    },
+    {
+      "id": 24,
+      "title": "The Wenckheim Castle Circuit",
+      "emoji": "🚴",
+      "drive": "55 min to start",
+      "vibe": "Aristocratic heritage, countryside cycling",
+      "type": "day",
+      "steps": [
+        "Morning: Drive to Doboz Wenckheim Castle, explore grounds",
+        "Bike the Wenckheim route through Pósteleki forest",
+        "Lunch: Pack sandwiches or village stop",
+        "Afternoon: Mezőberény Petrics Museum castle",
+        "Home via Békéscsaba for coffee"
+      ],
+      "vibes": [
+        "active",
+        "history",
+        "romantic"
+      ]
+    },
+    {
+      "id": 25,
+      "title": "The Wine & Thermal",
+      "emoji": "🍇",
+      "drive": "40 min each way",
+      "vibe": "Local wine, underground cellars, hot water",
+      "type": "day",
+      "steps": [
+        "Morning: Drive to Csongrád-Bokros wine cellars",
+        "Wine tasting in hillside cellars (call ahead)",
+        "Lunch: Simple meal at cellar or nearby csárda",
+        "Afternoon: Csongrád thermal bath",
+        "Evening: Csongrád old town riverside walk at sunset"
+      ],
+      "vibes": [
+        "foodie",
+        "romantic",
+        "chill"
+      ]
+    },
+    {
+      "id": 26,
+      "title": "The Stork & Lake Day",
+      "emoji": "🦩",
+      "drive": "varies",
+      "vibe": "Nature photography, birds, water activities",
+      "type": "day",
+      "steps": [
+        "Morning: Szatymaz stork colony — observation platform",
+        "Drive to Forráskút Recreation Area (20 min)",
+        "Lunch: Picnic at the lake",
+        "Afternoon: Swimming, SUP, or cycling around lake",
+        "Home by evening"
+      ],
+      "vibes": [
+        "nature",
+        "active",
+        "outdoors"
+      ]
+    },
+    {
+      "id": 27,
+      "title": "The Tisza-tó Explorer",
+      "emoji": "⛵",
+      "drive": "45 min each way",
+      "vibe": "Hungary's sea, beaches, water sports",
+      "type": "day",
+      "steps": [
+        "Morning: Drive to Tiszaug beach, set up spot",
+        "Swim, kayak, or SUP rental",
+        "Lunch: Beach csárda or packed food",
+        "Afternoon: More water activities or beach lounging",
+        "Late PM: Drive home with sandy feet"
+      ],
+      "vibes": [
+        "active",
+        "nature",
+        "outdoors"
+      ]
+    },
+    {
+      "id": 28,
+      "title": "The Békéscsaba Cultural",
+      "emoji": "🎭",
+      "drive": "45 min each way",
+      "vibe": "Museums, churches, Slovak heritage, theatre",
+      "type": "day",
+      "steps": [
+        "Morning: Munkácsy Museum — world's largest collection",
+        "Midday: Lutheran Church + organ if service on",
+        "Lunch: Csabai kolbász at local restaurant",
+        "Afternoon: Slovak heritage house + sétálóutca shopping",
+        "Evening: Jókai Theatre if show is on"
+      ],
+      "vibes": [
+        "culture",
+        "foodie"
+      ]
+    },
+    {
+      "id": 29,
+      "title": "The Horse Farm Day",
+      "emoji": "🐴",
+      "drive": "~30 min each way",
+      "vibe": "Horseback riding, countryside, farm life",
+      "type": "day",
+      "steps": [
+        "Morning: Deszk Horse Farm — riding lesson or trail ride",
+        "Lunch: Pack lunch or nearby village spot",
+        "Afternoon: Mórahalom thermal bath to soothe muscles",
+        "Optional: African Museum in Mórahalom if curious"
+      ],
+      "vibes": [
+        "active",
+        "outdoors",
+        "chill"
+      ]
+    },
+    {
+      "id": 30,
+      "title": "The Quick Rosarium Date",
+      "emoji": "🌹",
+      "drive": "18 min each way",
+      "vibe": "Romantic, quick, perfect for anniversaries",
+      "type": "day",
+      "steps": [
+        "Morning or afternoon: Szőreg Rosarium (peak: early June)",
+        "Photo session among hundreds of rose varieties",
+        "Drive to Szeged for lunch/coffee",
+        "Walk Tisza riverside",
+        "Home by late afternoon — simple and sweet"
+      ],
+      "vibes": [
+        "romantic",
+        "nature"
+      ]
+    },
+    {
+      "id": 31,
+      "title": "Aggtelek Caves Weekend",
+      "emoji": "🕳️",
+      "drive": "3 hr 15 min",
+      "vibe": "UNESCO caves, underground concerts, hiking",
+      "type": "weekend",
+      "steps": [
+        "Friday: Drive to Aggtelek, check into guesthouse",
+        "Saturday: Baradla cave medium tour (2.5 hrs) — stalactites, underground river",
+        "Saturday PM: Hiking in national park",
+        "Saturday Eve: Traditional village dinner",
+        "Sunday: Acoustic concert tour in cave if available (check schedule!)",
+        "Sunday PM: Drive home"
+      ],
+      "vibes": [
+        "nature",
+        "culture",
+        "active"
+      ]
+    },
+    {
+      "id": 32,
+      "title": "Szentendre Art Escape",
+      "emoji": "🎨",
+      "drive": "2 hr 20 min",
+      "vibe": "Riverside art town, galleries, Budapest combo",
+      "type": "weekend",
+      "steps": [
+        "Friday: Drive to Budapest, check in",
+        "Saturday: Day trip to Szentendre — galleries, Serbian churches, marzipan museum",
+        "Saturday Eve: Back to Budapest, ruin bar night",
+        "Sunday AM: Budapest thermal bath of choice",
+        "Sunday PM: Last walk, drive home"
+      ],
+      "vibes": [
+        "culture",
+        "romantic",
+        "foodie"
+      ]
+    },
+    {
+      "id": 33,
+      "title": "Tisza-tó Active Weekend",
+      "emoji": "🏄",
+      "drive": "1 hr 40 min",
+      "vibe": "Water sports, cycling, eco-tourism",
+      "type": "weekend",
+      "steps": [
+        "Friday: Arrive Tiszafüred or Abádszalók, lakeside accommodation",
+        "Saturday: Water sports — sailing, windsurfing, SUP, kayaking",
+        "Saturday PM: Poroszló Eco-Center — aquarium, tower views",
+        "Saturday Eve: Sunset on the lake, csárda dinner",
+        "Sunday AM: Tiszafüred pottery workshop",
+        "Sunday PM: Bird hospital visit if time, drive home"
+      ],
+      "vibes": [
+        "active",
+        "nature",
+        "outdoors"
+      ]
+    },
+    {
+      "id": 34,
+      "title": "The Ultimate Thermal Weekend",
+      "emoji": "♨️",
+      "drive": "varies",
+      "vibe": "Three thermal baths, pure relaxation",
+      "type": "weekend",
+      "steps": [
+        "Friday PM: Gyula Várfürdő — castle thermal bath",
+        "Stay overnight Gyula",
+        "Saturday AM: Leisure morning, drive to Hajdúszoboszló",
+        "Saturday PM-Eve: Hajdúszoboszló huge spa complex",
+        "Stay overnight Hajdúszoboszló",
+        "Sunday AM: Last soak",
+        "Sunday PM: Stop at Cserkeszőlő thermal on way home for final dip"
+      ],
+      "vibes": [
+        "chill",
+        "romantic"
+      ]
+    },
+    {
+      "id": 35,
+      "title": "Hortobágy Bird Watching Weekend",
+      "emoji": "🦅",
+      "drive": "1 hr 50 min",
+      "vibe": "Wildlife photography, puszta life, traditional food",
+      "type": "weekend",
+      "steps": [
+        "Friday: Arrive near Hortobágy, stay in Hort or nearby",
+        "Saturday AM: Early birding — spring migration is spectacular",
+        "Saturday Midday: Nine-Arch Bridge, shepherd demos",
+        "Saturday PM: Horse show, traditional csárda dinner",
+        "Sunday AM: More bird watching or Debrecen city visit",
+        "Sunday PM: Drive home with 500 bird photos"
+      ],
+      "vibes": [
+        "nature",
+        "outdoors",
+        "culture"
+      ]
+    }
+  ],
+  "categories": {
+    "adventure": {
+      "label": "⚡ Adventure",
+      "color": "#D97745"
+    },
+    "explore": {
+      "label": "🧭 Explore",
+      "color": "#5CA8BF"
+    },
+    "thermal": {
+      "label": "✨ Thermal",
+      "color": "#84C89A"
+    },
+    "food": {
+      "label": "🍷 Food & Gastro",
+      "color": "#B989C1"
+    },
+    "special": {
+      "label": "🌟 Special",
+      "color": "#D9B85F"
+    }
+  },
+  "vibeFilters": [
+    {
+      "key": "all",
+      "label": "All",
+      "icon": "✦"
+    },
+    {
+      "key": "chill",
+      "label": "Chill",
+      "icon": "🧘"
+    },
+    {
+      "key": "active",
+      "label": "Active",
+      "icon": "💪"
+    },
+    {
+      "key": "romantic",
+      "label": "Romantic",
+      "icon": "💕"
+    },
+    {
+      "key": "culture",
+      "label": "Culture",
+      "icon": "🎨"
+    },
+    {
+      "key": "foodie",
+      "label": "Foodie",
+      "icon": "🍴"
+    },
+    {
+      "key": "nature",
+      "label": "Nature",
+      "icon": "🌿"
+    },
+    {
+      "key": "outdoors",
+      "label": "Outdoors",
+      "icon": "☀️"
+    },
+    {
+      "key": "history",
+      "label": "History",
+      "icon": "📜"
+    }
+  ],
+  "distanceRanges": [
+    {
+      "key": "all",
+      "label": "Any",
+      "color": "#9A8F80"
+    },
+    {
+      "key": "close",
+      "label": "🟢 < 1 hr",
+      "color": "#6FBF82",
+      "max": 50
+    },
+    {
+      "key": "mid",
+      "label": "🟡 1–2 hr",
+      "color": "#D8B35A",
+      "min": 51,
+      "max": 150
+    },
+    {
+      "key": "far",
+      "label": "🟠 2–3 hr",
+      "color": "#D88452",
+      "min": 151,
+      "max": 250
+    },
+    {
+      "key": "weekend",
+      "label": "🔴 3+ hr",
+      "color": "#C85F7A",
+      "min": 251
+    }
+  ],
+  "durationFilters": [
+    {
+      "key": "all",
+      "label": "Any"
+    },
+    {
+      "key": "half",
+      "label": "Half Day"
+    },
+    {
+      "key": "full",
+      "label": "Full Day"
+    },
+    {
+      "key": "weekend",
+      "label": "Weekend"
+    }
+  ],
+  "tripTypeFilters": [
+    {
+      "key": "all",
+      "label": "All Plans"
+    },
+    {
+      "key": "day",
+      "label": "Day Trips"
+    },
+    {
+      "key": "weekend",
+      "label": "Weekend Getaways"
+    }
+  ]
+}
