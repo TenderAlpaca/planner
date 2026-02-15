@@ -776,7 +776,11 @@ function App() {
         )}
 
         {!isInitialLoad && showFloatingFilterButton && (
-          <button className="btn btn-primary position-fixed bottom-0 end-0 m-3 rounded-pill shadow" onClick={showFiltersFromAnywhere}>
+          <button 
+            className="btn btn-primary position-fixed bottom-0 end-0 m-3 rounded-pill shadow" 
+            onClick={showFiltersFromAnywhere}
+            style={{ zIndex: 1040 }}
+          >
             {t('filters.edit')}
             {activeFiltersCount > 0 && <span className="badge text-bg-light ms-2">{activeFiltersCount}</span>}
           </button>
