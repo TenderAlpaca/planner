@@ -746,8 +746,8 @@ h3,
   width: min(94vw, 520px);
   max-width: 520px;
   max-height: 90vh;
-  overflow: auto;
-  scrollbar-gutter: stable;
+  display: flex;
+  flex-direction: column;
   background: var(--app-sheet-bg) !important;
   border-radius: 1rem !important;
   border: 1px solid var(--app-sheet-border) !important;
@@ -760,6 +760,34 @@ h3,
     width: 94vw;
     max-height: 92vh;
   }
+}
+
+.settings-modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--app-sheet-bg);
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--app-sheet-border);
+  border-radius: 1rem 1rem 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+@media (min-width: 576px) {
+  .settings-modal-header {
+    padding: 1.5rem 1.5rem;
+  }
+}
+
+.location-settings-panel .card-body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+  flex: 1;
+  min-height: 0;
 }
 
 .location-settings-panel,
