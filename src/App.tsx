@@ -76,9 +76,9 @@ function App() {
   const [filtersCollapsed, setFiltersCollapsed] = useState(() => {
     try {
       const saved = localStorage.getItem('filtersCollapsed');
-      return saved === null ? true : saved === '1';
+      return saved === null ? false : saved === '1';
     } catch {
-      return true;
+      return false;
     }
   });
   const [activePillsUi, setActivePillsUi] = useState({ hasOverflow: false, showLeftFade: false, showRightFade: false });
