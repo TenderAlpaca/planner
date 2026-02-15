@@ -62,13 +62,13 @@ export default function SettingsModal({
         aria-label={t('labels.settings')}
         onClick={(e) => e.stopPropagation()}
       >
+        <div className="settings-modal-header">
+          <h2 className="h4 mb-0 text-center text-sm-start">{t('labels.settings')}</h2>
+          <button type="button" onClick={onClose} className="btn btn-sm btn-outline-secondary settings-close-btn">
+            {t('actions.close')}
+          </button>
+        </div>
         <div className="card-body p-4 p-sm-4">
-          <div className="d-flex justify-content-between align-items-start mb-3">
-            <h2 className="h4 mb-0 text-center text-sm-start">{t('labels.settings')}</h2>
-            <button type="button" onClick={onClose} className="btn btn-sm btn-outline-secondary settings-close-btn">
-              {t('actions.close')}
-            </button>
-          </div>
           <div className="settings-section">
             <h3 className="h5 mb-2">{t('labels.locationSettings')}</h3>
             {!userLocation && (
