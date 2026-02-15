@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 async function initPage(page) {
   await page.addInitScript(() => {
     localStorage.setItem('language', 'en');
-    localStorage.setItem('filtersCollapsed', '0');
+    // filtersCollapsed defaults to false (open) now, no need to set explicitly
     localStorage.setItem('userLocation', JSON.stringify({
       address: 'Szeged, Hungary',
       lat: 46.253,
